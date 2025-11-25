@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" 
+      x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))"
+      :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowForge - Dynamic Workflow Builder for Laravel 12</title>
+    <meta name="description" content="Production-ready Laravel 12 package for building dynamic workflows with drag-and-drop interface, conditional branching, and real-time execution tracking.">
+    <meta name="keywords" content="Laravel, Workflow, Livewire, PHP, Automation, Laravel 12">
+    <meta name="author" content="Ali Harb">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/docs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    
+    <!-- Scripts -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="assets/js/docs.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <span>FlowForge</span>
+            </a>
+            
+            <nav class="header-nav">
+                <a href="index.html" class="header-link active">Documentation</a>
+                <a href="index.html#examples" class="header-link">Examples</a>
+                <a href="index.html#api-reference" class="header-link">API</a>
+                <a href="https://github.com/alizharb/flowforge/blob/main/CHANGELOG.md" class="header-link" target="_blank">Changelog</a>
+            </nav>
+            
+            <div class="header-actions">
+                <a href="https://github.com/alizharb/flowforge" class="btn btn-ghost btn-icon" target="_blank" title="View on GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <button @click="darkMode = !darkMode" class="btn btn-ghost btn-icon" title="Toggle dark mode">
+                    <svg x-show="!darkMode" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                    </svg>
+                    <svg x-show="darkMode" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <a href="#installation" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="docs-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-title">Getting Started</div>
+                    <a href="#introduction" class="nav-link">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        Introduction
+                    </a>
+                    <a href="#installation" class="nav-link">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        Installation
+                    </a>
+                    <a href="#quick-start" class="nav-link">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        Quick Start
+                    </a>
+                    <a href="#configuration" class="nav-link">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        Configuration
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Core Concepts</div>
+                    <a href="#workflows" class="nav-link">Workflows</a>
+                    <a href="#steps" class="nav-link">Steps</a>
+                    <a href="#execution" class="nav-link">Execution</a>
+                    <a href="#templates" class="nav-link">Templates</a>
+                    <a href="#conditions" class="nav-link">Conditional Logic</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Step Types</div>
+                    <a href="#step-action" class="nav-link">Action</a>
+                    <a href="#step-condition" class="nav-link">Condition</a>
+                    <a href="#step-delay" class="nav-link">Delay</a>
+                    <a href="#step-notification" class="nav-link">Notification</a>
+                    <a href="#step-webhook" class="nav-link">Webhook</a>
+                    <a href="#step-event" class="nav-link">Event</a>
+                    <a href="#step-job" class="nav-link">Job</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Advanced</div>
+                    <a href="#events" class="nav-link">Events</a>
+                    <a href="#permissions" class="nav-link">Permissions</a>
+                    <a href="#localization" class="nav-link">Localization</a>
+                    <a href="#testing" class="nav-link">Testing</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Resources</div>
+                    <a href="#examples" class="nav-link">Examples</a>
+                    <a href="#api-reference" class="nav-link">API Reference</a>
+                    <a href="https://github.com/alizharb/flowforge" class="nav-link" target="_blank">
+                        GitHub →
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Introduction -->
+            <section id="introduction">
+                <h1>FlowForge</h1>
+                <p class="lead">
+                    A powerful, production-ready Laravel 12 package that provides a visual drag-and-drop workflow builder with conditional branching, real-time execution tracking, and comprehensive integration capabilities.
+                </p>
+                
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 2rem 0;">
+                    <span class="badge badge-primary">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        Laravel 12
+                    </span>
+                    <span class="badge badge-primary">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        Livewire 4
+                    </span>
+                    <span class="badge badge-primary">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        PHP 8.3-8.5
+                    </span>
+                    <span class="badge badge-success">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        Production Ready
+                    </span>
+                </div>
+
+                <div class="card-grid">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem;">Drag & Drop Builder</h3>
+                        <p style="font-size: 0.9375rem; margin: 0; color: var(--text-secondary);">Visual workflow designer with real-time updates using Livewire 4</p>
+                    </div>
+
+                    <div class="feature-card fade-in" style="animation-delay: 0.1s;">
+                        <div class="feature-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l-4-4m0 0l4-4m-4 4h16"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem;">Conditional Logic</h3>
+                        <p style="font-size: 0.9375rem; margin: 0; color: var(--text-secondary);">Complex boolean expressions with 15+ comparison operators</p>
+                    </div>
+
+                    <div class="feature-card fade-in" style="animation-delay: 0.2s;">
+                        <div class="feature-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem;">Real-Time Tracking</h3>
+                        <p style="font-size: 0.9375rem; margin: 0; color: var(--text-secondary);">Live execution monitoring with performance metrics</p>
+                    </div>
+
+                    <div class="feature-card fade-in" style="animation-delay: 0.3s;">
+                        <div class="feature-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem;">Multi-Language</h3>
+                        <p style="font-size: 0.9375rem; margin: 0; color: var(--text-secondary);">Built-in support for 5 languages with RTL</p>
+                    </div>
+
+                    <div class="feature-card fade-in" style="animation-delay: 0.4s;">
+                        <div class="feature-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem;">Template System</h3>
+                        <p style="font-size: 0.9375rem; margin: 0; color: var(--text-secondary);">Save, load, and share workflow configurations</p>
+                    </div>
+
+                    <div class="feature-card fade-in" style="animation-delay: 0.5s;">
+                        <div class="feature-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem;">Secure & Tested</h3>
+                        <p style="font-size: 0.9375rem; margin: 0; color: var(--text-secondary);">Policy-based authorization with comprehensive tests</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Installation -->
+            <section id="installation">
+                <h2>Installation</h2>
+                <p>Get started with FlowForge in minutes using Composer.</p>
+
+                <details open>
+                    <summary>📦 Step 1: Install via Composer</summary>
+                    <p style="margin-top: 1rem; margin-bottom: 1rem;">Install the package using Composer:</p>
+                    <pre><code class="language-bash">composer require alizharb/flowforge</code></pre>
+                </details>
+
+                <details>
+                    <summary>⚙️ Step 2: Publish Configuration</summary>
+                    <p style="margin-top: 1rem; margin-bottom: 1rem;">Publish the configuration file to customize FlowForge:</p>
+                    <pre><code class="language-bash">php artisan vendor:publish --tag=flowforge-config</code></pre>
+                    <p style="color: var(--text-secondary); font-size: 0.9375rem;">This creates <code>config/flowforge.php</code> where you can configure execution settings, permissions, and more.</p>
+                </details>
+
+                <details>
+                    <summary>🗄️ Step 3: Run Migrations</summary>
+                    <p style="margin-top: 1rem; margin-bottom: 1rem;">Publish and run the database migrations:</p>
+                    <pre><code class="language-bash">php artisan vendor:publish --tag=flowforge-migrations
+php artisan migrate</code></pre>
+                    <p style="color: var(--text-secondary); font-size: 0.9375rem;">This creates 4 tables: <code>workflows</code>, <code>workflow_steps</code>, <code>workflow_executions</code>, and <code>workflow_execution_logs</code>.</p>
+                </details>
+
+                <details>
+                    <summary>🎨 Step 4: Publish Assets (Optional)</summary>
+                    <p style="margin-top: 1rem; margin-bottom: 1rem;">Optionally publish views, assets, and language files:</p>
+                    <pre><code class="language-bash"># Publish Blade views
+php artisan vendor:publish --tag=flowforge-views
+
+# Publish CSS/JS assets
+php artisan vendor:publish --tag=flowforge-assets
+
+# Publish language files
+php artisan vendor:publish --tag=flowforge-lang</code></pre>
+                </details>
+
+                <div class="alert alert-success" style="margin-top: 2rem;">
+                    <svg style="width: 1.5rem; height: 1.5rem; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <div>
+                        <strong>All set!</strong> You're ready to create your first workflow. Continue to the Quick Start section.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Start -->
+            <section id="quick-start">
+                <h2>Quick Start</h2>
+                <p>Create your first workflow in under 5 minutes.</p>
+
+                <h3>1. Create a Workflow</h3>
+                <pre><code class="language-php">use AlizHarb\FlowForge\Models\Workflow;
+use AlizHarb\FlowForge\Enums\WorkflowStatus;
+
+$workflow = Workflow::create([
+    'name' => 'User Onboarding',
+    'description' => 'Automated user onboarding process',
+    'status' => WorkflowStatus::ACTIVE,
+]);</code></pre>
+
+                <h3>2. Add Steps</h3>
+                <pre><code class="language-php">use AlizHarb\FlowForge\Enums\StepType;
+
+// Send welcome email
+$workflow->steps()->create([
+    'name' => 'Send Welcome Email',
+    'type' => StepType::NOTIFICATION,
+    'position' => 1,
+    'configuration' => [
+        'notification_class' => \App\Notifications\WelcomeEmail::class,
+        'recipients' => ['{{user_id}}'],
+    ],
+]);
+
+// Wait 24 hours
+$workflow->steps()->create([
+    'name' => 'Wait 24 Hours',
+    'type' => StepType::DELAY,
+    'position' => 2,
+    'configuration' => [
+        'seconds' => 86400,
+    ],
+]);</code></pre>
+
+                <h3>3. Execute the Workflow</h3>
+                <pre><code class="language-php">// Execute asynchronously (queued)
+$execution = $workflow->execute([
+    'user_id' => $user->id,
+    'email' => $user->email,
+]);
+
+// Execute synchronously
+$execution = $workflow->execute(['user_id' => $user->id], async: false);</code></pre>
+
+                <h3>4. Use the Visual Builder</h3>
+                <pre><code class="language-blade">&lt;livewire:flowforge::workflow-builder :workflow="$workflow" /&gt;</code></pre>
+            </section>
+
+            <!-- Sponsor Section -->
+            <div class="sponsor-section">
+                <h3>💖 Support FlowForge Development</h3>
+                <p>Help us maintain and improve FlowForge by becoming a sponsor. Your support enables us to dedicate more time to adding features, fixing bugs, and creating better documentation.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://github.com/sponsors/alizharb" class="btn" style="background: white; color: #667eea;" target="_blank">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                        Become a Sponsor
+                    </a>
+                    <a href="https://github.com/alizharb/flowforge" class="btn" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);" target="_blank">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                        </svg>
+                        Star on GitHub
+                    </a>
+                </div>
+            </div>
+
+            <!-- Continue with more sections... -->
+            <section id="workflows">
+                <h2>Workflows</h2>
+                <p>Learn how to create and manage workflows effectively.</p>
+                <!-- Content continues... -->
+            </section>
+        </main>
+
+        <!-- Table of Contents -->
+        <aside class="toc">
+            <div class="toc-title">On This Page</div>
+            <div class="toc-links"></div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FlowForge</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 1rem;">
+                    Production-ready workflow builder for Laravel 12
+                </p>
+                <a href="index.html" class="footer-link">Documentation</a>
+                <a href="#examples" class="footer-link">Examples</a>
+                <a href="https://github.com/alizharb/flowforge" class="footer-link" target="_blank">GitHub</a>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="#installation" class="footer-link">Installation</a>
+                <a href="#quick-start" class="footer-link">Quick Start</a>
+                <a href="#api-reference" class="footer-link">API Reference</a>
+                <a href="https://github.com/alizharb/flowforge/blob/main/CHANGELOG.md" class="footer-link" target="_blank">Changelog</a>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://github.com/alizharb/flowforge/discussions" class="footer-link" target="_blank">Discussions</a>
+                <a href="https://github.com/alizharb/flowforge/issues" class="footer-link" target="_blank">Issues</a>
+                <a href="https://twitter.com/alizharb" class="footer-link" target="_blank">Twitter</a>
+                <a href="https://github.com/sponsors/alizharb" class="footer-link" target="_blank">Sponsor</a>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 0.5rem;">
+                    © 2025 Ali Harb
+                </p>
+                <p style="color: var(--text-tertiary); font-size: 0.8125rem; margin-bottom: 1rem;">
+                    Released under the MIT License
+                </p>
+                <p style="color: var(--text-tertiary); font-size: 0.75rem;">
+                    Made with ❤️ by <a href="https://alizharb.com" style="color: var(--primary);" target="_blank">Ali Harb</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

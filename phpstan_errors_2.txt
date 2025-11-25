@@ -1,0 +1,249 @@
+ ------ ---------------------------------------------------------------------- 
+  Line   Livewire/WorkflowBuilder.php                                          
+ ------ ---------------------------------------------------------------------- 
+  281    Parameter #1 $view of function view expects view-string|null, string  
+         given.                                                                
+         🪪  argument.type                                                     
+ ------ ---------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------- 
+  Line   Livewire/WorkflowExecutionTracker.php                                  
+ ------ ----------------------------------------------------------------------- 
+  93     Method AlizHarb\FlowForge\Livewire\WorkflowExecutionTracker::render()  
+         has no return type specified.                                          
+         🪪  missingType.return                                                 
+  95     Parameter #1 $view of function view expects view-string|null, string   
+         given.                                                                 
+         🪪  argument.type                                                      
+ ------ ----------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------- 
+  Line   Livewire/WorkflowStepEditor.php                                        
+ ------ ----------------------------------------------------------------------- 
+  37     Property                                                               
+         AlizHarb\FlowForge\Livewire\WorkflowStepEditor::$configuration type    
+         has no value type specified in iterable type array.                    
+         🪪  missingType.iterableValue                                          
+         💡  See:                                                               
+         https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-i  
+         terable-type                                                           
+  39     Property AlizHarb\FlowForge\Livewire\WorkflowStepEditor::$conditions   
+         type has no value type specified in iterable type array.               
+         🪪  missingType.iterableValue                                          
+         💡  See:                                                               
+         https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-i  
+         terable-type                                                           
+  122    Method AlizHarb\FlowForge\Livewire\WorkflowStepEditor::render() has    
+         no return type specified.                                              
+         🪪  missingType.return                                                 
+  124    Parameter #1 $view of function view expects view-string|null, string   
+         given.                                                                 
+         🪪  argument.type                                                      
+ ------ ----------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------- 
+  Line   Livewire/WorkflowTemplateManager.php                                  
+ ------ ---------------------------------------------------------------------- 
+  174    Method AlizHarb\FlowForge\Livewire\WorkflowTemplateManager::render()  
+         has no return type specified.                                         
+         🪪  missingType.return                                                
+  176    Parameter #1 $view of function view expects view-string|null, string  
+         given.                                                                
+         🪪  argument.type                                                     
+ ------ ---------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------- 
+  Line   Models/Workflow.php                                                    
+ ------ ----------------------------------------------------------------------- 
+  48     PHPDoc tag @method for method                                          
+         AlizHarb\FlowForge\Models\Workflow::active() return type contains      
+         generic class Illuminate\Database\Eloquent\Builder but does not        
+         specify its types: TModel                                              
+         🪪  missingType.generics                                               
+  48     PHPDoc tag @method for method                                          
+         AlizHarb\FlowForge\Models\Workflow::forTeam() return type contains     
+         generic class Illuminate\Database\Eloquent\Builder but does not        
+         specify its types: TModel                                              
+         🪪  missingType.generics                                               
+  48     PHPDoc tag @method for method                                          
+         AlizHarb\FlowForge\Models\Workflow::forUser() return type contains     
+         generic class Illuminate\Database\Eloquent\Builder but does not        
+         specify its types: TModel                                              
+         🪪  missingType.generics                                               
+  48     PHPDoc tag @method for method                                          
+         AlizHarb\FlowForge\Models\Workflow::templates() return type contains   
+         generic class Illuminate\Database\Eloquent\Builder but does not        
+         specify its types: TModel                                              
+         🪪  missingType.generics                                               
+  50     Class AlizHarb\FlowForge\Models\Workflow uses generic trait            
+         Illuminate\Database\Eloquent\Factories\HasFactory but does not         
+         specify its types: TFactory                                            
+         🪪  missingType.generics                                               
+  90     Method AlizHarb\FlowForge\Models\Workflow::newFactory() should return  
+         Illuminate\Database\Eloquent\Factories\Factory<static(AlizHarb\FlowFo  
+         rge\Models\Workflow)> but returns AlizHarb\FlowForge\Database\Factori  
+         es\WorkflowFactory.                                                    
+         🪪  return.type                                                        
+  100    Unable to resolve the template type TRelatedModel in call to method    
+         Illuminate\Database\Eloquent\Model::belongsTo()                        
+         🪪  argument.templateType                                              
+         💡  See:                                                               
+         https://phpstan.org/blog/solving-phpstan-error-unable-to-resolve-temp  
+         late-type                                                              
+  110    Unable to resolve the template type TRelatedModel in call to method    
+         Illuminate\Database\Eloquent\Model::belongsTo()                        
+         🪪  argument.templateType                                              
+         💡  See:                                                               
+         https://phpstan.org/blog/solving-phpstan-error-unable-to-resolve-temp  
+         late-type                                                              
+  263    Property AlizHarb\FlowForge\Models\Workflow::$user_id (int|null) does  
+         not accept int|string|null.                                            
+         🪪  assign.propertyType                                                
+ ------ ----------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------- 
+  Line   Models/WorkflowExecution.php                                           
+ ------ ----------------------------------------------------------------------- 
+  47     PHPDoc tag @method for method                                          
+         AlizHarb\FlowForge\Models\WorkflowExecution::completed() return type   
+         contains generic class Illuminate\Database\Eloquent\Builder but does   
+         not specify its types: TModel                                          
+         🪪  missingType.generics                                               
+  47     PHPDoc tag @method for method                                          
+         AlizHarb\FlowForge\Models\WorkflowExecution::failed() return type      
+         contains generic class Illuminate\Database\Eloquent\Builder but does   
+         not specify its types: TModel                                          
+         🪪  missingType.generics                                               
+  47     PHPDoc tag @method for method                                          
+         AlizHarb\FlowForge\Models\WorkflowExecution::pending() return type     
+         contains generic class Illuminate\Database\Eloquent\Builder but does   
+         not specify its types: TModel                                          
+         🪪  missingType.generics                                               
+  47     PHPDoc tag @method for method                                          
+         AlizHarb\FlowForge\Models\WorkflowExecution::running() return type     
+         contains generic class Illuminate\Database\Eloquent\Builder but does   
+         not specify its types: TModel                                          
+         🪪  missingType.generics                                               
+  49     Class AlizHarb\FlowForge\Models\WorkflowExecution uses generic trait   
+         Illuminate\Database\Eloquent\Factories\HasFactory but does not         
+         specify its types: TFactory                                            
+         🪪  missingType.generics                                               
+  101    Unable to resolve the template type TRelatedModel in call to method    
+         Illuminate\Database\Eloquent\Model::belongsTo()                        
+         🪪  argument.templateType                                              
+         💡  See:                                                               
+         https://phpstan.org/blog/solving-phpstan-error-unable-to-resolve-temp  
+         late-type                                                              
+ ------ ----------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------- 
+  Line   Models/WorkflowExecutionLog.php                                       
+ ------ ---------------------------------------------------------------------- 
+  41     PHPDoc tag @method for method                                         
+         AlizHarb\FlowForge\Models\WorkflowExecutionLog::completed() return    
+         type contains generic class Illuminate\Database\Eloquent\Builder but  
+         does not specify its types: TModel                                    
+         🪪  missingType.generics                                              
+  41     PHPDoc tag @method for method                                         
+         AlizHarb\FlowForge\Models\WorkflowExecutionLog::failed() return type  
+         contains generic class Illuminate\Database\Eloquent\Builder but does  
+         not specify its types: TModel                                         
+         🪪  missingType.generics                                              
+  43     Class AlizHarb\FlowForge\Models\WorkflowExecutionLog uses generic     
+         trait Illuminate\Database\Eloquent\Factories\HasFactory but does not  
+         specify its types: TFactory                                           
+         🪪  missingType.generics                                              
+ ------ ---------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------- 
+  Line   Models/WorkflowStep.php                                                
+ ------ ----------------------------------------------------------------------- 
+  48     PHPDoc tag @method for method                                          
+         AlizHarb\FlowForge\Models\WorkflowStep::enabled() return type          
+         contains generic class Illuminate\Database\Eloquent\Builder but does   
+         not specify its types: TModel                                          
+         🪪  missingType.generics                                               
+  48     PHPDoc tag @method for method                                          
+         AlizHarb\FlowForge\Models\WorkflowStep::ofType() return type contains  
+         generic class Illuminate\Database\Eloquent\Builder but does not        
+         specify its types: TModel                                              
+         🪪  missingType.generics                                               
+  48     PHPDoc tag @method for method                                          
+         AlizHarb\FlowForge\Models\WorkflowStep::roots() return type contains   
+         generic class Illuminate\Database\Eloquent\Builder but does not        
+         specify its types: TModel                                              
+         🪪  missingType.generics                                               
+  50     Class AlizHarb\FlowForge\Models\WorkflowStep uses generic trait        
+         Illuminate\Database\Eloquent\Factories\HasFactory but does not         
+         specify its types: TFactory                                            
+         🪪  missingType.generics                                               
+  93     Method AlizHarb\FlowForge\Models\WorkflowStep::newFactory() should     
+         return Illuminate\Database\Eloquent\Factories\Factory<static(AlizHarb  
+         \FlowForge\Models\WorkflowStep)> but returns AlizHarb\FlowForge\Datab  
+         ase\Factories\WorkflowStepFactory.                                     
+         🪪  return.type                                                        
+  113    Method AlizHarb\FlowForge\Models\WorkflowStep::parent() should return  
+         Illuminate\Database\Eloquent\Relations\BelongsTo<$this(AlizHarb\FlowF  
+         orge\Models\WorkflowStep),                                             
+         $this(AlizHarb\FlowForge\Models\WorkflowStep)> but returns             
+         Illuminate\Database\Eloquent\Relations\BelongsTo<AlizHarb\FlowForge\M  
+         odels\WorkflowStep, $this(AlizHarb\FlowForge\Models\WorkflowStep)>.    
+         🪪  return.type                                                        
+  123    Method AlizHarb\FlowForge\Models\WorkflowStep::children() should       
+         return                                                                 
+         Illuminate\Database\Eloquent\Relations\HasMany<$this(AlizHarb\FlowFor  
+         ge\Models\WorkflowStep),                                               
+         $this(AlizHarb\FlowForge\Models\WorkflowStep)> but returns             
+         Illuminate\Database\Eloquent\Relations\HasMany<AlizHarb\FlowForge\Mod  
+         els\WorkflowStep, $this(AlizHarb\FlowForge\Models\WorkflowStep)>.      
+         🪪  return.type                                                        
+  193    Cannot call method getArrayCopy() on ArrayObject<string, mixed>|null.  
+         🪪  method.nonObject                                                   
+  203    Method AlizHarb\FlowForge\Models\WorkflowStep::getHandlerClass()       
+         should return class-string but returns string.                         
+         🪪  return.type                                                        
+ ------ ----------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------ 
+  Line   Policies/WorkflowPolicy.php                                 
+ ------ ------------------------------------------------------------ 
+  48     Cannot call method belongsToTeam() on class-string|object.  
+         🪪  method.nonObject                                        
+  95     Cannot call method belongsToTeam() on class-string|object.  
+         🪪  method.nonObject                                        
+ ------ ------------------------------------------------------------ 
+
+ ------ ----------------------------------------------------------------- 
+  Line   Services/StepExecutor.php                                        
+ ------ ----------------------------------------------------------------- 
+  39     Call to an undefined method object{handle: callable}::handle().  
+         🪪  method.notFound                                              
+ ------ ----------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------ 
+  Line   Services/StepHandlers/ActionHandler.php               
+ ------ ------------------------------------------------------ 
+  45     Cannot call method execute() on class-string|object.  
+         🪪  method.nonObject                                  
+ ------ ------------------------------------------------------ 
+
+ ------ ----------------------------------------------------------------------- 
+  Line   Services/StepHandlers/NotificationHandler.php                          
+ ------ ----------------------------------------------------------------------- 
+  63     Call to function is_string() with string will always evaluate to       
+         true.                                                                  
+         🪪  function.alreadyNarrowedType                                       
+         💡  Because the type is coming from a PHPDoc, you can turn off this    
+         check by setting treatPhpDocTypesAsCertain: false in your phpstan.neo  
+         n.                                                                     
+ ------ ----------------------------------------------------------------------- 
+
+ -- ----------------------------------------------------------------------- 
+     Error                                                                  
+ -- ----------------------------------------------------------------------- 
+     Ignored error pattern #Unsafe usage of new static# was not matched in  
+     reported errors.                                                       
+ -- ----------------------------------------------------------------------- 
+
+ [ERROR] Found 42 errors                                                        
+

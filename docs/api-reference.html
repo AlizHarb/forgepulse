@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" 
+      x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))"
+      :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - FlowForge Documentation</title>
+    <meta name="description" content="Complete API reference for FlowForge - Laravel workflow builder">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/docs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
+    <script src="assets/js/docs.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <span>FlowForge</span>
+            </a>
+            
+            <nav class="header-nav">
+                <a href="index.html" class="header-link">Documentation</a>
+                <a href="examples.html" class="header-link">Examples</a>
+                <a href="api-reference.html" class="header-link active">API</a>
+                <a href="https://github.com/alizharb/flowforge/blob/main/CHANGELOG.md" class="header-link" target="_blank">Changelog</a>
+            </nav>
+            
+            <div class="header-actions">
+                <a href="https://github.com/alizharb/flowforge" class="btn btn-ghost btn-icon" target="_blank" title="View on GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <button @click="darkMode = !darkMode" class="btn btn-ghost btn-icon" title="Toggle dark mode">
+                    <svg x-show="!darkMode" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                    </svg>
+                    <svg x-show="darkMode" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <a href="index.html#installation" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="docs-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-title">Models</div>
+                    <a href="#workflow" class="nav-link">Workflow</a>
+                    <a href="#workflow-step" class="nav-link">WorkflowStep</a>
+                    <a href="#workflow-execution" class="nav-link">WorkflowExecution</a>
+                    <a href="#workflow-execution-log" class="nav-link">WorkflowExecutionLog</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Enums</div>
+                    <a href="#workflow-status" class="nav-link">WorkflowStatus</a>
+                    <a href="#execution-status" class="nav-link">ExecutionStatus</a>
+                    <a href="#step-type" class="nav-link">StepType</a>
+                    <a href="#log-status" class="nav-link">LogStatus</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Services</div>
+                    <a href="#workflow-engine" class="nav-link">WorkflowEngine</a>
+                    <a href="#conditional-evaluator" class="nav-link">ConditionalEvaluator</a>
+                    <a href="#template-manager" class="nav-link">TemplateManager</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Events</div>
+                    <a href="#events" class="nav-link">Workflow Events</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Components</div>
+                    <a href="#livewire-components" class="nav-link">Livewire Components</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Resources</div>
+                    <a href="index.html" class="nav-link">← Back to Docs</a>
+                    <a href="examples.html" class="nav-link">Examples</a>
+                    <a href="https://github.com/alizharb/flowforge" class="nav-link" target="_blank">GitHub →</a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <main class="content">
+            <h1>API Reference</h1>
+            <p class="lead">Complete API documentation for FlowForge models, services, and components.</p>
+
+            <!-- Models Section -->
+            <section id="workflow">
+                <h2>Workflow Model</h2>
+                <p>Main workflow model representing a workflow definition.</p>
+                
+                <h3>Properties</h3>
+                <div class="card">
+                    <pre><code class="language-php">class Workflow extends Model
+{
+    public int $id;
+    public string $name;
+    public ?string $description;
+    public WorkflowStatus $status;
+    public ?\ArrayObject $configuration;
+    public bool $is_template;
+    public ?int $user_id;
+    public ?int $team_id;
+    public string $version;
+}</code></pre>
+                </div>
+
+                <h3>Scopes</h3>
+                <pre><code class="language-php">// Get all active workflows
+Workflow::active()->get();
+
+// Get all templates
+Workflow::templates()->get();
+
+// Get workflows for specific user
+Workflow::forUser($userId)->get();
+
+// Get workflows for specific team
+Workflow::forTeam($teamId)->get();</code></pre>
+
+                <h3>Methods</h3>
+                <details>
+                    <summary><code>execute(array $context, ?bool $async = null): WorkflowExecution</code></summary>
+                    <p style="margin-top: 1rem;">Execute the workflow with the given context.</p>
+                    <pre><code class="language-php">$execution = $workflow->execute([
+    'user_id' => $user->id,
+    'email' => $user->email,
+], async: true);</code></pre>
+                </details>
+
+                <details>
+                    <summary><code>validate(): bool</code></summary>
+                    <p style="margin-top: 1rem;">Validate the workflow structure.</p>
+                    <pre><code class="language-php">if ($workflow->validate()) {
+    // Workflow is valid
+}</code></pre>
+                </details>
+
+                <details>
+                    <summary><code>saveAsTemplate(?string $name = null): Workflow</code></summary>
+                    <p style="margin-top: 1rem;">Clone this workflow as a template.</p>
+                    <pre><code class="language-php">$template = $workflow->saveAsTemplate('My Template');</code></pre>
+                </details>
+
+                <details>
+                    <summary><code>instantiateFromTemplate(?string $name = null): Workflow</code></summary>
+                    <p style="margin-top: 1rem;">Create a new workflow from this template.</p>
+                    <pre><code class="language-php">$newWorkflow = $template->instantiateFromTemplate('New Workflow');</code></pre>
+                </details>
+
+                <details>
+                    <summary><code>canExecute(): bool</code></summary>
+                    <p style="margin-top: 1rem;">Check if the workflow can be executed.</p>
+                    <pre><code class="language-php">if ($workflow->canExecute()) {
+    $workflow->execute($context);
+}</code></pre>
+                </details>
+
+                <h3>Relationships</h3>
+                <pre><code class="language-php">// Get workflow steps
+$workflow->steps;
+
+// Get workflow executions
+$workflow->executions;
+
+// Get owner user
+$workflow->user;
+
+// Get owner team
+$workflow->team;</code></pre>
+            </section>
+
+            <!-- WorkflowStep -->
+            <section id="workflow-step">
+                <h2>WorkflowStep Model</h2>
+                <p>Individual step within a workflow.</p>
+
+                <h3>Scopes</h3>
+                <pre><code class="language-php">// Get enabled steps
+WorkflowStep::enabled()->get();
+
+// Get root steps (no parent)
+WorkflowStep::roots()->get();
+
+// Get steps of specific type
+WorkflowStep::ofType(StepType::ACTION)->get();</code></pre>
+
+                <h3>Methods</h3>
+                <pre><code class="language-php">// Check if step has conditions
+$step->hasConditions(); // bool
+
+// Evaluate conditions
+$step->evaluateConditions($context); // bool
+
+// Execute step
+$step->execute($context); // array
+
+// Get handler class
+$step->getHandlerClass(); // string
+
+// Get default configuration
+$step->getDefaultConfiguration(); // array</code></pre>
+            </section>
+
+            <!-- WorkflowExecution -->
+            <section id="workflow-execution">
+                <h2>WorkflowExecution Model</h2>
+                <p>Tracks a single workflow execution instance.</p>
+
+                <h3>Scopes</h3>
+                <pre><code class="language-php">WorkflowExecution::pending()->get();
+WorkflowExecution::running()->get();
+WorkflowExecution::completed()->get();
+WorkflowExecution::failed()->get();</code></pre>
+
+                <h3>Methods</h3>
+                <pre><code class="language-php">// Mark execution as started
+$execution->markAsStarted();
+
+// Mark as completed with output
+$execution->markAsCompleted(['result' => 'success']);
+
+// Mark as failed
+$execution->markAsFailed('Error message');
+
+// Increment retry count
+$execution->incrementRetryCount();
+
+// Check if can retry
+$execution->canRetry(); // bool
+
+// Check if in progress
+$execution->isInProgress(); // bool
+
+// Check if finished
+$execution->isFinished(); // bool
+
+// Get duration in seconds
+$execution->duration; // int|null</code></pre>
+            </section>
+
+            <!-- WorkflowExecutionLog -->
+            <section id="workflow-execution-log">
+                <h2>WorkflowExecutionLog Model</h2>
+                <p>Detailed log for each step execution.</p>
+
+                <h3>Methods</h3>
+                <pre><code class="language-php">// Mark log as started
+$log->markAsStarted(['input' => 'data']);
+
+// Mark as completed
+$log->markAsCompleted(['output' => 'result']);
+
+// Mark as failed
+$log->markAsFailed('Error message');
+
+// Mark as skipped
+$log->markAsSkipped();</code></pre>
+            </section>
+
+            <!-- Enums -->
+            <section id="workflow-status">
+                <h2>WorkflowStatus Enum</h2>
+                <pre><code class="language-php">use AlizHarb\FlowForge\Enums\WorkflowStatus;
+
+WorkflowStatus::DRAFT
+WorkflowStatus::ACTIVE
+WorkflowStatus::INACTIVE
+WorkflowStatus::ARCHIVED
+
+// Methods
+$status->label(); // string
+$status->color(); // string
+$status->canExecute(); // bool</code></pre>
+            </section>
+
+            <section id="execution-status">
+                <h2>ExecutionStatus Enum</h2>
+                <pre><code class="language-php">use AlizHarb\FlowForge\Enums\ExecutionStatus;
+
+ExecutionStatus::PENDING
+ExecutionStatus::RUNNING
+ExecutionStatus::COMPLETED
+ExecutionStatus::FAILED
+ExecutionStatus::CANCELLED
+
+// Methods
+$status->label(); // string
+$status->color(); // string
+$status->isInProgress(); // bool
+$status->isFinished(); // bool</code></pre>
+            </section>
+
+            <section id="step-type">
+                <h2>StepType Enum</h2>
+                <pre><code class="language-php">use AlizHarb\FlowForge\Enums\StepType;
+
+StepType::ACTION
+StepType::CONDITION
+StepType::DELAY
+StepType::NOTIFICATION
+StepType::WEBHOOK
+StepType::EVENT
+StepType::JOB
+
+// Methods
+$type->label(); // string
+$type->icon(); // string
+$type->handlerClass(); // string
+$type->defaultConfiguration(); // array
+$type->color(); // string</code></pre>
+            </section>
+
+            <section id="log-status">
+                <h2>LogStatus Enum</h2>
+                <pre><code class="language-php">use AlizHarb\FlowForge\Enums\LogStatus;
+
+LogStatus::PENDING
+LogStatus::RUNNING
+LogStatus::COMPLETED
+LogStatus::FAILED
+LogStatus::SKIPPED
+
+// Methods
+$status->label(); // string
+$status->color(); // string
+$status->icon(); // string</code></pre>
+            </section>
+
+            <!-- Services -->
+            <section id="workflow-engine">
+                <h2>WorkflowEngine Service</h2>
+                <p>Main workflow execution engine.</p>
+                <pre><code class="language-php">use AlizHarb\FlowForge\Services\WorkflowEngine;
+
+$engine = app(WorkflowEngine::class);
+$engine->execute($execution);</code></pre>
+            </section>
+
+            <section id="conditional-evaluator">
+                <h2>ConditionalEvaluator Service</h2>
+                <p>Evaluates conditional logic for steps.</p>
+                <pre><code class="language-php">use AlizHarb\FlowForge\Services\ConditionalEvaluator;
+
+$evaluator = app(ConditionalEvaluator::class);
+$result = $evaluator->evaluate($conditions, $context); // bool</code></pre>
+            </section>
+
+            <section id="template-manager">
+                <h2>TemplateManager Service</h2>
+                <p>Manages workflow templates.</p>
+                <pre><code class="language-php">use AlizHarb\FlowForge\Services\TemplateManager;
+
+$manager = app(TemplateManager::class);
+
+// Export template
+$path = $manager->export($workflow);
+
+// Import template
+$workflow = $manager->import($path, 'Workflow Name');</code></pre>
+            </section>
+
+            <!-- Events -->
+            <section id="events">
+                <h2>Workflow Events</h2>
+                <p>FlowForge dispatches the following events:</p>
+
+                <div class="card-grid">
+                    <div class="feature-card">
+                        <h4>WorkflowStarted</h4>
+                        <p style="font-size: 0.9375rem; color: var(--text-secondary);">Dispatched when workflow execution begins</p>
+                        <pre style="margin-top: 1rem;"><code class="language-php">WorkflowStarted::class => [
+    LogWorkflowStart::class,
+]</code></pre>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>WorkflowCompleted</h4>
+                        <p style="font-size: 0.9375rem; color: var(--text-secondary);">Dispatched when workflow completes successfully</p>
+                        <pre style="margin-top: 1rem;"><code class="language-php">WorkflowCompleted::class => [
+    SendNotification::class,
+]</code></pre>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>WorkflowFailed</h4>
+                        <p style="font-size: 0.9375rem; color: var(--text-secondary);">Dispatched when workflow execution fails</p>
+                        <pre style="margin-top: 1rem;"><code class="language-php">WorkflowFailed::class => [
+    NotifyAdmins::class,
+]</code></pre>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>StepExecuted</h4>
+                        <p style="font-size: 0.9375rem; color: var(--text-secondary);">Dispatched after each step execution</p>
+                        <pre style="margin-top: 1rem;"><code class="language-php">StepExecuted::class => [
+    LogStepExecution::class,
+]</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Livewire Components -->
+            <section id="livewire-components">
+                <h2>Livewire Components</h2>
+
+                <h3>WorkflowBuilder</h3>
+                <p>Drag-and-drop workflow designer.</p>
+                <pre><code class="language-blade">&lt;livewire:flowforge::workflow-builder :workflow="$workflow" /&gt;</code></pre>
+
+                <h3>WorkflowExecutionTracker</h3>
+                <p>Real-time execution monitoring.</p>
+                <pre><code class="language-blade">&lt;livewire:flowforge::workflow-execution-tracker :execution="$execution" /&gt;</code></pre>
+
+                <h3>WorkflowTemplateManager</h3>
+                <p>Template management interface.</p>
+                <pre><code class="language-blade">&lt;livewire:flowforge::workflow-template-manager :workflow="$workflow" /&gt;</code></pre>
+            </section>
+
+            <!-- Configuration -->
+            <section id="configuration">
+                <h2>Configuration</h2>
+                <p>Available configuration options in <code>config/flowforge.php</code>:</p>
+
+                <pre><code class="language-php">return [
+    'execution' => [
+        'async_by_default' => true,
+        'timeout' => 3600,
+        'max_retries' => 3,
+        'queue' => 'default',
+    ],
+    
+    'permissions' => [
+        'view_workflows' => 'view-workflows',
+        'create_workflows' => 'create-workflows',
+        'update_workflows' => 'update-workflows',
+        'delete_workflows' => 'delete-workflows',
+        'execute_workflows' => 'execute-workflows',
+    ],
+    
+    'templates' => [
+        'storage_path' => storage_path('app/workflow-templates'),
+    ],
+    
+    'team_model' => 'App\\Models\\Team',
+];</code></pre>
+            </section>
+        </main>
+
+        <!-- TOC -->
+        <aside class="toc">
+            <div class="toc-title">On This Page</div>
+            <div class="toc-links"></div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FlowForge</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 1rem;">
+                    Production-ready workflow builder for Laravel 12
+                </p>
+                <a href="index.html" class="footer-link">Documentation</a>
+                <a href="examples.html" class="footer-link">Examples</a>
+                <a href="https://github.com/alizharb/flowforge" class="footer-link" target="_blank">GitHub</a>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="index.html#installation" class="footer-link">Installation</a>
+                <a href="index.html#quick-start" class="footer-link">Quick Start</a>
+                <a href="api-reference.html" class="footer-link">API Reference</a>
+                <a href="https://github.com/alizharb/flowforge/blob/main/CHANGELOG.md" class="footer-link" target="_blank">Changelog</a>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://github.com/alizharb/flowforge/discussions" class="footer-link" target="_blank">Discussions</a>
+                <a href="https://github.com/alizharb/flowforge/issues" class="footer-link" target="_blank">Issues</a>
+                <a href="https://twitter.com/alizharb" class="footer-link" target="_blank">Twitter</a>
+                <a href="https://github.com/sponsors/alizharb" class="footer-link" target="_blank">Sponsor</a>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 0.5rem;">
+                    © 2025 Ali Harb
+                </p>
+                <p style="color: var(--text-tertiary); font-size: 0.8125rem; margin-bottom: 1rem;">
+                    Released under the MIT License
+                </p>
+                <p style="color: var(--text-tertiary); font-size: 0.75rem;">
+                    Made with ❤️ by <a href="https://alizharb.com" style="color: var(--primary);" target="_blank">Ali Harb</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

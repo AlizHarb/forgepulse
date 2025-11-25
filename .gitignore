@@ -1,0 +1,29 @@
+# Dependencies
+/vendor/
+/node_modules/
+composer.lock
+
+# IDE
+/.idea/
+/.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing & Quality
+/.phpunit.cache
+.phpunit.result.cache
+coverage/
+.php-cs-fixer.cache
+.phpstan.cache
+/build/
+
+# Private/Internal
+ROADMAP.md
+
+# Logs
+*.log

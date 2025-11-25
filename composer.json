@@ -1,0 +1,79 @@
+{
+  "name": "alizharb/flowforge",
+  "description": "Dynamic Workflow Builder for Laravel - Drag-and-drop workflow designer with conditional branching and real-time execution tracking",
+  "keywords": [
+    "laravel",
+    "workflow",
+    "workflow-engine",
+    "livewire",
+    "drag-and-drop",
+    "workflow-builder",
+    "automation",
+    "business-process"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ali Harb",
+      "email": "harbzali@gmail.com",
+      "homepage": "https://github.com/AlizHarb",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "illuminate/support": "^11.0|^12.0",
+    "illuminate/database": "^11.0|^12.0",
+    "illuminate/contracts": "^11.0|^12.0",
+    "livewire/livewire": "^3.0|^4.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^9.0|^10.0",
+    "pestphp/pest": "^3.0",
+    "pestphp/pest-plugin-laravel": "^3.0",
+    "pestphp/pest-plugin-arch": "^3.0",
+    "phpstan/phpstan": "^2.0",
+    "laravel/pint": "^1.18",
+    "nunomaduro/collision": "^8.5",
+    "nunomaduro/larastan": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "AlizHarb\\FlowForge\\": "src/",
+      "AlizHarb\\FlowForge\\Database\\Factories\\": "database/factories/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AlizHarb\\FlowForge\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/pest",
+    "test:coverage": "vendor/bin/pest --coverage",
+    "analyse": "vendor/bin/phpstan analyse --memory-limit=2G",
+    "format": "vendor/bin/pint",
+    "format:check": "vendor/bin/pint --test",
+    "quality": [
+      "@format:check",
+      "@analyse",
+      "@test"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AlizHarb\\FlowForge\\FlowForgeServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
