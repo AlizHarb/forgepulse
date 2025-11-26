@@ -1,7 +1,7 @@
 # FlowForge
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/alizharb/flowforge.svg?style=flat-square)](https://packagist.org/packages/alizharb/flowforge)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/alizharb/flowforge/tests?label=tests)](https://github.com/alizharb/flowforge/actions?query=workflow%3Atests+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/alizharb/flowforge/tests.yml?label=tests)](https://github.com/alizharb/flowforge/actions?query=workflow%3Atests+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/alizharb/flowforge.svg?style=flat-square)](https://packagist.org/packages/alizharb/flowforge)
 [![License](https://img.shields.io/packagist/l/alizharb/flowforge.svg?style=flat-square)](https://packagist.org/packages/alizharb/flowforge)
 
@@ -11,6 +11,11 @@
 
 - 🎨 **Drag-and-Drop Workflow Designer** - Visual workflow builder using Livewire 4 and Alpine.js
 - 🔀 **Conditional Branching** - Complex if/else rules with 15+ comparison operators
+- ⏱️ **Timeout Orchestration** - Configure step timeouts with automatic termination (v1.1.0)
+- ⏸️ **Pause/Resume Workflows** - Pause and resume executions mid-flow (v1.1.0)
+- 🔄 **Parallel Execution** - Execute multiple steps concurrently (v1.1.0)
+- 📅 **Execution Scheduling** - Schedule workflows for future execution (v1.1.0)
+- 🌐 **REST API** - Full API for mobile monitoring and integrations (v1.1.0)
 - 📋 **Workflow Templates** - Save, load, and reuse workflow configurations
 - ⚡ **Real-Time Execution Tracking** - Live monitoring with Livewire reactivity
 - 🔗 **Laravel 12 Integration** - Seamless integration with events, jobs, and notifications
@@ -252,6 +257,98 @@ The tracker automatically polls for updates and displays:
 - Performance metrics
 - Error messages
 
+## ⏱️ Timeout Orchestration (v1.1.0)
+
+Configure timeouts for individual steps to prevent long-running operations:
+
+```php
+$step->update([
+    'timeout' => 30, // seconds
+]);
+```
+
+If a step exceeds its timeout, it will be automatically terminated and marked as failed. Requires the `pcntl` PHP extension. Gracefully degrades if not available.
+
+## ⏸️ Pause/Resume Workflows (v1.1.0)
+
+Pause and resume workflow executions:
+
+```php
+// Pause execution
+$execution->pause('Waiting for manual approval');
+
+// Resume execution
+$execution->resume();
+
+// Check if paused
+if ($execution->isPaused()) {
+    echo "Paused: " . $execution->pause_reason;
+}
+```
+
+## 🔄 Parallel Execution (v1.1.0)
+
+Execute multiple steps concurrently for improved performance:
+
+```php
+// Configure steps to run in parallel
+$step1->update([
+    'execution_mode' => 'parallel',
+    'parallel_group' => 'email-notifications',
+]);
+
+$step2->update([
+    'execution_mode' => 'parallel',
+    'parallel_group' => 'email-notifications',
+]);
+
+// Both steps will execute concurrently
+```
+
+## 📅 Execution Scheduling (v1.1.0)
+
+Schedule workflows for future execution:
+
+```php
+$execution = $workflow->execute([
+    'scheduled_at' => now()->addHours(2),
+    'context' => ['user_id' => 123],
+]);
+```
+
+## 🌐 REST API (v1.1.0)
+
+FlowForge provides a full REST API for mobile monitoring and integrations:
+
+```bash
+# List workflows
+GET /api/flowforge/workflows
+
+# Get workflow details
+GET /api/flowforge/workflows/{id}
+
+# List executions
+GET /api/flowforge/executions
+
+# Get execution details
+GET /api/flowforge/executions/{id}
+
+# Pause execution
+POST /api/flowforge/executions/{id}/pause
+
+# Resume execution
+POST /api/flowforge/executions/{id}/resume
+```
+
+Configure API settings in `config/flowforge.php`:
+
+```php
+'api' => [
+    'enabled' => true,
+    'middleware' => ['api', 'auth:sanctum'],
+],
+```
+
 ## 🔔 Events
 
 FlowForge dispatches the following events:
@@ -392,4 +489,4 @@ If you find this package helpful, please consider:
 
 **Made with ❤️ by [Ali Harb](https://alizharb.com)**
 
-**Release Date:** November 25, 2025 | **Version:** 1.0.0
+**Release Date:** November 26, 2025 | **Version:** 1.1.0

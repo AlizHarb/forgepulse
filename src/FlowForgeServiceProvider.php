@@ -55,6 +55,9 @@ class FlowForgeServiceProvider extends ServiceProvider
         // Register policies
         $this->registerPolicies();
 
+        // Register API routes
+        $this->registerApiRoutes();
+
         // Publish package assets
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -94,6 +97,16 @@ class FlowForgeServiceProvider extends ServiceProvider
     {
         if (config('flowforge.permissions.enabled', true)) {
             Gate::policy(Workflow::class, WorkflowPolicy::class);
+        }
+    }
+
+    /**
+     * Register API routes.
+     */
+    protected function registerApiRoutes(): void
+    {
+        if (config('flowforge.api.enabled', true)) {
+            $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
         }
     }
 }

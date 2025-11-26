@@ -1,7 +1,10 @@
-// FlowForge Documentation - Shared JavaScript
+/**
+ * FlowForge Documentation JavaScript
+ */
 
-// Initialize syntax highlighting
+// Initialize all features when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
+  initNavbarScroll();
   if (typeof hljs !== "undefined") {
     hljs.highlightAll();
   }
@@ -11,7 +14,26 @@ document.addEventListener("DOMContentLoaded", () => {
   initActiveNavLinks();
   initTableOfContents();
   initMobileMenu();
+  initBackToTop();
 });
+
+// Navbar scroll animation
+function initNavbarScroll() {
+  const header = document.querySelector(".header");
+  let lastScroll = 0;
+
+  window.addEventListener("scroll", () => {
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll > 50) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+
+    lastScroll = currentScroll;
+  });
+}
 
 // Copy button functionality
 function initCopyButtons() {
@@ -149,39 +171,39 @@ function initTableOfContents() {
 
 // Mobile menu functionality
 function initMobileMenu() {
-    // Create mobile menu toggle button if it doesn't exist
-    const headerActions = document.querySelector('.header-actions');
-    if (!headerActions) return;
-    
-    // Check if button already exists
-    if (document.querySelector('.mobile-menu-toggle')) return;
-    
-    const toggleBtn = document.createElement('button');
-    toggleBtn.className = 'mobile-menu-toggle';
-    toggleBtn.innerHTML = `
+  // Create mobile menu toggle button if it doesn't exist
+  const headerActions = document.querySelector(".header-actions");
+  if (!headerActions) return;
+
+  // Check if button already exists
+  if (document.querySelector(".mobile-menu-toggle")) return;
+
+  const toggleBtn = document.createElement("button");
+  toggleBtn.className = "mobile-menu-toggle";
+  toggleBtn.innerHTML = `
         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
         <span>Menu</span>
     `;
-    
-    // Insert as first child
-    headerActions.insertBefore(toggleBtn, headerActions.firstChild);
-    
-    // Create overlay
-    let overlay = document.querySelector('.sidebar-overlay');
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.className = 'sidebar-overlay';
-        document.body.appendChild(overlay);
-    }
-    
-    // Add close button to sidebar
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebar && !sidebar.querySelector('.sidebar-close')) {
-        const closeDiv = document.createElement('div');
-        closeDiv.className = 'sidebar-close';
-        closeDiv.innerHTML = `
+
+  // Insert as first child
+  headerActions.insertBefore(toggleBtn, headerActions.firstChild);
+
+  // Create overlay
+  let overlay = document.querySelector(".sidebar-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "sidebar-overlay";
+    document.body.appendChild(overlay);
+  }
+
+  // Add close button to sidebar
+  const sidebar = document.querySelector(".sidebar");
+  if (sidebar && !sidebar.querySelector(".sidebar-close")) {
+    const closeDiv = document.createElement("div");
+    closeDiv.className = "sidebar-close";
+    closeDiv.innerHTML = `
             <strong>Navigation</strong>
             <button class="close-sidebar">
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,39 +211,39 @@ function initMobileMenu() {
                 </svg>
             </button>
         `;
-        sidebar.insertBefore(closeDiv, sidebar.firstChild);
-    }
-    
-    // Toggle menu
-    toggleBtn.addEventListener('click', () => {
-        sidebar.classList.add('mobile-open');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+    sidebar.insertBefore(closeDiv, sidebar.firstChild);
+  }
+
+  // Toggle menu
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.add("mobile-open");
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+  });
+
+  // Close menu
+  const closeMenu = () => {
+    sidebar.classList.remove("mobile-open");
+    overlay.classList.remove("active");
+    document.body.style.overflow = "";
+  };
+
+  overlay.addEventListener("click", closeMenu);
+
+  const closeBtn = sidebar.querySelector(".close-sidebar");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeMenu);
+  }
+
+  // Close menu when clicking nav links on mobile
+  const navLinks = sidebar.querySelectorAll(".nav-link");
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 768) {
+        closeMenu();
+      }
     });
-    
-    // Close menu
-    const closeMenu = () => {
-        sidebar.classList.remove('mobile-open');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    };
-    
-    overlay.addEventListener('click', closeMenu);
-    
-    const closeBtn = sidebar.querySelector('.close-sidebar');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeMenu);
-    }
-    
-    // Close menu when clicking nav links on mobile
-    const navLinks = sidebar.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                closeMenu();
-            }
-        });
-    });
+  });
 }
 
 // Search functionality (placeholder for future implementation)
@@ -234,4 +256,35 @@ function initSearch() {
     // Implement search logic here
     console.log("Searching for:", query);
   });
+}
+
+// Back to Top functionality
+function initBackToTop() {
+    const button = document.createElement('button');
+    button.className = 'back-to-top';
+    button.innerHTML = `
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    `;
+    button.title = "Back to Top";
+    
+    document.body.appendChild(button);
+    
+    const toggleButton = () => {
+        if (window.scrollY > 300) {
+            button.classList.add('visible');
+        } else {
+            button.classList.remove('visible');
+        }
+    };
+    
+    window.addEventListener('scroll', toggleButton);
+    
+    button.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 }

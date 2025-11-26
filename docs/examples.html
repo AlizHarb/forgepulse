@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" 
+<html lang="en" x-data="{ darkMode: false, mobileMenuOpen: false }"
       x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))"
       :class="{ 'dark': darkMode }">
 <head>
@@ -41,6 +41,15 @@
             </nav>
             
             <div class="header-actions">
+                <button
+                    @click="mobileMenuOpen = !mobileMenuOpen"
+                    class="btn btn-ghost btn-icon mobile-menu-toggle"
+                    title="Toggle menu"
+                >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
                 <a href="https://github.com/alizharb/flowforge" class="btn btn-ghost btn-icon" target="_blank" title="View on GitHub">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -62,7 +71,7 @@
     <!-- Main Layout -->
     <div class="docs-layout">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" x-show="mobileMenuOpen || window.innerWidth >= 768" x-cloak>
             <nav>
                 <div class="nav-section">
                     <div class="nav-title">Examples</div>
@@ -586,45 +595,56 @@ class SendCompletionNotification
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-section">
-                <h4>FlowForge</h4>
-                <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 1rem;">
-                    Production-ready workflow builder for Laravel 12
-                </p>
-                <a href="index.html" class="footer-link">Documentation</a>
-                <a href="examples.html" class="footer-link">Examples</a>
-                <a href="https://github.com/alizharb/flowforge" class="footer-link" target="_blank">GitHub</a>
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4 class="footer-title">FlowForge</h4>
+                    <p class="footer-description">
+                        Production-ready Laravel 12 workflow builder with visual designer,
+                        conditional branching, and real-time execution tracking.
+                    </p>
+                    <div class="footer-version">v1.1.0</div>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Documentation</h4>
+                    <a href="index.html" class="footer-link">Getting Started</a>
+                    <a href="index.html#installation" class="footer-link">Installation</a>
+                    <a href="index.html#quick-start" class="footer-link">Quick Start</a>
+                    <a href="examples.html" class="footer-link">Examples</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Resources</h4>
+                    <a href="api-reference.html" class="footer-link">API Reference</a>
+                    <a href="https://github.com/alizharb/flowforge" target="_blank" class="footer-link">GitHub</a>
+                    <a href="https://github.com/alizharb/flowforge/blob/main/CHANGELOG.md" target="_blank" class="footer-link">Changelog</a>
+                    <a href="https://github.com/alizharb/flowforge/blob/main/UPGRADE.md" target="_blank" class="footer-link">Upgrade Guide</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Community</h4>
+                    <a href="https://github.com/alizharb/flowforge/issues" target="_blank" class="footer-link">Report Issues</a>
+                    <a href="https://github.com/alizharb/flowforge/discussions" target="_blank" class="footer-link">Discussions</a>
+                    <a href="https://github.com/alizharb/flowforge/blob/main/CONTRIBUTING.md" target="_blank" class="footer-link">Contributing</a>
+                </div>
             </div>
-            
-            <div class="footer-section">
-                <h4>Resources</h4>
-                <a href="index.html#installation" class="footer-link">Installation</a>
-                <a href="index.html#quick-start" class="footer-link">Quick Start</a>
-                <a href="api-reference.html" class="footer-link">API Reference</a>
-                <a href="https://github.com/alizharb/flowforge/blob/main/CHANGELOG.md" class="footer-link" target="_blank">Changelog</a>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Community</h4>
-                <a href="https://github.com/alizharb/flowforge/discussions" class="footer-link" target="_blank">Discussions</a>
-                <a href="https://github.com/alizharb/flowforge/issues" class="footer-link" target="_blank">Issues</a>
-                <a href="https://twitter.com/alizharb" class="footer-link" target="_blank">Twitter</a>
-                <a href="https://github.com/sponsors/alizharb" class="footer-link" target="_blank">Sponsor</a>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Legal</h4>
-                <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 0.5rem;">
-                    © 2025 Ali Harb
-                </p>
-                <p style="color: var(--text-tertiary); font-size: 0.8125rem; margin-bottom: 1rem;">
-                    Released under the MIT License
-                </p>
-                <p style="color: var(--text-tertiary); font-size: 0.75rem;">
-                    Made with ❤️ by <a href="https://alizharb.com" style="color: var(--primary);" target="_blank">Ali Harb</a>
-                </p>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2025 <a href="https://github.com/AlizHarb" target="_blank">Ali Harb</a>. Released under the <a href="https://github.com/alizharb/flowforge/blob/main/LICENSE.md" target="_blank">MIT License</a>.
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/alizharb/flowforge" target="_blank" class="footer-social-link" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="assets/js/docs.js"></script>
 </body>
 </html>

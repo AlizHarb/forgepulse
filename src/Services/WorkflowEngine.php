@@ -46,6 +46,14 @@ final readonly class WorkflowEngine
 
             // Execute steps recursively
             foreach ($rootSteps as $step) {
+                // Check if execution is paused
+                $freshExecution = $execution->fresh();
+                if ($freshExecution && $freshExecution->isPaused()) {
+                    $this->logExecution($execution, 'Workflow paused by user');
+
+                    return;
+                }
+
                 $context = $this->executeStep($execution, $step, $context);
             }
 
@@ -113,6 +121,16 @@ final readonly class WorkflowEngine
             }
 
             return $context;
+        } catch (\AlizHarb\FlowForge\Exceptions\StepTimeoutException $e) {
+            $log->markAsFailed($e->getMessage());
+
+            $this->logExecution(
+                $execution,
+                "Step '{$step->name}' timed out: ".$e->getMessage(),
+                'error'
+            );
+
+            throw $e;
         } catch (\Exception $e) {
             $log->markAsFailed($e->getMessage());
 

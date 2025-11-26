@@ -35,7 +35,25 @@ final readonly class StepExecutor
             throw new \RuntimeException("Handler must implement handle() method: {$handlerClass}");
         }
 
-        /** @phpstan-ignore-next-line */
-        return $handler->handle($step, $context);
+        $timeout = $step->getTimeout();
+        $usePcntl = $timeout && function_exists('pcntl_alarm') && function_exists('pcntl_signal');
+
+        if ($usePcntl) {
+            pcntl_async_signals(true);
+            pcntl_signal(SIGALRM, function () use ($step, $timeout) {
+                throw new \AlizHarb\FlowForge\Exceptions\StepTimeoutException($step->name, $timeout);
+            });
+            pcntl_alarm($timeout);
+        }
+
+        try {
+            /** @phpstan-ignore-next-line */
+            return $handler->handle($step, $context);
+        } finally {
+            if ($usePcntl) {
+                pcntl_alarm(0);
+                pcntl_signal(SIGALRM, SIG_DFL);
+            }
+        }
     }
 }

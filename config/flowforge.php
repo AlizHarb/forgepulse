@@ -237,4 +237,24 @@ return [
         // Enable zoom controls
         'zoom_enabled' => env('FLOWFORGE_ZOOM_ENABLED', true),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | API Settings
+    |--------------------------------------------------------------------------
+    |
+    | Configure the REST API for mobile monitoring and integrations.
+    |
+    */
+
+    'api' => [
+        // Enable REST API endpoints
+        'enabled' => env('FLOWFORGE_API_ENABLED', true),
+
+        // API middleware
+        'middleware' => ['api', 'auth:sanctum'],
+
+        // API rate limiting
+        'rate_limit' => env('FLOWFORGE_API_RATE_LIMIT', '60,1'),
+    ],
 ];

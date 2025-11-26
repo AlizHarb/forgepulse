@@ -34,6 +34,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int|null $x_position X coordinate on canvas
  * @property int|null $y_position Y coordinate on canvas
  * @property bool $is_enabled Whether the step is enabled
+ * @property int|null $timeout Timeout in seconds
+ * @property string $execution_mode Execution mode (sequential or parallel)
+ * @property string|null $parallel_group Parallel group identifier
  * @property \Illuminate\Support\Carbon $created_at Creation timestamp
  * @property \Illuminate\Support\Carbon $updated_at Last update timestamp
  * @property-read Workflow $workflow
@@ -69,6 +72,9 @@ class WorkflowStep extends Model
         'x_position',
         'y_position',
         'is_enabled',
+        'timeout',
+        'execution_mode',
+        'parallel_group',
     ];
 
     /**
@@ -232,5 +238,15 @@ class WorkflowStep extends Model
     public function getDefaultConfiguration(): array
     {
         return $this->type->defaultConfiguration();
+    }
+
+    /**
+     * Get the timeout for this step in seconds.
+     *
+     * @return int|null Timeout in seconds or null if no timeout
+     */
+    public function getTimeout(): ?int
+    {
+        return $this->timeout;
     }
 }

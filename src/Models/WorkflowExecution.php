@@ -32,6 +32,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $retry_count Number of retry attempts
  * @property \Illuminate\Support\Carbon|null $started_at Execution start time
  * @property \Illuminate\Support\Carbon|null $completed_at Execution completion time
+ * @property \Illuminate\Support\Carbon|null $paused_at Execution pause time
+ * @property string|null $pause_reason Reason for pausing execution
+ * @property \Illuminate\Support\Carbon|null $scheduled_at Scheduled execution time
+ * @property \ArrayObject<string, mixed>|null $schedule_config Recurring schedule configuration
  * @property \Illuminate\Support\Carbon $created_at Creation timestamp
  * @property \Illuminate\Support\Carbon $updated_at Last update timestamp
  * @property-read int|null $duration Execution duration in seconds (computed)
@@ -66,6 +70,10 @@ class WorkflowExecution extends Model
         'retry_count',
         'started_at',
         'completed_at',
+        'paused_at',
+        'pause_reason',
+        'scheduled_at',
+        'schedule_config',
     ];
 
     /**
@@ -81,6 +89,9 @@ class WorkflowExecution extends Model
             'output' => AsArrayObject::class,
             'started_at' => 'datetime',
             'completed_at' => 'datetime',
+            'paused_at' => 'datetime',
+            'scheduled_at' => 'datetime',
+            'schedule_config' => AsArrayObject::class,
         ];
     }
 
@@ -258,5 +269,39 @@ class WorkflowExecution extends Model
     public function isFinished(): bool
     {
         return $this->status->isFinished();
+    }
+
+    /**
+     * Pause the execution.
+     *
+     * @param  string|null  $reason  Reason for pausing
+     */
+    public function pause(?string $reason = null): void
+    {
+        $this->update([
+            'paused_at' => now(),
+            'pause_reason' => $reason,
+        ]);
+    }
+
+    /**
+     * Resume the execution.
+     */
+    public function resume(): void
+    {
+        $this->update([
+            'paused_at' => null,
+            'pause_reason' => null,
+        ]);
+    }
+
+    /**
+     * Check if the execution is paused.
+     *
+     * @return bool True if execution is paused
+     */
+    public function isPaused(): bool
+    {
+        return $this->paused_at !== null;
     }
 }
