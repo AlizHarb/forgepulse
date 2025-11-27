@@ -1,570 +1,931 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  x-data="{ darkMode: false, mobileMenuOpen: false }"
-  x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))"
-  :class="{ 'dark': darkMode }"
->
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ForgePulse - Dynamic Workflow Builder for Laravel 12</title>
-    <meta
-      name="description"
-      content="Production-ready Laravel 12 package for building dynamic workflows with drag-and-drop interface, conditional branching, and real-time execution tracking."
-    />
-    <meta
-      name="keywords"
-      content="Laravel, Workflow, Livewire, PHP, Automation, Laravel 12"
-    />
-    <meta name="author" content="Ali Harb" />
+    <title>ForgePulse Documentation</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/docs.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
-    />
-
-    <!-- Scripts -->
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script src="assets/js/docs.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg-1: #ffffff;
+        --bg-2: #f9fafb;
+        --bg-3: #f3f4f6;
+        --text-1: #111827;
+        --text-2: #6b7280;
+        --text-3: #9ca3af;
+        --accent: #6366f1;
+        --accent-light: #818cf8;
+        --border: #e5e7eb;
+      }
+
+      [x-cloak] {
+        display: none !important;
+      }
+
+      .dark {
+        --bg-1: #0d1117;
+        --bg-2: #161b22;
+        --bg-3: #21262d;
+        --text-1: #e6edf3;
+        --text-2: #8b949e;
+        --text-3: #6e7681;
+        --accent: #7c3aed;
+        --accent-light: #8b5cf6;
+        --border: #30363d;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-1);
+        color: var(--text-1);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      /* Header */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        z-index: 1000;
+        transition: all 0.3s;
+      }
+
+      .dark .header {
+        background: rgba(13, 17, 23, 0.8);
+      }
+
+      .header-inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        height: 100%;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: var(--text-1);
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-light));
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 800;
+        font-size: 14px;
+      }
+
+      .logo-text {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      /* Search Button */
+      .search-btn {
+        flex: 1;
+        max-width: 400px;
+        padding: 8px 12px;
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .search-btn:hover {
+        border-color: var(--accent);
+      }
+
+      .search-btn-text {
+        flex: 1;
+        color: var(--text-3);
+        font-size: 14px;
+      }
+
+      .kbd {
+        padding: 3px 6px;
+        background: var(--bg-3);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-2);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* Search Modal */
+      .search-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 10vh 1rem 1rem;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+      }
+
+      .search-container {
+        width: 100%;
+        max-width: 600px;
+        background: var(--bg-1);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .search-input-wrapper {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .search-input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        font-size: 16px;
+        color: var(--text-1);
+        outline: none;
+      }
+
+      .search-input::placeholder {
+        color: var(--text-3);
+      }
+
+      .search-results {
+        max-height: 400px;
+        overflow-y: auto;
+      }
+
+      .search-section {
+        padding: 8px 16px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-3);
+        background: var(--bg-2);
+      }
+
+      .search-result {
+        padding: 12px 16px;
+        cursor: pointer;
+        border-bottom: 1px solid var(--border);
+        transition: background 0.2s;
+      }
+
+      .search-result:hover {
+        background: var(--bg-2);
+      }
+
+      .result-title {
+        font-weight: 600;
+        color: var(--text-1);
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .result-snippet {
+        font-size: 13px;
+        color: var(--text-2);
+      }
+
+      .highlight {
+        background: rgba(99, 102, 241, 0.2);
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .search-empty {
+        padding: 3rem 1rem;
+        text-align: center;
+        color: var(--text-3);
+      }
+
+      /* Icon Button */
+      .icon-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: var(--text-2);
+      }
+
+      .icon-btn:hover {
+        background: var(--bg-3);
+        color: var(--accent);
+      }
+
+      .mobile-menu-btn {
+        display: none;
+      }
+
+      /* Layout */
+      .layout {
+        display: flex;
+        margin-top: 60px;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 240px;
+        flex-shrink: 0;
+        height: calc(100vh - 60px);
+        position: sticky;
+        top: 60px;
+        overflow-y: auto;
+        padding: 2rem 1rem;
+        border-right: 1px solid var(--border);
+      }
+
+      .nav-section {
+        margin-bottom: 1.5rem;
+      }
+
+      .nav-title {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-3);
+        margin-bottom: 8px;
+        padding: 0 8px;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        color: var(--text-2);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 6px;
+        transition: all 0.2s;
+        margin-bottom: 2px;
+      }
+
+      .nav-link:hover {
+        background: var(--bg-2);
+        color: var(--text-1);
+      }
+
+      .nav-link.active {
+        background: var(--accent);
+        color: white;
+        font-weight: 600;
+      }
+
+      .nav-icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Content */
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        min-width: 0;
+      }
+
+      .content {
+        flex: 1;
+        padding: 2.5rem;
+        max-width: 800px;
+      }
+
+      /* Jump To Menu */
+      .jump-menu {
+        width: 220px;
+        flex-shrink: 0;
+        padding: 2rem 1rem;
+      }
+
+      .jump-menu-inner {
+        position: sticky;
+        top: 80px;
+        max-height: calc(100vh - 160px);
+        overflow-y: auto;
+      }
+
+      .jump-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-3);
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .jump-list {
+        list-style: none;
+      }
+
+      .jump-link {
+        display: block;
+        padding: 6px 0 6px 12px;
+        color: var(--text-2);
+        text-decoration: none;
+        font-size: 13px;
+        border-left: 2px solid transparent;
+        transition: all 0.2s;
+      }
+
+      .jump-link:hover {
+        color: var(--accent);
+        border-left-color: var(--accent);
+      }
+
+      .jump-link.active {
+        color: var(--accent);
+        border-left-color: var(--accent);
+        font-weight: 600;
+      }
+
+      .jump-link.level-3 {
+        padding-left: 24px;
+        font-size: 12px;
+      }
+
+      /* Prose */
+      .prose h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.5px;
+      }
+
+      .prose h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+        scroll-margin-top: 80px;
+      }
+
+      .prose h3 {
+        font-size: 1.375rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+        scroll-margin-top: 80px;
+      }
+
+      .prose h4 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .prose p {
+        margin: 1rem 0;
+        line-height: 1.7;
+        color: var(--text-2);
+      }
+
+      .prose a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .prose a:hover {
+        text-decoration: underline;
+      }
+
+      .prose code {
+        background: var(--bg-3);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-weight: 500;
+        font-family: "JetBrains Mono", monospace;
+        color: var(--accent);
+      }
+
+      .prose pre {
+        background: #1a1b26;
+        padding: 1.25rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 1.25rem 0;
+      }
+
+      .prose pre code {
+        background: transparent;
+        padding: 0;
+        color: inherit;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .prose ul,
+      .prose ol {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+      }
+
+      .prose li {
+        margin: 0.5rem 0;
+        color: var(--text-2);
+      }
+
+      .prose strong {
+        font-weight: 600;
+        color: var(--text-1);
+      }
+
+      .prose hr {
+        border: none;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border),
+          transparent
+        );
+        margin: 3rem 0;
+        position: relative;
+      }
+
+      .prose hr::before {
+        content: "✦";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--bg-1);
+        padding: 0 1rem;
+        color: var(--text-3);
+        font-size: 12px;
+      }
+
+      .prose blockquote {
+        border-left: 3px solid var(--accent);
+        padding-left: 1rem;
+        margin: 1rem 0;
+        color: var(--text-2);
+        font-style: italic;
+      }
+
+      /* Responsive */
+      @media (max-width: 1200px) {
+        .jump-menu {
+          display: none;
+        }
+
+        .content {
+          max-width: 100%;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .mobile-menu-btn {
+          display: flex;
+        }
+
+        .sidebar {
+          position: fixed;
+          left: -280px;
+          top: 60px;
+          z-index: 999;
+          background: var(--bg-1);
+          transition: left 0.3s;
+          box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+          border-right: 1px solid var(--border);
+        }
+
+        .sidebar.open {
+          left: 0;
+        }
+
+        .content {
+          padding: 2rem 1.5rem;
+        }
+
+        .mobile-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 998;
+          display: none;
+        }
+
+        .mobile-overlay.show {
+          display: block;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .logo-text {
+          display: none;
+        }
+
+        .search-btn {
+          max-width: 150px;
+        }
+
+        .search-btn-text {
+          font-size: 13px;
+        }
+
+        .kbd {
+          display: none;
+        }
+
+        .header-inner {
+          padding: 0 1rem;
+        }
+
+        .content {
+          padding: 1.5rem 1rem;
+        }
+
+        .next-cards {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-bottom {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+      }
+
+      /* Code Copy Button */
+      .code-block {
+        position: relative;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        padding: 6px 12px;
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-2);
+        cursor: pointer;
+        opacity: 0;
+        transition: all 0.2s;
+      }
+
+      .code-block:hover .copy-btn {
+        opacity: 1;
+      }
+
+      .copy-btn:hover {
+        background: var(--bg-3);
+        color: var(--accent);
+      }
+
+      .copy-btn.copied {
+        color: var(--accent);
+      }
+
+      /* Next Steps Cards */
+      .next-steps {
+        margin: 3rem 0;
+        padding: 2rem;
+        background: linear-gradient(135deg, var(--bg-2), var(--bg-3));
+        border-radius: 12px;
+        border: 1px solid var(--border);
+      }
+
+      .next-steps-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--text-1);
+      }
+
+      .next-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+
+      .next-card {
+        padding: 1.5rem;
+        background: var(--bg-1);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .next-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        border-color: var(--accent);
+      }
+
+      .next-card-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-light));
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-bottom: 0.5rem;
+      }
+
+      .next-card-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-1);
+      }
+
+      .next-card-desc {
+        font-size: 0.875rem;
+        color: var(--text-2);
+        line-height: 1.5;
+      }
+
+      .next-card-arrow {
+        margin-top: auto;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.875rem;
+      }
+
+      /* Sponsor Button */
+      .sponsor-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: linear-gradient(135deg, #ec4899, #f43f5e);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s;
+        box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+      }
+
+      .sponsor-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(236, 72, 153, 0.4);
+      }
+
+      /* Footer */
+      .footer {
+        margin-top: 0;
+        padding: 3rem 2.5rem 2rem;
+        background: linear-gradient(135deg, var(--bg-2), var(--bg-3));
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-section h4 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-1);
+      }
+
+      .footer-section p {
+        font-size: 14px;
+        color: var(--text-2);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+
+      .footer-link {
+        display: block;
+        font-size: 14px;
+        color: var(--text-2);
+        text-decoration: none;
+        margin-bottom: 0.5rem;
+        transition: color 0.2s;
+      }
+
+      .footer-link:hover {
+        color: var(--accent);
+      }
+
+      .footer-bottom {
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        color: var(--text-3);
+      }
+
+      .footer-bottom a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .footer-bottom a:hover {
+        text-decoration: underline;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-3);
+      }
+
+      @media (max-width: 768px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-bottom {
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+    </style>
   </head>
-  <body>
+  <body x-data="docsApp()" x-init="init()" :class="{ 'dark': darkMode }">
     <!-- Header -->
     <header class="header">
-      <div class="header-content">
-        <a href="index.html" class="logo">
-          <div class="logo-icon">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              />
-            </svg>
-          </div>
-          <span>ForgePulse</span>
+      <div class="header-inner">
+        <button
+          @click="sidebarOpen = !sidebarOpen"
+          class="icon-btn mobile-menu-btn"
+        >
+          <svg
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+
+        <a href="./" class="logo">
+          <div class="logo-icon">FP</div>
+          <span class="logo-text">ForgePulse</span>
         </a>
 
-        <nav class="header-nav">
-          <a href="index.html" class="header-link active">Documentation</a>
-          <a href="examples.html" class="header-link">Examples</a>
-          <a href="api-reference.html" class="header-link">API</a>
-          <a
-            href="https://github.com/alizharb/forgepulse/blob/main/CHANGELOG.md"
-            class="header-link"
-            target="_blank"
-            >Changelog</a
+        <div class="search-btn" @click="searchOpen = true">
+          <svg
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-        </nav>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <span class="search-btn-text">Search...</span>
+          <div style="display: flex; gap: 4px">
+            <span class="kbd">⌘K</span>
+          </div>
+        </div>
 
-        <div class="header-actions">
-          <button
-            @click="mobileMenuOpen = !mobileMenuOpen"
-            class="btn btn-ghost btn-icon mobile-menu-toggle"
-            title="Toggle menu"
+        <div style="display: flex; align-items: center; gap: 0.75rem">
+          <a
+            href="https://github.com/sponsors/AlizHarb"
+            target="_blank"
+            class="sponsor-btn"
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
               />
             </svg>
-          </button>
+            Sponsor
+          </a>
+
           <a
-            href="https://github.com/alizharb/forgepulse"
-            class="btn btn-ghost btn-icon"
+            href="https://github.com/AlizHarb/forgepulse"
             target="_blank"
-            title="View on GitHub"
+            class="icon-btn"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
               <path
                 d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
               />
             </svg>
           </a>
-          <button
-            @click="darkMode = !darkMode"
-            class="btn btn-ghost btn-icon"
-            title="Toggle dark mode"
-          >
+          <button @click="darkMode = !darkMode" class="icon-btn">
             <svg
               x-show="!darkMode"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-              />
-            </svg>
-            <svg
-              x-show="darkMode"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
-          <a href="#installation" class="btn btn-primary">Get Started</a>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Layout -->
-    <div class="docs-layout">
-      <!-- Sidebar Navigation -->
-      <aside class="sidebar" x-show="mobileMenuOpen || window.innerWidth >= 768" x-cloak>
-        <nav>
-          <div class="nav-section">
-            <div class="nav-title">Getting Started</div>
-            <a href="#introduction" class="nav-link">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
-              Introduction
-            </a>
-            <a href="#installation" class="nav-link">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                />
-              </svg>
-              Installation
-            </a>
-            <a href="#quick-start" class="nav-link">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
-              Quick Start
-            </a>
-            <a href="#configuration" class="nav-link">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-              Configuration
-            </a>
-          </div>
-
-          <div class="nav-section">
-            <div class="nav-title">Core Concepts</div>
-            <a href="#workflows" class="nav-link">Workflows</a>
-            <a href="#steps" class="nav-link">Steps</a>
-            <a href="#execution" class="nav-link">Execution</a>
-            <a href="#templates" class="nav-link">Templates</a>
-            <a href="#conditions" class="nav-link">Conditional Logic</a>
-          </div>
-
-          <div class="nav-section">
-            <div class="nav-title">Step Types</div>
-            <a href="#step-action" class="nav-link">Action</a>
-            <a href="#step-condition" class="nav-link">Condition</a>
-            <a href="#step-delay" class="nav-link">Delay</a>
-            <a href="#step-notification" class="nav-link">Notification</a>
-            <a href="#step-webhook" class="nav-link">Webhook</a>
-            <a href="#step-event" class="nav-link">Event</a>
-            <a href="#step-job" class="nav-link">Job</a>
-          </div>
-
-          <div class="nav-section">
-            <div class="nav-title">v1.1.0 Features</div>
-            <a href="#timeout-orchestration" class="nav-link">⏱️ Timeout Orchestration</a>
-            <a href="#pause-resume" class="nav-link">⏸️ Pause/Resume</a>
-            <a href="#parallel-execution" class="nav-link">🔄 Parallel Execution</a>
-            <a href="#scheduling" class="nav-link">📅 Scheduling</a>
-            <a href="#rest-api" class="nav-link">🌐 REST API</a>
-          </div>
-
-          <div class="nav-section">
-            <div class="nav-title">Advanced</div>
-            <a href="#events" class="nav-link">Events</a>
-            <a href="#permissions" class="nav-link">Permissions</a>
-            <a href="#localization" class="nav-link">Localization</a>
-            <a href="#testing" class="nav-link">Testing</a>
-          </div>
-
-          <div class="nav-section">
-            <div class="nav-title">Resources</div>
-            <a href="#examples" class="nav-link">Examples</a>
-            <a href="#api-reference" class="nav-link">API Reference</a>
-            <a
-              href="https://github.com/alizharb/forgepulse"
-              class="nav-link"
-              target="_blank"
-            >
-              GitHub →
-            </a>
-          </div>
-        </nav>
-      </aside>
-
-      <!-- Main Content -->
-      <main class="content">
-        <!-- Introduction -->
-        <section id="introduction">
-          <h1>ForgePulse</h1>
-          
-          <div class="alert alert-info" style="margin-bottom: 2rem; border-left: 4px solid var(--accent); background: var(--bg-2); padding: 1rem;">
-            <strong>Note:</strong> This project was formerly known as <strong>FlowForge</strong>. It has been renamed to <strong>ForgePulse</strong>.
-          </div>
-
-          <p class="lead">
-            A powerful, production-ready Laravel 12 package that provides a
-            visual drag-and-drop workflow builder with conditional branching,
-            real-time execution tracking, and comprehensive integration
-            capabilities.
-          </p>
-
-          <div
-            style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 2rem 0"
-          >
-            <span class="badge badge-primary">
-              <svg fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              Laravel 12
-            </span>
-            <span class="badge badge-primary">
-              <svg fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              Livewire 4
-            </span>
-            <span class="badge badge-primary">
-              <svg fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              PHP 8.3-8.5
-            </span>
-            <span class="badge badge-success">
-              <svg fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              Production Ready
-            </span>
-          </div>
-
-          <div class="card-grid">
-            <div class="feature-card fade-in">
-              <div class="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                  />
-                </svg>
-              </div>
-              <h3
-                style="
-                  font-size: 1.125rem;
-                  font-weight: 700;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Drag & Drop Builder
-              </h3>
-              <p
-                style="
-                  font-size: 0.9375rem;
-                  margin: 0;
-                  color: var(--text-secondary);
-                "
-              >
-                Visual workflow designer with real-time updates using Livewire 4
-              </p>
-            </div>
-
-            <div class="feature-card fade-in" style="animation-delay: 0.1s">
-              <div class="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M8 16l-4-4m0 0l4-4m-4 4h16"
-                  />
-                </svg>
-              </div>
-              <h3
-                style="
-                  font-size: 1.125rem;
-                  font-weight: 700;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Conditional Logic
-              </h3>
-              <p
-                style="
-                  font-size: 0.9375rem;
-                  margin: 0;
-                  color: var(--text-secondary);
-                "
-              >
-                Complex boolean expressions with 15+ comparison operators
-              </p>
-            </div>
-
-            <div class="feature-card fade-in" style="animation-delay: 0.2s">
-              <div class="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-              </div>
-              <h3
-                style="
-                  font-size: 1.125rem;
-                  font-weight: 700;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Real-Time Tracking
-              </h3>
-              <p
-                style="
-                  font-size: 0.9375rem;
-                  margin: 0;
-                  color: var(--text-secondary);
-                "
-              >
-                Live execution monitoring with performance metrics
-              </p>
-            </div>
-
-            <div class="feature-card fade-in" style="animation-delay: 0.3s">
-              <div class="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
-                  />
-                </svg>
-              </div>
-              <h3
-                style="
-                  font-size: 1.125rem;
-                  font-weight: 700;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Multi-Language
-              </h3>
-              <p
-                style="
-                  font-size: 0.9375rem;
-                  margin: 0;
-                  color: var(--text-secondary);
-                "
-              >
-                Built-in support for 5 languages with RTL
-              </p>
-            </div>
-
-            <div class="feature-card fade-in" style="animation-delay: 0.4s">
-              <div class="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-              </div>
-              <h3
-                style="
-                  font-size: 1.125rem;
-                  font-weight: 700;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Template System
-              </h3>
-              <p
-                style="
-                  font-size: 0.9375rem;
-                  margin: 0;
-                  color: var(--text-secondary);
-                "
-              >
-                Save, load, and share workflow configurations
-              </p>
-            </div>
-
-            <div class="feature-card fade-in" style="animation-delay: 0.5s">
-              <div class="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                  />
-                </svg>
-              </div>
-              <h3
-                style="
-                  font-size: 1.125rem;
-                  font-weight: 700;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                Secure & Tested
-              </h3>
-              <p
-                style="
-                  font-size: 0.9375rem;
-                  margin: 0;
-                  color: var(--text-secondary);
-                "
-              >
-                Policy-based authorization with comprehensive tests
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <!-- Installation -->
-        <section id="installation">
-          <h2>Installation</h2>
-          <p>Get started with ForgePulse in minutes using Composer.</p>
-
-          <details open>
-            <summary>📦 Step 1: Install via Composer</summary>
-            <p style="margin-top: 1rem; margin-bottom: 1rem">
-              Install the package using Composer:
-            </p>
-            <pre><code class="language-bash">composer require alizharb/forgepulse</code></pre>
-          </details>
-
-          <details>
-            <summary>⚙️ Step 2: Publish Configuration</summary>
-            <p style="margin-top: 1rem; margin-bottom: 1rem">
-              Publish the configuration file to customize ForgePulse:
-            </p>
-            <pre><code class="language-bash">php artisan vendor:publish --tag=forgepulse-config</code></pre>
-            <p style="color: var(--text-secondary); font-size: 0.9375rem">
-              This creates <code>config/forgepulse.php</code> where you can
-              configure execution settings, permissions, and more.
-            </p>
-          </details>
-
-          <details>
-            <summary>🗄️ Step 3: Run Migrations</summary>
-            <p style="margin-top: 1rem; margin-bottom: 1rem">
-              Publish and run the database migrations:
-            </p>
-            <pre><code class="language-bash">php artisan vendor:publish --tag=forgepulse-migrations
-php artisan migrate</code></pre>
-            <p style="color: var(--text-secondary); font-size: 0.9375rem">
-              This creates 4 tables: <code>workflows</code>,
-              <code>workflow_steps</code>, <code>workflow_executions</code>, and
-              <code>workflow_execution_logs</code>.
-            </p>
-          </details>
-
-          <details>
-            <summary>🎨 Step 4: Publish Assets (Optional)</summary>
-            <p style="margin-top: 1rem; margin-bottom: 1rem">
-              Optionally publish views, assets, and language files:
-            </p>
-            <pre><code class="language-bash"># Publish Blade views
-php artisan vendor:publish --tag=forgepulse-views
-
-# Publish CSS/JS assets
-php artisan vendor:publish --tag=forgepulse-assets
-
-# Publish language files
-php artisan vendor:publish --tag=forgepulse-lang</code></pre>
-          </details>
-
-          <div class="alert alert-success" style="margin-top: 2rem">
-            <svg
-              style="width: 1.5rem; height: 1.5rem; flex-shrink: 0"
+              width="18"
+              height="18"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -573,512 +934,293 @@ php artisan vendor:publish --tag=forgepulse-lang</code></pre>
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
               />
             </svg>
-            <div>
-              <strong>All set!</strong> You're ready to create your first
-              workflow. Continue to the Quick Start section.
-            </div>
-          </div>
-        </section>
+            <svg
+              x-show="darkMode"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
 
-        <!-- Quick Start -->
-        <section id="quick-start">
-          <h2>Quick Start</h2>
-          <p>Create your first workflow in under 5 minutes.</p>
-
-          <h3>1. Create a Workflow</h3>
-          <pre><code class="language-php">use AlizHarb\ForgePulse\Models\Workflow;
-use AlizHarb\ForgePulse\Enums\WorkflowStatus;
-
-$workflow = Workflow::create([
-    'name' => 'User Onboarding',
-    'description' => 'Automated user onboarding process',
-    'status' => WorkflowStatus::ACTIVE,
-]);</code></pre>
-
-          <h3>2. Add Steps</h3>
-          <pre><code class="language-php">use AlizHarb\ForgePulse\Enums\StepType;
-
-// Send welcome email
-$workflow->steps()->create([
-    'name' => 'Send Welcome Email',
-    'type' => StepType::NOTIFICATION,
-    'position' => 1,
-    'configuration' => [
-        'notification_class' => \App\Notifications\WelcomeEmail::class,
-        'recipients' => ['{{user_id}}'],
-    ],
-]);
-
-// Wait 24 hours
-$workflow->steps()->create([
-    'name' => 'Wait 24 Hours',
-    'type' => StepType::DELAY,
-    'position' => 2,
-    'configuration' => [
-        'seconds' => 86400,
-    ],
-]);</code></pre>
-
-          <h3>3. Execute the Workflow</h3>
-          <pre><code class="language-php">// Execute asynchronously (queued)
-$execution = $workflow->execute([
-    'user_id' => $user->id,
-    'email' => $user->email,
-]);
-
-// Execute synchronously
-$execution = $workflow->execute(['user_id' => $user->id], async: false);</code></pre>
-
-          <h3>4. Use the Visual Builder</h3>
-          <pre><code class="language-blade">&lt;livewire:forgepulse::workflow-builder :workflow="$workflow" /&gt;</code></pre>
-        </section>
-
-        <!-- Sponsor Section -->
-        <div class="sponsor-section">
-          <h3>💖 Support ForgePulse Development</h3>
-          <p>
-            Help us maintain and improve ForgePulse by becoming a sponsor. Your
-            support enables us to dedicate more time to adding features, fixing
-            bugs, and creating better documentation.
-          </p>
-          <div
-            style="
-              display: flex;
-              gap: 1rem;
-              justify-content: center;
-              flex-wrap: wrap;
-            "
+    <!-- Search Modal -->
+    <div
+      x-show="searchOpen"
+      x-cloak
+      class="search-modal"
+      @click.self="searchOpen = false"
+      @keydown.escape.window="searchOpen = false"
+    >
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <svg
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            style="color: var(--text-3)"
           >
-            <a
-              href="https://github.com/sponsors/alizharb"
-              class="btn"
-              style="background: white; color: #667eea"
-              target="_blank"
-            >
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-                />
-              </svg>
-              Become a Sponsor
-            </a>
-            <a
-              href="https://github.com/alizharb/forgepulse"
-              class="btn"
-              style="
-                background: rgba(255, 255, 255, 0.2);
-                color: white;
-                border: 1px solid rgba(255, 255, 255, 0.3);
-              "
-              target="_blank"
-            >
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                />
-              </svg>
-              Star on GitHub
-            </a>
-          </div>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search documentation..."
+            x-model="searchQuery"
+            @input="search()"
+            x-ref="searchInput"
+          />
         </div>
 
-        <!-- Continue with more sections... -->
-        <section id="workflows">
-          <h2>Workflows</h2>
-          <p>Learn how to create and manage workflows effectively.</p>
-          <!-- Content continues... -->
-        </section>
+        <div class="search-results" x-show="searchResults.length > 0">
+          <template
+            x-for="(section, sectionName) in groupedResults"
+            :key="sectionName"
+          >
+            <div>
+              <div class="search-section" x-text="sectionName"></div>
+              <template x-for="result in section" :key="result.id">
+                <div class="search-result" @click="goToResult(result)">
+                  <div class="result-title" x-text="result.title"></div>
+                  <div class="result-snippet" x-html="result.snippet"></div>
+                </div>
+              </template>
+            </div>
+          </template>
+        </div>
 
-        <!-- v1.1.0 Features -->
-        <section id="timeout-orchestration">
-          <h2>⏱️ Timeout Orchestration</h2>
-          <p class="lead">
-            Prevent long-running operations by configuring step-level timeouts. If a step exceeds its timeout, it will be automatically terminated.
-          </p>
+        <div
+          x-show="searchQuery.length > 0 && searchResults.length === 0"
+          class="search-empty"
+        >
+          No results found for "<span x-text="searchQuery"></span>"
+        </div>
+      </div>
+    </div>
 
-          <div class="alert alert-info">
-            <strong>Requirements:</strong> The <code>pcntl</code> PHP extension is required for timeout enforcement. The feature gracefully degrades if the extension is not available.
-          </div>
+    <!-- Mobile Overlay -->
+    <div
+      class="mobile-overlay"
+      :class="{ 'show': sidebarOpen }"
+      @click="sidebarOpen = false"
+    ></div>
 
-          <h3>Basic Usage</h3>
-          <pre><code class="language-php">use AlizHarb\ForgePulse\Models\WorkflowStep;
+    <!-- Layout -->
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar" :class="{ 'open': sidebarOpen }">
+        <div class="nav-section">
+          <div class="nav-title">Getting Started</div>
+          <a
+            href="#"
+            @click.prevent="loadPage('introduction')"
+            class="nav-link"
+            :class="{ 'active': currentPage === 'introduction' }"
+          >
+            <svg
+              class="nav-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            Introduction
+          </a>
+          <a
+            href="#"
+            @click.prevent="loadPage('installation')"
+            class="nav-link"
+            :class="{ 'active': currentPage === 'installation' }"
+          >
+            <svg
+              class="nav-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              />
+            </svg>
+            Installation
+          </a>
+          <a
+            href="#"
+            @click.prevent="loadPage('quick-start')"
+            class="nav-link"
+            :class="{ 'active': currentPage === 'quick-start' }"
+          >
+            <svg
+              class="nav-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
+            Quick Start
+          </a>
+          <a
+            href="#"
+            @click.prevent="loadPage('configuration')"
+            class="nav-link"
+            :class="{ 'active': currentPage === 'configuration' }"
+          >
+            <svg
+              class="nav-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+            Configuration
+          </a>
+        </div>
 
-// Set timeout for a step (in seconds)
-$step->update([
-    'timeout' => 30, // 30 seconds
-]);
+        <div class="nav-section">
+          <div class="nav-title">Core Concepts</div>
+          <a
+            href="#"
+            @click.prevent="loadPage('workflows')"
+            class="nav-link"
+            :class="{ 'active': currentPage === 'workflows' }"
+          >
+            <svg
+              class="nav-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+              />
+            </svg>
+            Workflows
+          </a>
+          <a
+            href="#"
+            @click.prevent="loadPage('steps')"
+            class="nav-link"
+            :class="{ 'active': currentPage === 'steps' }"
+          >
+            <svg
+              class="nav-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+            Steps
+          </a>
+        </div>
 
-// The step will be terminated if it runs longer than 30 seconds</code></pre>
+        <div class="nav-section">
+          <div class="nav-title">Features</div>
+          <a
+            href="#"
+            @click.prevent="loadPage('features')"
+            class="nav-link"
+            :class="{ 'active': currentPage === 'features' }"
+          >
+            <svg
+              class="nav-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
+            v1.1.0 Features
+          </a>
+        </div>
 
-          <h3>Example: API Call with Timeout</h3>
-          <pre><code class="language-php">$workflow = Workflow::create([
-    'name' => 'External API Integration',
-]);
-
-$step = $workflow->steps()->create([
-    'name' => 'Fetch User Data from API',
-    'type' => StepType::WEBHOOK,
-    'timeout' => 10, // 10 second timeout
-    'configuration' => [
-        'url' => 'https://api.example.com/users',
-        'method' => 'GET',
-    ],
-]);</code></pre>
-
-          <h3>How It Works</h3>
-          <ul>
-            <li>Uses <code>pcntl_alarm()</code> to set a signal-based timeout</li>
-            <li>Throws <code>StepTimeoutException</code> when timeout is exceeded</li>
-            <li>Execution log is marked as failed with timeout message</li>
-            <li>Workflow can continue or fail based on error handling</li>
-          </ul>
-        </section>
-
-        <section id="pause-resume">
-          <h2>⏸️ Pause/Resume Workflows</h2>
-          <p class="lead">
-            Pause workflow executions mid-flow for manual intervention, approvals, or external dependencies. Resume when ready.
-          </p>
-
-          <h3>Pausing an Execution</h3>
-          <pre><code class="language-php">use AlizHarb\ForgePulse\Models\WorkflowExecution;
-
-$execution = WorkflowExecution::find(1);
-
-// Pause with optional reason
-$execution->pause('Waiting for manager approval');
-
-// Check if paused
-if ($execution->isPaused()) {
-    echo "Paused at: " . $execution->paused_at;
-    echo "Reason: " . $execution->pause_reason;
-}</code></pre>
-
-          <h3>Resuming an Execution</h3>
-          <pre><code class="language-php">// Resume the execution
-$execution->resume();
-
-// The workflow will continue from where it was paused</code></pre>
-
-          <h3>Example: Approval Workflow</h3>
-          <pre><code class="language-php">// In your workflow handler
-class ApprovalHandler
-{
-    public function handle(WorkflowStep $step, array $context): array
-    {
-        $execution = WorkflowExecution::find($context['execution_id']);
-        
-        // Pause for approval
-        $execution->pause('Awaiting manager approval');
-        
-        // Send notification to manager
-        Notification::send(
-            User::find($context['manager_id']),
-            new ApprovalRequiredNotification($execution)
-        );
-        
-        return $context;
-    }
-}
-
-// In your approval controller
-public function approve(WorkflowExecution $execution)
-{
-    $execution->resume();
-    
-    return response()->json(['message' => 'Workflow resumed']);
-}</code></pre>
-
-          <h3>API Integration</h3>
-          <pre><code class="language-bash"># Pause via API
-curl -X POST https://your-app.com/api/forgepulse/executions/1/pause \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{"reason": "Manual review required"}'
-
-# Resume via API
-curl -X POST https://your-app.com/api/forgepulse/executions/1/resume \
-  -H "Authorization: Bearer YOUR_TOKEN"</code></pre>
-        </section>
-
-        <section id="parallel-execution">
-          <h2>🔄 Parallel Execution</h2>
-          <p class="lead">
-            Execute multiple workflow steps concurrently for improved performance. Group steps together to run in parallel.
-          </p>
-
-          <h3>Basic Configuration</h3>
-          <pre><code class="language-php">// Configure steps to run in parallel
-$step1 = $workflow->steps()->create([
-    'name' => 'Send Welcome Email',
-    'type' => StepType::NOTIFICATION,
-    'execution_mode' => 'parallel',
-    'parallel_group' => 'notifications',
-    'configuration' => [
-        'notification_class' => WelcomeEmail::class,
-    ],
-]);
-
-$step2 = $workflow->steps()->create([
-    'name' => 'Send SMS Notification',
-    'type' => StepType::NOTIFICATION,
-    'execution_mode' => 'parallel',
-    'parallel_group' => 'notifications',
-    'configuration' => [
-        'notification_class' => WelcomeSMS::class,
-    ],
-]);
-
-// Both steps will execute concurrently</code></pre>
-
-          <h3>Example: Multi-Channel Notifications</h3>
-          <pre><code class="language-php">$workflow = Workflow::create([
-    'name' => 'User Onboarding',
-]);
-
-// These will run in parallel
-$parallelSteps = [
-    ['name' => 'Email', 'class' => WelcomeEmail::class],
-    ['name' => 'SMS', 'class' => WelcomeSMS::class],
-    ['name' => 'Slack', 'class' => SlackNotification::class],
-    ['name' => 'Webhook', 'class' => WebhookNotification::class],
-];
-
-foreach ($parallelSteps as $config) {
-    $workflow->steps()->create([
-        'name' => "Send {$config['name']}",
-        'type' => StepType::NOTIFICATION,
-        'execution_mode' => 'parallel',
-        'parallel_group' => 'onboarding-notifications',
-        'configuration' => [
-            'notification_class' => $config['class'],
-        ],
-    ]);
-}</code></pre>
-
-          <h3>Performance Benefits</h3>
-          <div class="alert alert-success">
-            <strong>Example:</strong> Instead of 4 notifications taking 4 seconds sequentially, they complete in ~1 second when run in parallel.
-          </div>
-
-          <h3>Best Practices</h3>
-          <ul>
-            <li>Use parallel execution for independent operations (notifications, API calls)</li>
-            <li>Group related parallel steps with the same <code>parallel_group</code></li>
-            <li>Avoid parallel execution for steps that depend on each other</li>
-            <li>Monitor resource usage when running many parallel steps</li>
-          </ul>
-        </section>
-
-        <section id="scheduling">
-          <h2>📅 Execution Scheduling</h2>
-          <p class="lead">
-            Schedule workflows to execute at a specific time in the future. Perfect for delayed tasks, reminders, and time-based automation.
-          </p>
-
-          <h3>Schedule a Workflow</h3>
-          <pre><code class="language-php">use AlizHarb\ForgePulse\Models\Workflow;
-
-$workflow = Workflow::find(1);
-
-// Schedule for 2 hours from now
-$execution = $workflow->execute([
-    'scheduled_at' => now()->addHours(2),
-    'context' => [
-        'user_id' => 123,
-        'action' => 'send_reminder',
-    ],
-]);</code></pre>
-
-          <h3>Example: Reminder System</h3>
-          <pre><code class="language-php">class ReminderController
-{
-    public function scheduleReminder(Request $request)
-    {
-        $workflow = Workflow::where('name', 'Send Reminder')->first();
-        
-        $execution = $workflow->execute([
-            'scheduled_at' => Carbon::parse($request->reminder_time),
-            'context' => [
-                'user_id' => $request->user_id,
-                'message' => $request->message,
-            ],
-        ]);
-        
-        return response()->json([
-            'message' => 'Reminder scheduled',
-            'execution_id' => $execution->id,
-            'scheduled_for' => $execution->scheduled_at,
-        ]);
-    }
-}</code></pre>
-
-          <h3>Example: Delayed Onboarding</h3>
-          <pre><code class="language-php">// Send follow-up email 24 hours after signup
-$onboardingWorkflow = Workflow::where('name', 'Day 1 Follow-up')->first();
-
-$onboardingWorkflow->execute([
-    'scheduled_at' => now()->addDay(),
-    'context' => [
-        'user_id' => $newUser->id,
-        'signup_date' => now(),
-    ],
-]);</code></pre>
-
-          <h3>Recurring Schedules</h3>
-          <pre><code class="language-php">// Store recurring schedule configuration
-$execution->update([
-    'schedule_config' => [
-        'frequency' => 'daily',
-        'time' => '09:00',
-        'timezone' => 'America/New_York',
-    ],
-]);</code></pre>
-
-          <div class="alert alert-info">
-            <strong>Note:</strong> You'll need to set up a Laravel scheduler or cron job to check for and execute scheduled workflows.
-          </div>
-        </section>
-
-        <section id="rest-api">
-          <h2>🌐 REST API</h2>
-          <p class="lead">
-            ForgePulse provides a comprehensive REST API for mobile monitoring, integrations, and remote workflow management.
-          </p>
-
-          <h3>Configuration</h3>
-          <pre><code class="language-php">// config/forgepulse.php
-'api' => [
-    'enabled' => true,
-    'middleware' => ['api', 'auth:sanctum'],
-    'rate_limit' => '60,1', // 60 requests per minute
-],</code></pre>
-
-          <h3>Available Endpoints</h3>
-
-          <h4>Workflows</h4>
-          <pre><code class="language-bash"># List all workflows
-GET /api/forgepulse/workflows
-
-# Get workflow details
-GET /api/forgepulse/workflows/{id}
-
-# Response example
-{
-  "id": 1,
-  "name": "User Onboarding",
-  "description": "Automated user onboarding process",
-  "status": "active",
-  "steps_count": 5,
-  "executions_count": 142,
-  "created_at": "2025-11-26T12:00:00.000Z"
-}</code></pre>
-
-          <h4>Executions</h4>
-          <pre><code class="language-bash"># List all executions
-GET /api/forgepulse/executions
-
-# Get execution details
-GET /api/forgepulse/executions/{id}
-
-# Response example
-{
-  "id": 1,
-  "workflow_id": 1,
-  "status": "running",
-  "is_paused": false,
-  "duration": 45,
-  "started_at": "2025-11-26T12:00:00.000Z",
-  "logs": [...]
-}</code></pre>
-
-          <h4>Pause/Resume</h4>
-          <pre><code class="language-bash"># Pause execution
-POST /api/forgepulse/executions/{id}/pause
-Content-Type: application/json
-
-{
-  "reason": "Manual review required"
-}
-
-# Resume execution
-POST /api/forgepulse/executions/{id}/resume</code></pre>
-
-          <h3>Authentication</h3>
-          <pre><code class="language-php">// Generate API token (Laravel Sanctum)
-$token = $user->createToken('mobile-app')->plainTextToken;
-
-// Use in requests
-curl -H "Authorization: Bearer {$token}" \
-  https://your-app.com/api/forgepulse/workflows</code></pre>
-
-          <h3>Example: Mobile App Integration</h3>
-          <pre><code class="language-javascript">// React Native / Flutter example
-async function fetchWorkflows() {
-  const response = await fetch(
-    'https://your-app.com/api/forgepulse/workflows',
-    {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json',
-      }
-    }
-  );
-  
-  const data = await response.json();
-  return data.data; // Array of workflows
-}
-
-async function pauseExecution(executionId, reason) {
-  await fetch(
-    `https://your-app.com/api/forgepulse/executions/${executionId}/pause`,
-    {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ reason })
-    }
-  );
-}</code></pre>
-
-          <h3>Rate Limiting</h3>
-          <div class="alert alert-warning">
-            <strong>Default:</strong> 60 requests per minute. Configure in <code>config/forgepulse.php</code>.
-          </div>
-
-          <h3>API Resources</h3>
-          <p>All API responses use JSON:API-compliant resources:</p>
-          <ul>
-            <li><code>WorkflowResource</code> - Workflow data with relationships</li>
-            <li><code>ExecutionResource</code> - Execution data with logs</li>
-            <li><code>StepResource</code> - Step configuration and status</li>
-            <li><code>LogResource</code> - Execution log entries</li>
-          </ul>
-        </section>
-
-      </main>
-
-      <!-- Table of Contents -->
-      <aside class="toc">
-        <div class="toc-title">On This Page</div>
-        <div class="toc-links">
-          <!-- Auto-generated by docs.js -->
+        <div class="nav-section">
+          <div class="nav-title">Resources</div>
+          <a
+            href="https://github.com/alizharb/forgepulse"
+            class="nav-link"
+            target="_blank"
+          >
+            GitHub →
+          </a>
         </div>
       </aside>
+
+      <!-- Content Wrapper -->
+      <div class="content-wrapper">
+        <main class="content">
+          <div id="content" class="prose"></div>
+          <div id="next-steps"></div>
+        </main>
+
+        <!-- Jump Menu -->
+        <aside class="jump-menu">
+          <div class="jump-menu-inner">
+            <div class="jump-title">On This Page</div>
+            <ul class="jump-list" id="jump-list"></ul>
+          </div>
+        </aside>
+      </div>
     </div>
 
     <!-- Footer -->
@@ -1086,54 +1228,465 @@ async function pauseExecution(executionId, reason) {
       <div class="footer-content">
         <div class="footer-grid">
           <div class="footer-section">
-            <h4 class="footer-title">ForgePulse</h4>
-            <p class="footer-description">
-              Production-ready Laravel 12 workflow builder with visual designer,
-              conditional branching, and real-time execution tracking.
+            <h4>ForgePulse</h4>
+            <p>
+              A powerful, production-ready Laravel 12 package for building
+              dynamic workflows with drag-and-drop interface and real-time
+              execution tracking.
             </p>
-            <div class="footer-version">v1.1.0</div>
           </div>
-
           <div class="footer-section">
-            <h4 class="footer-title">Documentation</h4>
-            <a href="index.html" class="footer-link">Getting Started</a>
-            <a href="index.html#installation" class="footer-link">Installation</a>
-            <a href="index.html#quick-start" class="footer-link">Quick Start</a>
-            <a href="examples.html" class="footer-link">Examples</a>
+            <h4>Links</h4>
+            <a href="https://github.com/alizharb/forgepulse" class="footer-link"
+              >GitHub</a
+            >
+            <a
+              href="https://github.com/alizharb/forgepulse/issues"
+              class="footer-link"
+              >Issues</a
+            >
+            <a
+              href="https://github.com/alizharb/forgepulse/blob/main/CHANGELOG.md"
+              class="footer-link"
+              >Changelog</a
+            >
           </div>
-
           <div class="footer-section">
-            <h4 class="footer-title">Resources</h4>
-            <a href="api-reference.html" class="footer-link">API Reference</a>
-            <a href="https://github.com/alizharb/forgepulse" target="_blank" class="footer-link">GitHub</a>
-            <a href="https://github.com/alizharb/forgepulse/blob/main/CHANGELOG.md" target="_blank" class="footer-link">Changelog</a>
-            <a href="https://github.com/alizharb/forgepulse/blob/main/UPGRADE.md" target="_blank" class="footer-link">Upgrade Guide</a>
-          </div>
-
-          <div class="footer-section">
-            <h4 class="footer-title">Community</h4>
-            <a href="https://github.com/alizharb/forgepulse/issues" target="_blank" class="footer-link">Report Issues</a>
-            <a href="https://github.com/alizharb/forgepulse/discussions" target="_blank" class="footer-link">Discussions</a>
-            <a href="https://github.com/alizharb/forgepulse/blob/main/CONTRIBUTING.md" target="_blank" class="footer-link">Contributing</a>
+            <h4>Community</h4>
+            <a href="https://github.com/sponsors/alizharb" class="footer-link"
+              >Sponsor</a
+            >
+            <a href="https://twitter.com/alizharb" class="footer-link"
+              >Twitter</a
+            >
           </div>
         </div>
-
         <div class="footer-bottom">
-          <div class="footer-copyright">
-            © 2025 <a href="https://github.com/AlizHarb" target="_blank">Ali Harb</a>. Released under the <a href="https://github.com/alizharb/forgepulse/blob/main/LICENSE.md" target="_blank">MIT License</a>.
+          <div>
+            © 2025 ForgePulse. Created by
+            <a href="https://github.com/alizharb">Ali Harb</a> (<a href="mailto:harbzali@gmail.com">harbzali@gmail.com</a>).
           </div>
-          <div class="footer-social">
-            <a href="https://github.com/alizharb/forgepulse" target="_blank" class="footer-social-link" title="GitHub">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <a
+              href="https://github.com/sponsors/alizharb"
+              class="sponsor-btn"
+              style="font-size: 13px; padding: 6px 12px;"
+            >
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                />
               </svg>
+              Sponsor
             </a>
+            <a href="https://github.com/alizharb/forgepulse/blob/main/LICENSE"
+              >MIT License</a
+            >
           </div>
         </div>
       </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="assets/js/docs.js"></script>
+    <script>
+      function docsApp() {
+        return {
+          darkMode: localStorage.getItem("darkMode") === "true",
+          searchOpen: false,
+          sidebarOpen: false,
+          searchQuery: "",
+          searchResults: [],
+          groupedResults: {},
+          currentPage: "introduction",
+          allContent: {},
+
+          pageTitles: {
+            introduction: "Introduction",
+            installation: "Installation",
+            "quick-start": "Quick Start",
+            configuration: "Configuration",
+            workflows: "Workflows",
+            steps: "Steps",
+            features: "Features",
+          },
+
+          nextSteps: {
+            introduction: [
+              {
+                title: "Installation",
+                desc: "Get started by installing ForgePulse",
+                page: "installation",
+                icon: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4",
+              },
+              {
+                title: "Quick Start",
+                desc: "Create your first workflow in 5 minutes",
+                page: "quick-start",
+                icon: "M13 10V3L4 14h7v7l9-11h-7z",
+              },
+            ],
+            installation: [
+              {
+                title: "Quick Start",
+                desc: "Build your first workflow",
+                page: "quick-start",
+                icon: "M13 10V3L4 14h7v7l9-11h-7z",
+              },
+              {
+                title: "Configuration",
+                desc: "Customize ForgePulse settings",
+                page: "configuration",
+                icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z",
+              },
+            ],
+            "quick-start": [
+              {
+                title: "Configuration",
+                desc: "Learn about configuration options",
+                page: "configuration",
+                icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z",
+              },
+              {
+                title: "GitHub",
+                desc: "View source code and contribute",
+                page: "https://github.com/alizharb/forgepulse",
+                icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4",
+              },
+            ],
+            configuration: [
+              {
+                title: "GitHub",
+                desc: "View source and contribute",
+                page: "https://github.com/alizharb/forgepulse",
+                icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4",
+              },
+            ],
+          },
+
+          init() {
+            this.$watch("darkMode", (val) =>
+              localStorage.setItem("darkMode", val)
+            );
+            this.$watch("searchOpen", (val) => {
+              if (val) {
+                setTimeout(() => this.$refs.searchInput.focus(), 100);
+              } else {
+                this.searchQuery = "";
+                this.searchResults = [];
+              }
+            });
+
+            // Preload all pages for search
+            this.preloadPages();
+
+            this.loadPage("introduction");
+
+            // Keyboard shortcuts
+            document.addEventListener("keydown", (e) => {
+              if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+                e.preventDefault();
+                this.searchOpen = true;
+              }
+            });
+
+            // Scroll spy for jump menu
+            window.addEventListener("scroll", () => this.updateActiveJump());
+          },
+
+          async preloadPages() {
+            // Load all pages in background for search
+            const pages = [
+              "introduction",
+              "installation",
+              "quick-start",
+              "configuration",
+              "workflows",
+              "steps",
+              "features",
+            ];
+            for (const page of pages) {
+              try {
+                const response = await fetch(`${page}.md`);
+                if (response.ok) {
+                  const markdown = await response.text();
+                  this.allContent[page] = markdown;
+                }
+              } catch (error) {
+                console.log(`Could not preload ${page}`);
+              }
+            }
+          },
+
+          async loadPage(page) {
+            this.currentPage = page;
+            this.sidebarOpen = false;
+
+            const contentEl = document.getElementById("content");
+            contentEl.innerHTML =
+              '<div style="text-align: center; padding: 3rem; color: var(--text-3);">Loading...</div>';
+
+            try {
+              const response = await fetch(`${page}.md`);
+              if (!response.ok) throw new Error("Not found");
+
+              const markdown = await response.text();
+              this.allContent[page] = markdown;
+
+              const html = marked.parse(markdown);
+              contentEl.innerHTML = html;
+
+              // Add copy buttons to code blocks
+              this.addCopyButtons();
+
+              // Highlight code
+              contentEl
+                .querySelectorAll("pre code")
+                .forEach((block) => hljs.highlightElement(block));
+
+              // Generate jump menu
+              this.generateJumpMenu();
+
+              // Generate next steps
+              this.generateNextSteps();
+
+              document.title = `${this.pageTitles[page]} - ForgePulse`;
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } catch (error) {
+              contentEl.innerHTML =
+                '<div style="padding: 2rem; background: var(--bg-2); border-radius: 8px;"><h3>Error</h3><p>Could not load page.</p></div>';
+            }
+          },
+
+          addCopyButtons() {
+            const codeBlocks = document.querySelectorAll(".prose pre");
+            codeBlocks.forEach((block) => {
+              block.classList.add("code-block");
+
+              const button = document.createElement("button");
+              button.className = "copy-btn";
+              button.textContent = "Copy";
+              button.onclick = () => this.copyCode(button, block);
+
+              block.appendChild(button);
+            });
+          },
+
+          copyCode(button, block) {
+            const code = block.querySelector("code").textContent;
+            navigator.clipboard.writeText(code).then(() => {
+              button.textContent = "Copied!";
+              button.classList.add("copied");
+              setTimeout(() => {
+                button.textContent = "Copy";
+                button.classList.remove("copied");
+              }, 2000);
+            });
+          },
+
+          generateNextSteps() {
+            const nextStepsEl = document.getElementById("next-steps");
+            const steps = this.nextSteps[this.currentPage];
+
+            if (!steps || steps.length === 0) {
+              nextStepsEl.innerHTML = "";
+              return;
+            }
+
+            let html =
+              '<div class="next-steps"><div class="next-steps-title">Next Steps</div><div class="next-cards">';
+
+            steps.forEach((step) => {
+              const isExternal =
+                step.page.startsWith("http") || step.page.startsWith("../");
+              const clickHandler = isExternal
+                ? ""
+                : `onclick="window.docsAppInstance.loadPage('${step.page}'); return false;"`;
+
+              html += `
+                            <a href="${
+                              isExternal ? step.page : "#"
+                            }" ${clickHandler} class="next-card" ${
+                isExternal ? 'target="_blank"' : ""
+              }>
+                                <div class="next-card-icon">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${
+                                          step.icon
+                                        }"/>
+                                    </svg>
+                                </div>
+                                <div class="next-card-title">${step.title}</div>
+                                <div class="next-card-desc">${step.desc}</div>
+                                <div class="next-card-arrow">Read more →</div>
+                            </a>
+                        `;
+            });
+
+            html += "</div></div>";
+            nextStepsEl.innerHTML = html;
+          },
+
+          generateJumpMenu() {
+            const contentEl = document.getElementById("content");
+            const headings = contentEl.querySelectorAll("h2, h3");
+            const jumpList = document.getElementById("jump-list");
+
+            jumpList.innerHTML = "";
+
+            headings.forEach((heading, index) => {
+              const id = `heading-${index}`;
+              heading.id = id;
+
+              const li = document.createElement("li");
+              const a = document.createElement("a");
+              a.href = `#${id}`;
+              a.className = `jump-link ${
+                heading.tagName === "H3" ? "level-3" : ""
+              }`;
+              a.textContent = heading.textContent;
+              a.onclick = (e) => {
+                e.preventDefault();
+                heading.scrollIntoView({ behavior: "smooth", block: "start" });
+              };
+
+              li.appendChild(a);
+              jumpList.appendChild(li);
+            });
+          },
+
+          updateActiveJump() {
+            const headings = document.querySelectorAll(".prose h2, .prose h3");
+            const jumpLinks = document.querySelectorAll(".jump-link");
+
+            let current = "";
+            headings.forEach((heading) => {
+              const rect = heading.getBoundingClientRect();
+              if (rect.top <= 100) {
+                current = heading.id;
+              }
+            });
+
+            jumpLinks.forEach((link) => {
+              link.classList.remove("active");
+              if (link.getAttribute("href") === `#${current}`) {
+                link.classList.add("active");
+              }
+            });
+          },
+
+          search() {
+            if (this.searchQuery.length < 2) {
+              this.searchResults = [];
+              this.groupedResults = {};
+              return;
+            }
+
+            const results = [];
+            const query = this.searchQuery.toLowerCase();
+
+            // Search through all loaded content
+            Object.entries(this.allContent).forEach(([page, content]) => {
+              let currentSection = "";
+              const lines = content.split("\n");
+
+              lines.forEach((line, index) => {
+                // Track sections (H2 headings)
+                if (line.startsWith("## ")) {
+                  currentSection = line.replace("## ", "").trim();
+                }
+
+                const lowerLine = line.toLowerCase();
+                if (lowerLine.includes(query)) {
+                  // Clean markdown syntax for snippet
+                  const cleanLine = line.replace(/[#*`]/g, "").trim();
+                  if (cleanLine.length > 0) {
+                    const snippet = this.highlightText(
+                      cleanLine.substring(0, 80),
+                      query
+                    );
+                    results.push({
+                      id: `${page}-${index}`,
+                      page: page,
+                      title: currentSection || this.pageTitles[page],
+                      snippet: snippet + (cleanLine.length > 80 ? "..." : ""),
+                      section: this.getSection(page),
+                      sectionName: currentSection,
+                    });
+                  }
+                }
+              });
+            });
+
+            // Remove duplicates and limit
+            const unique = results.filter(
+              (item, index, self) =>
+                index === self.findIndex((t) => t.snippet === item.snippet)
+            );
+
+            this.searchResults = unique.slice(0, 20);
+            this.groupedResults = this.groupBySection(this.searchResults);
+          },
+
+          getSection(page) {
+            if (
+              ["introduction", "installation", "quick-start", "configuration"].includes(
+                page
+              )
+            )
+              return "Getting Started";
+            if (["workflows", "steps"].includes(page))
+              return "Core Concepts";
+            if (["features"].includes(page))
+              return "Features";
+            return "Documentation";
+          },
+
+          groupBySection(results) {
+            return results.reduce((acc, result) => {
+              if (!acc[result.section]) acc[result.section] = [];
+              acc[result.section].push(result);
+              return acc;
+            }, {});
+          },
+
+          highlightText(text, query) {
+            const regex = new RegExp(`(${this.escapeRegex(query)})`, "gi");
+            return text.replace(regex, '<span class="highlight">$1</span>');
+          },
+
+          escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          },
+
+          goToResult(result) {
+            this.loadPage(result.page);
+            this.searchOpen = false;
+
+            // If there's a section name, scroll to it after page loads
+            if (result.sectionName) {
+              setTimeout(() => {
+                const headings = document.querySelectorAll(
+                  ".prose h2, .prose h3"
+                );
+                headings.forEach((heading) => {
+                  if (heading.textContent.includes(result.sectionName)) {
+                    heading.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                });
+              }, 500);
+            }
+          },
+        };
+      }
+
+      // Make instance globally accessible for next steps cards
+      let docsAppInstance;
+      document.addEventListener("alpine:init", () => {
+        docsAppInstance = docsApp();
+        window.docsAppInstance = docsAppInstance;
+      });
+    </script>
   </body>
 </html>
