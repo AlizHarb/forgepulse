@@ -114,6 +114,18 @@ final readonly class ConditionalEvaluator
             'is_not_null' => ! is_null($actualValue),
             'is_empty' => empty($actualValue),
             'is_not_empty' => ! empty($actualValue),
+            // Advanced operators (v1.2.0)
+            'regex' => is_string($actualValue) && is_string($value) && @preg_match($value, $actualValue) === 1,
+            'not_regex' => is_string($actualValue) && is_string($value) && @preg_match($value, $actualValue) !== 1,
+            'between' => is_array($value) && count($value) === 2 && $actualValue >= $value[0] && $actualValue <= $value[1],
+            'not_between' => is_array($value) && count($value) === 2 && ($actualValue < $value[0] || $actualValue > $value[1]),
+            'in_array' => is_array($actualValue) && in_array($value, $actualValue, true),
+            'not_in_array' => is_array($actualValue) && ! in_array($value, $actualValue, true),
+            'contains_all' => is_array($actualValue) && is_array($value) && count(array_intersect($value, $actualValue)) === count($value),
+            'contains_any' => is_array($actualValue) && is_array($value) && count(array_intersect($value, $actualValue)) > 0,
+            'length_eq' => (is_string($actualValue) || is_array($actualValue)) && (is_string($actualValue) ? strlen($actualValue) : count($actualValue)) === $value,
+            'length_gt' => (is_string($actualValue) || is_array($actualValue)) && (is_string($actualValue) ? strlen($actualValue) : count($actualValue)) > $value,
+            'length_lt' => (is_string($actualValue) || is_array($actualValue)) && (is_string($actualValue) ? strlen($actualValue) : count($actualValue)) < $value,
             default => throw new \InvalidArgumentException("Unknown operator: {$operator}"),
         };
     }

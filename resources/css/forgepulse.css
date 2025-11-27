@@ -18,23 +18,93 @@
   --forgepulse-gray-900: #111827;
 }
 
+/* Dark Mode Variables (v1.2.0) */
+/* Dark Mode Variables (v1.2.0) */
+:root[data-theme="dark"],
+html.dark {
+  --forgepulse-primary: #818cf8;
+  --forgepulse-primary-dark: #6366f1;
+  --forgepulse-success: #34d399;
+  --forgepulse-danger: #f87171;
+  --forgepulse-warning: #fbbf24;
+  --forgepulse-gray-50: #0f172a;
+  --forgepulse-gray-100: #1e293b;
+  --forgepulse-gray-200: #334155;
+  --forgepulse-gray-300: #475569;
+  --forgepulse-gray-400: #64748b;
+  --forgepulse-gray-500: #94a3b8;
+  --forgepulse-gray-600: #cbd5e1;
+  --forgepulse-gray-700: #e2e8f0;
+  --forgepulse-gray-800: #f1f5f9;
+  --forgepulse-gray-900: #f8fafc;
+}
+
 /* Workflow Builder Container */
 .forgepulse-workflow-builder {
   display: flex;
   flex-direction: column;
   height: 100vh;
   background: var(--forgepulse-gray-50);
+  position: relative;
+}
+
+:root[data-theme="dark"] .forgepulse-workflow-builder,
+html.dark .forgepulse-workflow-builder {
+  background: var(--forgepulse-gray-50);
+}
+
+/* Workflow Title */
+.forgepulse-workflow-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--forgepulse-gray-900);
+  margin: 0;
+}
+
+:root[data-theme="dark"] .forgepulse-workflow-title,
+html.dark .forgepulse-workflow-title {
+  color: var(--forgepulse-gray-800);
 }
 
 /* Toolbar */
 .forgepulse-toolbar {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
-  background: white;
-  border-bottom: 1px solid var(--forgepulse-gray-200);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  z-index: 50;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root[data-theme="dark"] .forgepulse-toolbar,
+html.dark .forgepulse-toolbar {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.forgepulse-toolbar:hover {
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 .forgepulse-toolbar-section {
@@ -43,27 +113,49 @@
   gap: 0.75rem;
 }
 
-.forgepulse-workflow-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--forgepulse-gray-900);
-  margin: 0;
+/* Responsive Design */
+@media (max-width: 640px) {
+  .forgepulse-toolbar {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+  }
+  
+  .forgepulse-toolbar-section {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .forgepulse-minimap {
+    width: 150px;
+    height: 100px;
+  }
+  
+  .forgepulse-shortcuts-hint {
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 10px;
+  }
 }
 
 /* Buttons */
 .forgepulse-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 500;
-  border-radius: 0.375rem;
-  border: 1px solid var(--forgepulse-gray-300);
-  background: white;
-  color: var(--forgepulse-gray-700);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--forgepulse-gray-600);
   cursor: pointer;
-  transition: all 0.2s;
+  background: var(--forgepulse-gray-100);
+  border-color: var(--forgepulse-gray-200);
+  color: var(--forgepulse-gray-700);
 }
 
 .forgepulse-btn:hover {
@@ -116,35 +208,71 @@
 /* Canvas Container */
 .forgepulse-canvas-container {
   flex: 1;
-  overflow: hidden;
   position: relative;
-  background: var(--forgepulse-gray-100);
+  overflow: auto;
+  background-color: var(--forgepulse-gray-50);
+  background-image: 
+    linear-gradient(var(--forgepulse-gray-200) 1px, transparent 1px),
+    linear-gradient(90deg, var(--forgepulse-gray-200) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0;
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  -webkit-overflow-scrolling: touch;
+}
+
+.forgepulse-canvas-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.forgepulse-canvas-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.forgepulse-canvas-container::-webkit-scrollbar-thumb {
+  background: var(--forgepulse-gray-300);
+  border-radius: 4px;
+}
+
+.forgepulse-canvas-container::-webkit-scrollbar-thumb:hover {
+  background: var(--forgepulse-gray-400);
+}
+
+/* Touch devices: hide scrollbar but keep functionality */
+@media (hover: none) and (pointer: coarse) {
+  .forgepulse-canvas-container::-webkit-scrollbar {
+    display: none;
+  }
+  .forgepulse-canvas-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+:root[data-theme="dark"] .forgepulse-canvas-container,
+html.dark .forgepulse-canvas-container {
+  background-color: var(--forgepulse-gray-50);
+  background-image: 
+    linear-gradient(var(--forgepulse-gray-200) 1px, transparent 1px),
+    linear-gradient(90deg, var(--forgepulse-gray-200) 1px, transparent 1px);
+}
+
+:root[data-theme="dark"] .forgepulse-canvas-container::-webkit-scrollbar-thumb,
+html.dark .forgepulse-canvas-container::-webkit-scrollbar-thumb {
+  background: var(--forgepulse-gray-600);
 }
 
 .forgepulse-canvas {
-  width: 100%;
-  height: 100%;
   position: relative;
+  min-width: 100%;
+  min-height: 100%;
+  width: max-content;
+  height: max-content;
   transform-origin: top left;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease;
 }
 
-/* Grid Background */
-.forgepulse-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(
-      var(--forgepulse-gray-300) 1px,
-      transparent 1px
-    ),
-    linear-gradient(90deg, var(--forgepulse-gray-300) 1px, transparent 1px);
-  background-size: 20px 20px;
-  opacity: 0.3;
-  pointer-events: none;
-}
+
 
 /* Connection Lines */
 .forgepulse-connections {
@@ -170,15 +298,27 @@
   background: white;
   border: 2px solid var(--forgepulse-gray-300);
   border-radius: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
   cursor: move;
   transition: all 0.2s;
-  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="dark"] .forgepulse-step,
+html.dark .forgepulse-step {
+  background: var(--forgepulse-gray-100);
+  border-color: var(--forgepulse-gray-200);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .forgepulse-step:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: var(--forgepulse-primary);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+:root[data-theme="dark"] .forgepulse-step:hover,
+html.dark .forgepulse-step:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .forgepulse-step-selected {
@@ -194,8 +334,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem;
-  border-bottom: 1px solid var(--forgepulse-gray-200);
+  margin-bottom: 0.5rem;
 }
 
 .forgepulse-step-icon {
@@ -206,7 +345,11 @@
   height: 2rem;
   border-radius: 0.375rem;
   background: var(--forgepulse-gray-100);
-  color: var(--forgepulse-gray-600);
+}
+
+:root[data-theme="dark"] .forgepulse-step-icon,
+html.dark .forgepulse-step-icon {
+  background: var(--forgepulse-gray-200);
 }
 
 .forgepulse-step-icon-action {
@@ -239,10 +382,14 @@
 }
 
 .forgepulse-step-name {
-  flex: 1;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--forgepulse-gray-900);
   font-size: 0.875rem;
+}
+
+:root[data-theme="dark"] .forgepulse-step-name,
+html.dark .forgepulse-step-name {
+  color: var(--forgepulse-gray-800);
 }
 
 .forgepulse-step-actions {
@@ -487,7 +634,95 @@
   text-align: center;
 }
 
-/* Dark Mode Support */
+/* Canvas Minimap (v1.2.0) */
+.forgepulse-minimap {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  width: 200px;
+  height: 150px;
+  background: white;
+  border: 2px solid var(--forgepulse-gray-300);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.forgepulse-minimap-viewport {
+  position: absolute;
+  border: 2px solid var(--forgepulse-primary);
+  background: rgba(99, 102, 241, 0.1);
+  cursor: pointer;
+}
+
+.forgepulse-minimap-step {
+  position: absolute;
+ /* Tooltips */
+}
+
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]:before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 0.5rem 0.75rem;
+  background: var(--forgepulse-gray-800);
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 0.375rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+[data-tooltip]:hover:before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+:root[data-theme="dark"] [data-tooltip]:before,
+html.dark [data-tooltip]:before {
+  background: var(--forgepulse-gray-700);
+  color: var(--forgepulse-gray-50);
+}
+
+.forgepulse-minimap-step {
+  background: var(--forgepulse-gray-400);
+  border-radius: 2px;
+}
+
+/* Keyboard Shortcuts Hint */
+.forgepulse-shortcuts-hint {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 0.375rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.forgepulse-shortcuts-hint.show {
+  opacity: 1;
+}
+
+/* Enhanced Dark Mode Support (v1.2.0) */
 @media (prefers-color-scheme: dark) {
   .forgepulse-workflow-builder {
     background: var(--forgepulse-gray-900);
@@ -506,4 +741,65 @@
   .forgepulse-modal-content {
     background: var(--forgepulse-gray-800);
   }
+
+  .forgepulse-minimap {
+    background: var(--forgepulse-gray-800);
+    border-color: var(--forgepulse-gray-600);
+  }
+
+  .forgepulse-input,
+  .forgepulse-textarea,
+  .forgepulse-select {
+    background: var(--forgepulse-gray-700);
+    border-color: var(--forgepulse-gray-600);
+    color: var(--forgepulse-gray-100);
+  }
+}
+
+/* Explicit Dark Mode (v1.2.0) */
+[data-theme="dark"] .forgepulse-workflow-builder {
+  background: var(--forgepulse-gray-50);
+}
+
+[data-theme="dark"] .forgepulse-toolbar {
+  background: var(--forgepulse-gray-100);
+  border-color: var(--forgepulse-gray-200);
+}
+
+[data-theme="dark"] .forgepulse-workflow-title,
+[data-theme="dark"] .forgepulse-step-name,
+[data-theme="dark"] .forgepulse-label {
+  color: var(--forgepulse-gray-900);
+}
+
+[data-theme="dark"] .forgepulse-btn {
+  background: var(--forgepulse-gray-100);
+  border-color: var(--forgepulse-gray-200);
+  color: var(--forgepulse-gray-900);
+}
+
+[data-theme="dark"] .forgepulse-btn:hover {
+  background: var(--forgepulse-gray-200);
+}
+
+[data-theme="dark"] .forgepulse-step {
+  background: var(--forgepulse-gray-100);
+  border-color: var(--forgepulse-gray-200);
+}
+
+[data-theme="dark"] .forgepulse-modal-content {
+  background: var(--forgepulse-gray-100);
+}
+
+[data-theme="dark"] .forgepulse-minimap {
+  background: var(--forgepulse-gray-100);
+  border-color: var(--forgepulse-gray-300);
+}
+
+[data-theme="dark"] .forgepulse-input,
+[data-theme="dark"] .forgepulse-textarea,
+[data-theme="dark"] .forgepulse-select {
+  background: var(--forgepulse-gray-200);
+  border-color: var(--forgepulse-gray-300);
+  color: var(--forgepulse-gray-900);
 }

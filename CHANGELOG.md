@@ -2,6 +2,58 @@
 
 All notable changes to `forgepulse` will be documented in this file.
 
+## [Unreleased]
+
+## [1.2.0] - 2025-11-27
+
+### Added
+
+- **Workflow Versioning System**: Automatic version tracking for workflows with rollback capability
+  - New `workflow_versions` table to store workflow snapshots
+  - `WorkflowVersion` model with `restore()` and `compare()` methods
+  - Version history modal with visual diff and comparison
+  - Automatic version creation on workflow save (configurable)
+  - Version retention and cleanup policies
+- **Advanced Conditional Operators**: Extended conditional evaluation with 17 new operators
+  - `starts_with`, `ends_with` for string prefix/suffix matching
+  - `regex` and `not_regex` for pattern matching
+  - `between` and `not_between` for range checks
+  - `in_array` and `not_in_array` for array membership
+  - `contains_all` and `contains_any` for array subset checks
+  - `length_eq`, `length_gt`, `length_lt` for length comparisons
+  - `is_null`, `is_not_null`, `is_empty`, `is_not_empty` for null/empty checks
+- **Modern UI Redesign**:
+  - Glassmorphism floating toolbar with blur effects
+  - Draggable minimap and keyboard shortcuts panel
+  - Interactive minimap with click-to-navigate functionality
+  - Comprehensive keyboard shortcuts (⌘S, ⌘Z, ⌘⇧Z, Del, Esc, +/-)
+  - Tooltips on all toolbar buttons and operators
+  - Responsive design for mobile and tablet devices
+- **Undo/Redo Functionality**: Full state management with 50-step history
+- **Enhanced Dark Mode**: Global dark mode support across all components
+- **Multi-Language Support**: Added Spanish (es), German (de), and Arabic (ar) translations
+- **Operator Tooltips**: Helpful descriptions for all 22 conditional operators
+- **Link Indicators**: Visual feedback for connected workflow steps
+
+### Changed
+
+- `Workflow` model now includes `versions()` relationship and versioning methods
+- `WorkflowBuilder` component automatically creates versions on save when enabled
+- `ConditionalEvaluator` service extended with 17 advanced comparison operators
+- Toolbar redesigned with modern glassmorphism aesthetic
+- Step editor now opens on double-click to prevent accidental opens during drag
+- Dark mode CSS variables now apply globally to all components
+- Improved canvas and grid styling for better visual hierarchy
+
+### Fixed
+
+- Fixed Livewire multiple root elements error in version history component
+- Fixed theme toggle to apply globally across all UI components
+- Fixed modal opening during step dragging
+- Fixed grid toggle button visibility and active state
+- Fixed version history modal close event handling
+- Improved query performance with existing database indexes
+
 ## [1.1.0] - 2025-11-26
 
 ### Added

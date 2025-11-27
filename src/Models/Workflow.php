@@ -37,6 +37,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $deleted_at Soft delete timestamp
  * @property-read \Illuminate\Database\Eloquent\Collection<int, WorkflowStep> $steps
  * @property-read \Illuminate\Database\Eloquent\Collection<int, WorkflowExecution> $executions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, WorkflowVersion> $versions
  * @property-read \Illuminate\Database\Eloquent\Model $user
  * @property-read \Illuminate\Database\Eloquent\Model $team
  *
@@ -144,6 +145,26 @@ class Workflow extends Model
     public function executions(): HasMany
     {
         return $this->hasMany(WorkflowExecution::class);
+    }
+
+    /**
+     * Get the versions for the workflow.
+     *
+     * @return HasMany<WorkflowVersion, $this>
+     */
+    public function versions(): HasMany
+    {
+        return $this->hasMany(WorkflowVersion::class)->orderByDesc('version_number');
+    }
+
+    /**
+     * Get the latest version of the workflow.
+     *
+     * @return WorkflowVersion|null
+     */
+    public function latestVersion(): ?WorkflowVersion
+    {
+        return $this->versions()->first();
     }
 
     /**
@@ -297,5 +318,63 @@ class Workflow extends Model
     public function canExecute(): bool
     {
         return $this->status->canExecute();
+    }
+
+    /**
+     * Create a new version snapshot of this workflow.
+     *
+     * @param  string|null  $description  Version description
+     * @return WorkflowVersion The created version
+     */
+    public function createVersion(?string $description = null): WorkflowVersion
+    {
+        $latestVersion = $this->latestVersion();
+        $versionNumber = $latestVersion ? $latestVersion->version_number + 1 : 1;
+
+        // Create snapshot of current steps
+        $stepsSnapshot = $this->steps->map(function ($step) {
+            return [
+                'id' => $step->id,
+                'name' => $step->name,
+                'type' => $step->type->value,
+                'configuration' => $step->configuration,
+                'conditions' => $step->conditions,
+                'position' => $step->position,
+                'x_position' => $step->x_position,
+                'y_position' => $step->y_position,
+                'parent_step_id' => $step->parent_step_id,
+                'is_enabled' => $step->is_enabled,
+                'timeout' => $step->timeout,
+                'parallel_group' => $step->parallel_group,
+            ];
+        })->toArray();
+
+        return $this->versions()->create([
+            'version_number' => $versionNumber,
+            'name' => $this->name,
+            'description' => $description ?? 'Version ' . $versionNumber,
+            'configuration' => $this->configuration ? (array) $this->configuration : null,
+            'steps_snapshot' => $stepsSnapshot,
+            'created_by' => auth()->id(),
+        ]);
+    }
+
+    /**
+     * Restore the workflow to a specific version.
+     *
+     * @param  int  $versionId  Version ID to restore
+     * @return bool True if restoration was successful
+     *
+     * @throws \RuntimeException If version not found
+     */
+    public function restoreVersion(int $versionId): bool
+    {
+        $version = $this->versions()->find($versionId);
+
+        if (! $version) {
+            throw new \RuntimeException('Version not found');
+        }
+
+        return $version->restore();
     }
 }

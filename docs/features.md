@@ -1,6 +1,29 @@
-# v1.1.0 Features
+# v1.1.0# Features
 
-ForgePulse v1.1.0 introduces powerful new features for advanced workflow management.
+ForgePulse is a comprehensive workflow automation package for Laravel 12 with powerful features for building, executing, and managing complex workflows.
+
+## Core Features
+
+### 🎨 Visual Workflow Designer
+
+- **Drag-and-Drop Interface**: Intuitive visual builder using Livewire 4 and Alpine.js
+- **Real-Time Updates**: Changes reflect immediately without page refresh
+- **Canvas Controls**: Zoom, pan, and grid snapping for precise positioning
+- **Step Connections**: Visual connections showing workflow flow
+- **Minimap Navigation** (v1.2.0): Overview of entire workflow with viewport indicator
+- **Keyboard Shortcuts** (v1.2.0): Undo (Ctrl+Z), Redo (Ctrl+Y), Delete, and more
+
+### 📜 Workflow Versioning (v1.2.0)
+
+- **Automatic Versioning**: Every save creates a version snapshot
+- **Manual Versioning**: Create versions with custom descriptions
+- **Version History**: Visual timeline of all workflow changes
+- **Version Comparison**: See differences between any two versions
+- **One-Click Rollback**: Restore to any previous version
+- **Automatic Backup**: Current state backed up before restore
+- **Audit Trail**: Track who created each version and when
+
+[Learn more about Versioning →](versioning.md)
 
 ## ⏱️ Timeout Orchestration
 
@@ -183,6 +206,31 @@ foreach ($parallelSteps as $config) {
     ]);
 }
 ```
+
+### 🔀 Conditional Branching
+
+- **Complex Logic**: Support for AND/OR operators with nested conditions
+- **25+ Operators** (v1.2.0): Comprehensive set of comparison operators
+- **Dynamic Paths**: Workflows adapt based on runtime data
+- **Visual Indicators**: Steps with conditions clearly marked
+
+#### Basic Operators
+
+- Equality: `==`, `===`, `!=`, `!==`
+- Comparison: `>`, `>=`, `<`, `<=`
+- Arrays: `in`, `not_in`
+- Strings: `contains`, `starts_with`, `ends_with`
+- Null checks: `is_null`, `is_not_null`, `is_empty`, `is_not_empty`
+
+#### Advanced Operators (v1.2.0)
+
+- **Pattern Matching**: `regex`, `not_regex` for complex string validation
+- **Range Checks**: `between`, `not_between` for numeric ranges
+- **Array Membership**: `in_array`, `not_in_array` for role/tag checking
+- **Array Subsets**: `contains_all`, `contains_any` for permission validation
+- **Length Comparisons**: `length_eq`, `length_gt`, `length_lt` for string/array length
+
+[Learn more about Advanced Conditionals →](advanced-conditionals.md)
 
 ### Performance Benefits
 

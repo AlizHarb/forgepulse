@@ -8,6 +8,7 @@ use AlizHarb\ForgePulse\Livewire\WorkflowBuilder;
 use AlizHarb\ForgePulse\Livewire\WorkflowExecutionTracker;
 use AlizHarb\ForgePulse\Livewire\WorkflowStepEditor;
 use AlizHarb\ForgePulse\Livewire\WorkflowTemplateManager;
+use AlizHarb\ForgePulse\Livewire\WorkflowVersionHistory;
 use AlizHarb\ForgePulse\Models\Workflow;
 use AlizHarb\ForgePulse\Policies\WorkflowPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -93,12 +94,14 @@ class ForgePulseServiceProvider extends ServiceProvider
         Livewire::component('forgepulse.workflow-step-editor', WorkflowStepEditor::class);
         Livewire::component('forgepulse.workflow-execution-tracker', WorkflowExecutionTracker::class);
         Livewire::component('forgepulse.workflow-template-manager', WorkflowTemplateManager::class);
+        Livewire::component('forgepulse.workflow-version-history', WorkflowVersionHistory::class);
 
         // Register with double colon notation (for forgepulse:: usage)
         Livewire::component('forgepulse::workflow-builder', WorkflowBuilder::class);
         Livewire::component('forgepulse::workflow-step-editor', WorkflowStepEditor::class);
         Livewire::component('forgepulse::workflow-execution-tracker', WorkflowExecutionTracker::class);
         Livewire::component('forgepulse::workflow-template-manager', WorkflowTemplateManager::class);
+        Livewire::component('forgepulse::workflow-version-history', WorkflowVersionHistory::class);
     }
 
     /**

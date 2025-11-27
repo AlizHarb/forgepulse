@@ -14,7 +14,13 @@
 [**Explore Full Features & Screenshots →**](docs/features.md)
 
 - 🎨 **Drag-and-Drop Workflow Designer** - Visual workflow builder using Livewire 4 and Alpine.js
-- 🔀 **Conditional Branching** - Complex if/else rules with 15+ comparison operators
+- 🔀 **Conditional Branching** - Complex if/else rules with 22+ comparison operators (v1.2.0)
+- 📜 **Workflow Versioning** - Automatic version tracking with rollback capability (v1.2.0)
+- 🎨 **Modern UI** - Glassmorphism toolbar, draggable minimap, keyboard shortcuts (v1.2.0)
+- ↩️ **Undo/Redo** - Full state management with ⌘Z/⌘⇧Z support (v1.2.0)
+- 🗺️ **Interactive Minimap** - Real-time workflow overview with click navigation (v1.2.0)
+- ⌨️ **Keyboard Shortcuts** - Efficient workflow editing with hotkeys (v1.2.0)
+- 🌙 **Enhanced Dark Mode** - Beautiful UI with global dark mode support (v1.2.0)
 - ⏱️ **Timeout Orchestration** - Configure step timeouts with automatic termination (v1.1.0)
 - ⏸️ **Pause/Resume Workflows** - Pause and resume executions mid-flow (v1.1.0)
 - 🔄 **Parallel Execution** - Execute multiple steps concurrently (v1.1.0)
@@ -26,8 +32,7 @@
 - 🔐 **Role-Based Access Control** - Granular permissions for workflow actions
 - 🎯 **7 Step Types** - Actions, conditions, delays, notifications, webhooks, events, and jobs
 - 📊 **Execution Logging** - Detailed step-by-step execution logs with performance metrics
-- 🌍 **Multi-Language** - Built-in support for English, Spanish, French, German, and Arabic
-- 🌙 **Dark Mode Support** - Beautiful UI with automatic dark mode
+- 🌍 **Multi-Language** - Built-in support for English, Spanish, French, German, and Arabic (v1.2.0)
 - 🚀 **PHP 8.3+ & Laravel 12** - Modern codebase with enums, readonly properties, and attributes
 - ✅ **Fully Tested** - Comprehensive test suite with Pest 3
 
@@ -223,11 +228,34 @@ $step->update([
 
 ### Supported Operators
 
+**Basic Operators:**
+
 - Equality: `==`, `===`, `!=`, `!==`
 - Comparison: `>`, `>=`, `<`, `<=`
 - Arrays: `in`, `not_in`
 - Strings: `contains`, `starts_with`, `ends_with`
 - Null checks: `is_null`, `is_not_null`, `is_empty`, `is_not_empty`
+
+**Advanced Operators (v1.2.0):**
+
+- Pattern matching: `regex`, `not_regex`
+- Range checks: `between`, `not_between`
+- Array operations: `in_array`, `not_in_array`, `contains_all`, `contains_any`
+- Length comparisons: `length_eq`, `length_gt`, `length_lt`
+
+```php
+// Example: Regex pattern matching
+$step->update([
+    'conditions' => [
+        'operator' => 'and',
+        'rules' => [
+            ['field' => 'email', 'operator' => 'regex', 'value' => '/^[a-z]+@company\.com$/'],
+            ['field' => 'age', 'operator' => 'between', 'value' => [18, 65]],
+            ['field' => 'permissions', 'operator' => 'contains_all', 'value' => ['read', 'write']],
+        ],
+    ],
+]);
+```
 
 ## 📋 Workflow Templates
 
@@ -352,6 +380,39 @@ Configure API settings in `config/forgepulse.php`:
 'api' => [
     'enabled' => true,
     'middleware' => ['api', 'auth:sanctum'],
+],
+```
+
+## 📜 Workflow Versioning (v1.2.0)
+
+ForgePulse automatically tracks workflow versions, enabling you to view history and rollback changes:
+
+```php
+// Automatic versioning on save (enabled by default)
+$workflow->save(); // Creates version automatically
+
+// Manual version creation
+$version = $workflow->createVersion('Before major changes');
+
+// View version history
+$versions = $workflow->versions;
+
+// Rollback to a previous version
+$workflow->restoreVersion($versionId);
+
+// Compare versions
+$latestVersion = $workflow->latestVersion();
+$diff = $latestVersion->compare($previousVersion);
+```
+
+Configure versioning in `config/forgepulse.php`:
+
+```php
+'versioning' => [
+    'enabled' => true,
+    'max_versions' => 50,
+    'auto_version_on_save' => true,
+    'retention_days' => 90,
 ],
 ```
 
@@ -495,4 +556,4 @@ If you find this package helpful, please consider:
 
 **Made with ❤️ by [Ali Harb](https://alizharb.com)**
 
-**Release Date:** November 26, 2025 | **Version:** 1.1.0
+**Release Date:** November 27, 2025 | **Version:** 1.2.0

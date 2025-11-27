@@ -100,6 +100,29 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Workflow Versioning (v1.2.0)
+    |--------------------------------------------------------------------------
+    |
+    | Configure automatic workflow versioning and rollback functionality.
+    |
+    */
+
+    'versioning' => [
+        // Enable automatic workflow versioning
+        'enabled' => env('FORGEPULSE_VERSIONING_ENABLED', true),
+
+        // Maximum number of versions to keep per workflow (0 = unlimited)
+        'max_versions' => env('FORGEPULSE_MAX_VERSIONS', 50),
+
+        // Automatically create version on save
+        'auto_version_on_save' => env('FORGEPULSE_AUTO_VERSION', true),
+
+        // Version retention days (older versions will be pruned)
+        'retention_days' => env('FORGEPULSE_VERSION_RETENTION', 90),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Event Hooks
     |--------------------------------------------------------------------------
     |

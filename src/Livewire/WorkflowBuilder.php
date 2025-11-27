@@ -269,6 +269,11 @@ class WorkflowBuilder extends Component
             ],
         ]);
 
+        // Create version snapshot if versioning is enabled
+        if (config('forgepulse.versioning.enabled', true)) {
+            $this->workflow->createVersion('Auto-save from workflow builder');
+        }
+
         $this->dispatch('workflow-saved');
     }
 

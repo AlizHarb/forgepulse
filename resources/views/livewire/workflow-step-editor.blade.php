@@ -77,18 +77,35 @@
                             <div class="forgepulse-condition-rule">
                                 <input type="text" wire:model="conditions.rules.{{ $index }}.field" class="forgepulse-input forgepulse-input-sm" placeholder="Field">
                                 <select wire:model="conditions.rules.{{ $index }}.operator" class="forgepulse-select forgepulse-select-sm">
-                                    <option value="==">Equals</option>
-                                    <option value="!=">Not Equals</option>
-                                    <option value=">">Greater Than</option>
-                                    <option value="<">Less Than</option>
-                                    <option value="contains">Contains</option>
+                                    <option value="==" title="Checks if values are equal">Equals</option>
+                                    <option value="!=" title="Checks if values are not equal">Not Equals</option>
+                                    <option value=">" title="Checks if field value is greater than comparison value">Greater Than</option>
+                                    <option value="<" title="Checks if field value is less than comparison value">Less Than</option>
+                                    <option value="contains" title="Checks if field value contains the string">Contains</option>
+                                    <option value="starts_with" title="Checks if field value starts with the string">Starts With</option>
+                                    <option value="ends_with" title="Checks if field value ends with the string">Ends With</option>
+                                    <option value="regex" title="Matches against a regular expression pattern">Regex Match</option>
+                                    <option value="not_regex" title="Does not match against a regular expression pattern">Not Regex Match</option>
+                                    <option value="between" title="Checks if value is between two numbers (comma separated)">Between</option>
+                                    <option value="not_between" title="Checks if value is NOT between two numbers">Not Between</option>
+                                    <option value="in_array" title="Checks if value exists in comma-separated list">In Array</option>
+                                    <option value="not_in_array" title="Checks if value does NOT exist in list">Not In Array</option>
+                                    <option value="contains_all" title="Checks if array contains ALL items">Contains All</option>
+                                    <option value="contains_any" title="Checks if array contains ANY items">Contains Any</option>
+                                    <option value="length_eq" title="Checks if string length equals value">Length Equals</option>
+                                    <option value="length_gt" title="Checks if string length is greater than value">Length Greater Than</option>
+                                    <option value="length_lt" title="Checks if string length is less than value">Length Less Than</option>
+                                    <option value="is_null" title="Checks if value is null">Is Null</option>
+                                    <option value="is_not_null" title="Checks if value is not null">Is Not Null</option>
+                                    <option value="is_empty" title="Checks if value is empty">Is Empty</option>
+                                    <option value="is_not_empty" title="Checks if value is not empty">Is Not Empty</option>
                                 </select>
                                 <input type="text" wire:model="conditions.rules.{{ $index }}.value" class="forgepulse-input forgepulse-input-sm" placeholder="Value">
-                                <button wire:click="removeCondition({{ $index }})" class="forgepulse-btn forgepulse-btn-sm forgepulse-btn-danger">Remove</button>
+                                <button type="button" wire:click.stop="removeCondition({{ $index }})" class="forgepulse-btn forgepulse-btn-sm forgepulse-btn-danger">Remove</button>
                             </div>
                         @endforeach
                     @endif
-                    <button wire:click="addCondition" class="forgepulse-btn forgepulse-btn-sm">Add Condition</button>
+                    <button type="button" wire:click.stop="addCondition" class="forgepulse-btn forgepulse-btn-sm">Add Condition</button>
                 </div>
             </div>
 
@@ -101,8 +118,8 @@
         </div>
 
         <div class="forgepulse-modal-footer">
-            <button @click="$dispatch('close-modal')" class="forgepulse-btn">Cancel</button>
-            <button wire:click="save" class="forgepulse-btn forgepulse-btn-primary">Save Changes</button>
+            <button type="button" @click.stop="$dispatch('close-modal')" class="forgepulse-btn">Cancel</button>
+            <button type="button" wire:click.stop="save" class="forgepulse-btn forgepulse-btn-primary">Save Changes</button>
         </div>
     </div>
 </div>
