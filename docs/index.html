@@ -563,6 +563,7 @@
           transition: left 0.3s;
           box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
           border-right: 1px solid var(--border);
+          padding-bottom: 100px;
         }
 
         .sidebar.open {
@@ -605,6 +606,7 @@
 
         .header-inner {
           padding: 0 1rem;
+          gap: 0.5rem;
         }
 
         .content {
@@ -613,6 +615,10 @@
 
         .next-cards {
           grid-template-columns: 1fr;
+        }
+
+        .sponsor-btn {
+          display: none;
         }
       }
 
@@ -760,6 +766,8 @@
         padding: 3rem 2.5rem 2rem;
         background: linear-gradient(135deg, var(--bg-2), var(--bg-3));
         border-top: 1px solid var(--border);
+        position: relative;
+        z-index: 1;
       }
 
       .footer-content {
@@ -1177,13 +1185,18 @@
         <div class="nav-section">
           <div class="nav-title">Features</div>
 
-          <a 
+          <a
             href="#"
             @click.prevent="loadPage('art')"
             class="nav-link"
             :class="{ 'active': currentPage === 'art' }"
           >
-            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              class="nav-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -1287,15 +1300,23 @@
         <div class="footer-bottom">
           <div>
             © 2025 ForgePulse. Created by
-            <a href="https://github.com/alizharb">Ali Harb</a> (<a href="mailto:harbzali@gmail.com">harbzali@gmail.com</a>).
+            <a href="https://github.com/alizharb">Ali Harb</a> (<a
+              href="mailto:harbzali@gmail.com"
+              >harbzali@gmail.com</a
+            >).
           </div>
-          <div style="display: flex; align-items: center; gap: 1rem;">
+          <div style="display: flex; align-items: center; gap: 1rem">
             <a
               href="https://github.com/sponsors/alizharb"
               class="sponsor-btn"
-              style="font-size: 13px; padding: 6px 12px;"
+              style="font-size: 13px; padding: 6px 12px"
             >
-              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+              <svg
+                width="14"
+                height="14"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
                 />
@@ -1651,15 +1672,16 @@
 
           getSection(page) {
             if (
-              ["introduction", "installation", "quick-start", "configuration"].includes(
-                page
-              )
+              [
+                "introduction",
+                "installation",
+                "quick-start",
+                "configuration",
+              ].includes(page)
             )
               return "Getting Started";
-            if (["workflows", "steps"].includes(page))
-              return "Core Concepts";
-            if (["features"].includes(page))
-              return "Features";
+            if (["workflows", "steps"].includes(page)) return "Core Concepts";
+            if (["features"].includes(page)) return "Features";
             return "Documentation";
           },
 
