@@ -279,6 +279,7 @@ class WorkflowBuilder extends Component
     public function render(): \Illuminate\View\View
     {
         /** @var \Illuminate\View\View */
+        /** @phpstan-ignore argument.type */
         return view('forgepulse::livewire.workflow-builder');
     }
 }
