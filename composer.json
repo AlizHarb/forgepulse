@@ -1,79 +1,73 @@
 {
-  "name": "alizharb/flowforge",
-  "description": "Dynamic Workflow Builder for Laravel - Drag-and-drop workflow designer with conditional branching and real-time execution tracking",
-  "version": "1.1.0",
+  "name": "alizharb/forgepulse",
+  "description": "A dynamic workflow builder for Laravel.",
   "keywords": [
+    "alizharb",
     "laravel",
+    "forgepulse",
     "workflow",
-    "workflow-engine",
-    "livewire",
-    "drag-and-drop",
-    "workflow-builder",
-    "automation",
-    "business-process"
+    "automation"
   ],
-  "type": "library",
+  "homepage": "https://github.com/alizharb/forgepulse",
   "license": "MIT",
   "authors": [
     {
       "name": "Ali Harb",
-      "email": "harbzali@gmail.com",
-      "homepage": "https://github.com/AlizHarb",
+      "email": "ali@alizharb.com",
       "role": "Developer"
     }
   ],
   "require": {
-
-    "php": "^8.2",
-    "illuminate/support": "^11.0|^12.0",
-    "illuminate/database": "^11.0|^12.0",
-    "illuminate/contracts": "^11.0|^12.0",
+    "php": "^8.3",
+    "illuminate/contracts": "^10.0|^11.0|^12.0",
+    "illuminate/support": "^10.0|^11.0|^12.0",
     "livewire/livewire": "^3.0|^4.0"
   },
   "require-dev": {
-    "orchestra/testbench": "^9.0|^10.0",
-    "pestphp/pest": "^3.0",
-    "pestphp/pest-plugin-laravel": "^3.0",
-    "pestphp/pest-plugin-arch": "^3.0",
-    "phpstan/phpstan": "^2.0",
-    "laravel/pint": "^1.18",
-    "nunomaduro/collision": "^8.5",
-    "nunomaduro/larastan": "^3.0"
+    "laravel/pint": "^1.0",
+    "nunomaduro/collision": "^7.0|^8.0",
+    "orchestra/testbench": "^8.0|^9.0|^10.0",
+    "pestphp/pest": "^2.0|^3.0",
+    "pestphp/pest-plugin-arch": "^2.0|^3.0",
+    "pestphp/pest-plugin-laravel": "^2.0|^3.0",
+    "phpstan/extension-installer": "^1.1",
+    "phpstan/phpstan-deprecation-rules": "^1.0",
+    "phpstan/phpstan-phpunit": "^1.0"
   },
   "autoload": {
     "psr-4": {
-      "AlizHarb\\FlowForge\\": "src/",
-      "AlizHarb\\FlowForge\\Database\\Factories\\": "database/factories/"
+      "AlizHarb\\ForgePulse\\": "src/",
+      "AlizHarb\\ForgePulse\\Database\\Factories\\": "database/factories/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "AlizHarb\\FlowForge\\Tests\\": "tests/"
+      "AlizHarb\\ForgePulse\\Tests\\": "tests/",
+      "Workbench\\App\\": "workbench/app/"
     }
   },
   "scripts": {
+    "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+    "analyse": "vendor/bin/phpstan analyse",
     "test": "vendor/bin/pest",
-    "test:coverage": "vendor/bin/pest --coverage",
-    "analyse": "vendor/bin/phpstan analyse --memory-limit=2G",
-    "format": "vendor/bin/pint",
-    "format:check": "vendor/bin/pint --test",
-    "quality": [
-      "@format:check",
-      "@analyse",
-      "@test"
-    ]
+    "test-coverage": "vendor/bin/pest --coverage",
+    "format": "vendor/bin/pint"
   },
   "config": {
     "sort-packages": true,
     "allow-plugins": {
-      "pestphp/pest-plugin": true
+      "pestphp/pest-plugin": true,
+      "phpstan/extension-installer": true
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "AlizHarb\\FlowForge\\FlowForgeServiceProvider"
-      ]
+        "AlizHarb\\ForgePulse\\ForgePulseServiceProvider"
+      ],
+      "aliases": {
+        "ForgePulse": "AlizHarb\\ForgePulse\\Facades\\ForgePulse"
+      }
     }
   },
   "minimum-stability": "dev",

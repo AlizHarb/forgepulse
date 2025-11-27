@@ -1,6 +1,6 @@
 <?php
 
-use AlizHarb\FlowForge\Services\ConditionalEvaluator;
+use AlizHarb\ForgePulse\Services\ConditionalEvaluator;
 
 it('evaluates simple equality conditions', function () {
     $evaluator = new ConditionalEvaluator();

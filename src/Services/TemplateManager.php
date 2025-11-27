@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Services;
+namespace AlizHarb\ForgePulse\Services;
 
-use AlizHarb\FlowForge\Models\Workflow;
+use AlizHarb\ForgePulse\Models\Workflow;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -24,8 +24,8 @@ class TemplateManager
      */
     public function export(Workflow $workflow, ?string $filename = null): string
     {
-        $disk = Storage::disk(config('flowforge.templates.disk', 'local'));
-        $directory = config('flowforge.templates.directory', 'workflow-templates');
+        $disk = Storage::disk(config('forgepulse.templates.disk', 'local'));
+        $directory = config('forgepulse.templates.directory', 'workflow-templates');
 
         $filename = $filename ?? $this->generateFilename($workflow);
         $path = "{$directory}/{$filename}";
@@ -65,7 +65,7 @@ class TemplateManager
      */
     public function import(string $path, ?string $name = null): Workflow
     {
-        $disk = Storage::disk(config('flowforge.templates.disk', 'local'));
+        $disk = Storage::disk(config('forgepulse.templates.disk', 'local'));
 
         if (! $disk->exists($path)) {
             throw new \InvalidArgumentException("Template file not found: {$path}");
@@ -132,8 +132,8 @@ class TemplateManager
      */
     public function listTemplates(): array
     {
-        $disk = Storage::disk(config('flowforge.templates.disk', 'local'));
-        $directory = config('flowforge.templates.directory', 'workflow-templates');
+        $disk = Storage::disk(config('forgepulse.templates.disk', 'local'));
+        $directory = config('forgepulse.templates.directory', 'workflow-templates');
 
         $files = $disk->files($directory);
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Database\Factories;
+namespace AlizHarb\ForgePulse\Database\Factories;
 
-use AlizHarb\FlowForge\Models\WorkflowStep;
+use AlizHarb\ForgePulse\Models\WorkflowStep;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class WorkflowStepFactory extends Factory

@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge;
+namespace AlizHarb\ForgePulse;
 
-use AlizHarb\FlowForge\Livewire\WorkflowBuilder;
-use AlizHarb\FlowForge\Livewire\WorkflowExecutionTracker;
-use AlizHarb\FlowForge\Livewire\WorkflowStepEditor;
-use AlizHarb\FlowForge\Livewire\WorkflowTemplateManager;
-use AlizHarb\FlowForge\Models\Workflow;
-use AlizHarb\FlowForge\Policies\WorkflowPolicy;
+use AlizHarb\ForgePulse\Livewire\WorkflowBuilder;
+use AlizHarb\ForgePulse\Livewire\WorkflowExecutionTracker;
+use AlizHarb\ForgePulse\Livewire\WorkflowStepEditor;
+use AlizHarb\ForgePulse\Livewire\WorkflowTemplateManager;
+use AlizHarb\ForgePulse\Models\Workflow;
+use AlizHarb\ForgePulse\Policies\WorkflowPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
 /**
- * FlowForge Service Provider
+ * ForgePulse Service Provider
  *
- * Bootstraps the FlowForge package, registers services, publishes assets,
+ * Bootstraps the ForgePulse package, registers services, publishes assets,
  * and configures Livewire components.
  */
-class FlowForgeServiceProvider extends ServiceProvider
+class ForgePulseServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -28,8 +28,8 @@ class FlowForgeServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/flowforge.php',
-            'flowforge'
+            __DIR__.'/../config/forgepulse.php',
+            'forgepulse'
         );
 
         // Register core services
@@ -46,8 +46,8 @@ class FlowForgeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'flowforge');
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'flowforge');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'forgepulse');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'forgepulse');
 
         // Register Livewire components
         $this->registerLivewireComponents();
@@ -61,21 +61,21 @@ class FlowForgeServiceProvider extends ServiceProvider
         // Publish package assets
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/flowforge.php' => config_path('flowforge.php'),
-            ], 'flowforge-config');
+                __DIR__.'/../config/forgepulse.php' => config_path('forgepulse.php'),
+            ], 'forgepulse-config');
 
             $this->publishes([
                 __DIR__.'/../database/migrations' => database_path('migrations'),
-            ], 'flowforge-migrations');
+            ], 'forgepulse-migrations');
 
             $this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/flowforge'),
-            ], 'flowforge-views');
+                __DIR__.'/../resources/views' => resource_path('views/vendor/forgepulse'),
+            ], 'forgepulse-views');
 
             $this->publishes([
-                __DIR__.'/../resources/js' => public_path('vendor/flowforge/js'),
-                __DIR__.'/../resources/css' => public_path('vendor/flowforge/css'),
-            ], 'flowforge-assets');
+                __DIR__.'/../resources/js' => public_path('vendor/forgepulse/js'),
+                __DIR__.'/../resources/css' => public_path('vendor/forgepulse/css'),
+            ], 'forgepulse-assets');
         }
     }
 
@@ -84,10 +84,10 @@ class FlowForgeServiceProvider extends ServiceProvider
      */
     protected function registerLivewireComponents(): void
     {
-        Livewire::component('flowforge.workflow-builder', WorkflowBuilder::class);
-        Livewire::component('flowforge.workflow-step-editor', WorkflowStepEditor::class);
-        Livewire::component('flowforge.workflow-execution-tracker', WorkflowExecutionTracker::class);
-        Livewire::component('flowforge.workflow-template-manager', WorkflowTemplateManager::class);
+        Livewire::component('forgepulse.workflow-builder', WorkflowBuilder::class);
+        Livewire::component('forgepulse.workflow-step-editor', WorkflowStepEditor::class);
+        Livewire::component('forgepulse.workflow-execution-tracker', WorkflowExecutionTracker::class);
+        Livewire::component('forgepulse.workflow-template-manager', WorkflowTemplateManager::class);
     }
 
     /**
@@ -95,7 +95,7 @@ class FlowForgeServiceProvider extends ServiceProvider
      */
     protected function registerPolicies(): void
     {
-        if (config('flowforge.permissions.enabled', true)) {
+        if (config('forgepulse.permissions.enabled', true)) {
             Gate::policy(Workflow::class, WorkflowPolicy::class);
         }
     }
@@ -105,7 +105,7 @@ class FlowForgeServiceProvider extends ServiceProvider
      */
     protected function registerApiRoutes(): void
     {
-        if (config('flowforge.api.enabled', true)) {
+        if (config('forgepulse.api.enabled', true)) {
             $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
         }
     }

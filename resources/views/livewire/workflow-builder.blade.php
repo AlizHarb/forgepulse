@@ -1,102 +1,102 @@
-<div class="flowforge-workflow-builder"
+<div class="forgepulse-workflow-builder"
     x-data="workflowBuilder(@entangle('steps'), @entangle('selectedStepId'), {{ $canvasZoom }}, {{ $gridSnap ? 'true' : 'false' }})">
     {{-- Toolbar --}}
-    <div class="flowforge-toolbar">
-        <div class="flowforge-toolbar-section">
-            <h2 class="flowforge-workflow-title">{{ $workflow->name }}</h2>
+    <div class="forgepulse-toolbar">
+        <div class="forgepulse-toolbar-section">
+            <h2 class="forgepulse-workflow-title">{{ $workflow->name }}</h2>
         </div>
 
-        <div class="flowforge-toolbar-section">
+        <div class="forgepulse-toolbar-section">
             {{-- Step Type Buttons --}}
-            <button @click="addStep('action')" class="flowforge-btn flowforge-btn-sm">
-                <svg class="flowforge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button @click="addStep('action')" class="forgepulse-btn forgepulse-btn-sm">
+                <svg class="forgepulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                {{ __('flowforge::flowforge.step_types.action') }}
+                {{ __('forgepulse::forgepulse.step_types.action') }}
             </button>
-            <button @click="addStep('condition')" class="flowforge-btn flowforge-btn-sm">
-                <svg class="flowforge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button @click="addStep('condition')" class="forgepulse-btn forgepulse-btn-sm">
+                <svg class="forgepulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M8 16l-4-4m0 0l4-4m-4 4h16" />
                 </svg>
-                {{ __('flowforge::flowforge.step_types.condition') }}
+                {{ __('forgepulse::forgepulse.step_types.condition') }}
             </button>
-            <button @click="addStep('notification')" class="flowforge-btn flowforge-btn-sm">
-                <svg class="flowforge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button @click="addStep('notification')" class="forgepulse-btn forgepulse-btn-sm">
+                <svg class="forgepulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                 </svg>
-                {{ __('flowforge::flowforge.step_types.notification') }}
+                {{ __('forgepulse::forgepulse.step_types.notification') }}
             </button>
-            <button @click="addStep('webhook')" class="flowforge-btn flowforge-btn-sm">
-                <svg class="flowforge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button @click="addStep('webhook')" class="forgepulse-btn forgepulse-btn-sm">
+                <svg class="forgepulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                 </svg>
-                {{ __('flowforge::flowforge.step_types.webhook') }}
+                {{ __('forgepulse::forgepulse.step_types.webhook') }}
             </button>
         </div>
 
-        <div class="flowforge-toolbar-section">
+        <div class="forgepulse-toolbar-section">
             {{-- Zoom Controls --}}
-            <button wire:click="zoomOut" class="flowforge-btn flowforge-btn-icon"
-                title="{{ __('flowforge::flowforge.builder.zoom_out') }}">
-                <svg class="flowforge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button wire:click="zoomOut" class="forgepulse-btn forgepulse-btn-icon"
+                title="{{ __('forgepulse::forgepulse.builder.zoom_out') }}">
+                <svg class="forgepulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                 </svg>
             </button>
-            <span class="flowforge-zoom-level">{{ $canvasZoom }}%</span>
-            <button wire:click="zoomIn" class="flowforge-btn flowforge-btn-icon"
-                title="{{ __('flowforge::flowforge.builder.zoom_in') }}">
-                <svg class="flowforge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span class="forgepulse-zoom-level">{{ $canvasZoom }}%</span>
+            <button wire:click="zoomIn" class="forgepulse-btn forgepulse-btn-icon"
+                title="{{ __('forgepulse::forgepulse.builder.zoom_in') }}">
+                <svg class="forgepulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
             </button>
-            <button wire:click="resetZoom" class="flowforge-btn flowforge-btn-icon"
-                title="{{ __('flowforge::flowforge.builder.reset_zoom') }}">
-                <svg class="flowforge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button wire:click="resetZoom" class="forgepulse-btn forgepulse-btn-icon"
+                title="{{ __('forgepulse::forgepulse.builder.reset_zoom') }}">
+                <svg class="forgepulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
             </button>
 
             {{-- Grid Snap Toggle --}}
-            <button wire:click="toggleGridSnap" class="flowforge-btn flowforge-btn-icon"
-                :class="{ 'flowforge-btn-active': gridSnap }"
-                title="{{ __('flowforge::flowforge.builder.grid_snap') }}">
-                <svg class="flowforge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button wire:click="toggleGridSnap" class="forgepulse-btn forgepulse-btn-icon"
+                :class="{ 'forgepulse-btn-active': gridSnap }"
+                title="{{ __('forgepulse::forgepulse.builder.grid_snap') }}">
+                <svg class="forgepulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
                 </svg>
             </button>
 
             {{-- Save Button --}}
-            <button wire:click="save" class="flowforge-btn flowforge-btn-primary">
-                <svg class="flowforge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button wire:click="save" class="forgepulse-btn forgepulse-btn-primary">
+                <svg class="forgepulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
                 </svg>
-                {{ __('flowforge::flowforge.builder.save') }}
+                {{ __('forgepulse::forgepulse.builder.save') }}
             </button>
         </div>
     </div>
 
     {{-- Canvas --}}
-    <div class="flowforge-canvas-container">
-        <div class="flowforge-canvas" :style="`transform: scale(${zoom / 100})`" x-ref="canvas"
+    <div class="forgepulse-canvas-container">
+        <div class="forgepulse-canvas" :style="`transform: scale(${zoom / 100})`" x-ref="canvas"
             @mousedown="startPan($event)" @mousemove="pan($event)" @mouseup="endPan">
 
             {{-- Grid Background --}}
-            <div class="flowforge-grid" x-show="gridSnap"></div>
+            <div class="forgepulse-grid" x-show="gridSnap"></div>
 
             {{-- Connection Lines --}}
-            <svg class="flowforge-connections" x-ref="connections">
+            <svg class="forgepulse-connections" x-ref="connections">
                 <template x-for="step in steps" :key="step.id">
                     <template x-if="step.parent_step_id">
                         <line :x1="getStepCenter(getStepById(step.parent_step_id)).x"
                             :y1="getStepCenter(getStepById(step.parent_step_id)).y" :x2="getStepCenter(step).x"
-                            :y2="getStepCenter(step).y" class="flowforge-connection-line" stroke="#6366f1"
+                            :y2="getStepCenter(step).y" class="forgepulse-connection-line" stroke="#6366f1"
                             stroke-width="2" marker-end="url(#arrowhead)" />
                     </template>
                 </template>
@@ -109,41 +109,41 @@
 
             {{-- Workflow Steps --}}
             <template x-for="step in steps" :key="step.id">
-                <div class="flowforge-step" :class="{
-                         'flowforge-step-selected': selectedStepId === step.id,
-                         'flowforge-step-disabled': !step.is_enabled,
-                         [`flowforge-step-${step.type}`]: true
+                <div class="forgepulse-step" :class="{
+                         'forgepulse-step-selected': selectedStepId === step.id,
+                         'forgepulse-step-disabled': !step.is_enabled,
+                         [`forgepulse-step-${step.type}`]: true
                      }" :style="`left: ${step.x_position}px; top: ${step.y_position}px;`"
                     @mousedown.stop="startDrag($event, step)" @click="selectStep(step.id)">
 
-                    <div class="flowforge-step-header">
-                        <div class="flowforge-step-icon" :class="`flowforge-step-icon-${step.type}`">
-                            <svg class="flowforge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="forgepulse-step-header">
+                        <div class="forgepulse-step-icon" :class="`forgepulse-step-icon-${step.type}`">
+                            <svg class="forgepulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     :d="getStepIcon(step.type)" />
                             </svg>
                         </div>
-                        <span class="flowforge-step-name" x-text="step.name"></span>
+                        <span class="forgepulse-step-name" x-text="step.name"></span>
                     </div>
 
-                    <div class="flowforge-step-actions">
-                        <button @click.stop="$wire.toggleStepEnabled(step.id)" class="flowforge-step-action">
-                            <svg class="flowforge-icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="forgepulse-step-actions">
+                        <button @click.stop="$wire.toggleStepEnabled(step.id)" class="forgepulse-step-action">
+                            <svg class="forgepulse-icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     :d="step.is_enabled ? 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z' : 'M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21'" />
                             </svg>
                         </button>
                         <button @click.stop="$wire.deleteStep(step.id)"
-                            class="flowforge-step-action flowforge-step-action-danger">
-                            <svg class="flowforge-icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            class="forgepulse-step-action forgepulse-step-action-danger">
+                            <svg class="forgepulse-icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
                         </button>
                     </div>
 
-                    <div x-show="step.has_conditions" class="flowforge-step-badge">
-                        <svg class="flowforge-icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div x-show="step.has_conditions" class="forgepulse-step-badge">
+                        <svg class="forgepulse-icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M8 16l-4-4m0 0l4-4m-4 4h16" />
                         </svg>
@@ -155,7 +155,7 @@
 
     {{-- Step Editor Modal --}}
     @if($showStepEditor && $selectedStepId)
-        <livewire:flowforge::workflow-step-editor :stepId="$selectedStepId" :key="'step-editor-' . $selectedStepId" />
+        <livewire:forgepulse::workflow-step-editor :stepId="$selectedStepId" :key="'step-editor-' . $selectedStepId" />
     @endif
 </div>
 
@@ -200,7 +200,7 @@
                         let y = e.clientY - this.dragging.offsetY;
 
                         if (this.gridSnap) {
-                            const gridSize = {{ config('flowforge.ui.grid_size', 20) }};
+                            const gridSize = {{ config('forgepulse.ui.grid_size', 20) }};
                             x = Math.round(x / gridSize) * gridSize;
                             y = Math.round(y / gridSize) * gridSize;
                         }

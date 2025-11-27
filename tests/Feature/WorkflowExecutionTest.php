@@ -1,9 +1,9 @@
 <?php
 
-use AlizHarb\FlowForge\Models\Workflow;
-use AlizHarb\FlowForge\Models\WorkflowExecution;
-use AlizHarb\FlowForge\Models\WorkflowStep;
-use AlizHarb\FlowForge\Services\WorkflowEngine;
+use AlizHarb\ForgePulse\Models\Workflow;
+use AlizHarb\ForgePulse\Models\WorkflowExecution;
+use AlizHarb\ForgePulse\Models\WorkflowStep;
+use AlizHarb\ForgePulse\Services\WorkflowEngine;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Livewire;
+namespace AlizHarb\ForgePulse\Livewire;
 
-use AlizHarb\FlowForge\Enums\StepType;
-use AlizHarb\FlowForge\Models\Workflow;
-use AlizHarb\FlowForge\Models\WorkflowStep;
+use AlizHarb\ForgePulse\Enums\StepType;
+use AlizHarb\ForgePulse\Models\Workflow;
+use AlizHarb\ForgePulse\Models\WorkflowStep;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -46,7 +46,7 @@ class WorkflowBuilder extends Component
         $this->authorize('update', $workflow);
 
         $this->workflow = $workflow;
-        $this->gridSnap = config('flowforge.ui.grid_snap', true);
+        $this->gridSnap = config('forgepulse.ui.grid_snap', true);
         $this->refreshSteps();
     }
 
@@ -280,6 +280,6 @@ class WorkflowBuilder extends Component
     {
         /** @var \Illuminate\View\View */
         /** @phpstan-ignore argument.type */
-        return view('flowforge::livewire.workflow-builder');
+        return view('forgepulse::livewire.workflow-builder');
     }
 }

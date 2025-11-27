@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Enums;
+namespace AlizHarb\ForgePulse\Enums;
 
 /**
  * Execution Status Enum

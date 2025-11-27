@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Services;
+namespace AlizHarb\ForgePulse\Services;
 
-use AlizHarb\FlowForge\Enums\LogStatus;
-use AlizHarb\FlowForge\Events\StepExecuted;
-use AlizHarb\FlowForge\Events\WorkflowCompleted;
-use AlizHarb\FlowForge\Events\WorkflowFailed;
-use AlizHarb\FlowForge\Models\WorkflowExecution;
-use AlizHarb\FlowForge\Models\WorkflowExecutionLog;
-use AlizHarb\FlowForge\Models\WorkflowStep;
+use AlizHarb\ForgePulse\Enums\LogStatus;
+use AlizHarb\ForgePulse\Events\StepExecuted;
+use AlizHarb\ForgePulse\Events\WorkflowCompleted;
+use AlizHarb\ForgePulse\Events\WorkflowFailed;
+use AlizHarb\ForgePulse\Models\WorkflowExecution;
+use AlizHarb\ForgePulse\Models\WorkflowExecutionLog;
+use AlizHarb\ForgePulse\Models\WorkflowStep;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -59,7 +59,7 @@ final readonly class WorkflowEngine
 
             $execution->markAsCompleted($context);
 
-            if (config('flowforge.events.workflow_completed', true)) {
+            if (config('forgepulse.events.workflow_completed', true)) {
                 event(new WorkflowCompleted($execution));
             }
 
@@ -67,7 +67,7 @@ final readonly class WorkflowEngine
         } catch (\Exception $e) {
             $execution->markAsFailed($e->getMessage());
 
-            if (config('flowforge.events.workflow_failed', true)) {
+            if (config('forgepulse.events.workflow_failed', true)) {
                 event(new WorkflowFailed($execution, $e->getMessage()));
             }
 
@@ -109,7 +109,7 @@ final readonly class WorkflowEngine
 
             $log->markAsCompleted($output);
 
-            if (config('flowforge.events.step_executed', true)) {
+            if (config('forgepulse.events.step_executed', true)) {
                 event(new StepExecuted($step, $log));
             }
 
@@ -121,7 +121,7 @@ final readonly class WorkflowEngine
             }
 
             return $context;
-        } catch (\AlizHarb\FlowForge\Exceptions\StepTimeoutException $e) {
+        } catch (\AlizHarb\ForgePulse\Exceptions\StepTimeoutException $e) {
             $log->markAsFailed($e->getMessage());
 
             $this->logExecution(
@@ -149,11 +149,11 @@ final readonly class WorkflowEngine
      */
     private function logExecution(WorkflowExecution $execution, string $message, string $level = 'info'): void
     {
-        if (! config('flowforge.logging.enabled', true)) {
+        if (! config('forgepulse.logging.enabled', true)) {
             return;
         }
 
-        $channel = config('flowforge.logging.channel', 'stack');
+        $channel = config('forgepulse.logging.channel', 'stack');
 
         Log::channel($channel)->$level($message, [
             'workflow_id' => $execution->workflow_id,

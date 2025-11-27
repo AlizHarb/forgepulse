@@ -1,6 +1,6 @@
-# Contributing to FlowForge
+# Contributing to ForgePulse
 
-Thank you for considering contributing to FlowForge! This document outlines the process for contributing to this project.
+Thank you for considering contributing to ForgePulse! This document outlines the process for contributing to this project.
 
 ## Code of Conduct
 
@@ -41,8 +41,8 @@ Please be respectful and constructive in all interactions.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/alizharb/flowforge.git
-cd flowforge
+git clone https://github.com/alizharb/forgepulse.git
+cd forgepulse
 ```
 
 2. Install dependencies:
@@ -84,4 +84,4 @@ composer test
 
 Feel free to open an issue or contact harbzali@gmail.com
 
-Thank you for contributing to FlowForge!
+Thank you for contributing to ForgePulse!

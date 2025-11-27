@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Services;
+namespace AlizHarb\ForgePulse\Services;
 
 /**
  * Conditional Evaluator Service

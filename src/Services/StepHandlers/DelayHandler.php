@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Services\StepHandlers;
+namespace AlizHarb\ForgePulse\Services\StepHandlers;
 
-use AlizHarb\FlowForge\Models\WorkflowStep;
+use AlizHarb\ForgePulse\Models\WorkflowStep;
 
 /**
  * Delay Handler

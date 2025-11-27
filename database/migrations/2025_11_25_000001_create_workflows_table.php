@@ -23,7 +23,7 @@ return new class () extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
 
             // Only add foreign key constraint if teams are enabled and table exists
-            if (config('flowforge.teams.enabled', false) && Schema::hasTable('teams')) {
+            if (config('forgepulse.teams.enabled', false) && Schema::hasTable('teams')) {
                 $table->foreignId('team_id')->nullable()->constrained('teams')->nullOnDelete();
             } else {
                 $table->unsignedBigInteger('team_id')->nullable();

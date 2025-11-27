@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Policies;
+namespace AlizHarb\ForgePulse\Policies;
 
-use AlizHarb\FlowForge\Models\Workflow;
+use AlizHarb\ForgePulse\Models\Workflow;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**
@@ -33,7 +33,7 @@ class WorkflowPolicy
      */
     public function view($user, Workflow $workflow): bool
     {
-        if (! config('flowforge.permissions.enabled', true)) {
+        if (! config('forgepulse.permissions.enabled', true)) {
             return true;
         }
 
@@ -43,7 +43,7 @@ class WorkflowPolicy
         }
 
         // Team-based access
-        if (config('flowforge.permissions.team_based', false) && $workflow->team_id) {
+        if (config('forgepulse.permissions.team_based', false) && $workflow->team_id) {
             return method_exists($user, 'belongsToTeam') && $user->belongsToTeam($workflow->team_id);
         }
 
@@ -62,12 +62,12 @@ class WorkflowPolicy
      */
     public function create($user): bool
     {
-        if (! config('flowforge.permissions.enabled', true)) {
+        if (! config('forgepulse.permissions.enabled', true)) {
             return true;
         }
 
         /** @var array<string> $allowedRoles */
-        $allowedRoles = config('flowforge.permissions.can_create', ['admin', 'workflow-manager']);
+        $allowedRoles = config('forgepulse.permissions.can_create', ['admin', 'workflow-manager']);
 
         return $this->userHasRole($user, $allowedRoles);
     }
@@ -79,7 +79,7 @@ class WorkflowPolicy
      */
     public function update($user, Workflow $workflow): bool
     {
-        if (! config('flowforge.permissions.enabled', true)) {
+        if (! config('forgepulse.permissions.enabled', true)) {
             return true;
         }
 
@@ -89,7 +89,7 @@ class WorkflowPolicy
         }
 
         // Team-based access
-        if (config('flowforge.permissions.team_based', false) && $workflow->team_id) {
+        if (config('forgepulse.permissions.team_based', false) && $workflow->team_id) {
             return method_exists($user, 'belongsToTeam') && $user->belongsToTeam($workflow->team_id);
         }
 

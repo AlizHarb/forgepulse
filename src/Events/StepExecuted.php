@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Events;
+namespace AlizHarb\ForgePulse\Events;
 
-use AlizHarb\FlowForge\Models\WorkflowExecutionLog;
-use AlizHarb\FlowForge\Models\WorkflowStep;
+use AlizHarb\ForgePulse\Models\WorkflowExecutionLog;
+use AlizHarb\ForgePulse\Models\WorkflowStep;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

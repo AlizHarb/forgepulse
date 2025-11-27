@@ -1,14 +1,14 @@
 <?php
 
-namespace AlizHarb\FlowForge\Database\Factories;
+namespace AlizHarb\ForgePulse\Database\Factories;
 
-use AlizHarb\FlowForge\Models\WorkflowExecution;
-use AlizHarb\FlowForge\Models\WorkflowExecutionLog;
-use AlizHarb\FlowForge\Models\WorkflowStep;
+use AlizHarb\ForgePulse\Models\WorkflowExecution;
+use AlizHarb\ForgePulse\Models\WorkflowExecutionLog;
+use AlizHarb\ForgePulse\Models\WorkflowStep;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\AlizHarb\FlowForge\Models\WorkflowExecutionLog>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\AlizHarb\ForgePulse\Models\WorkflowExecutionLog>
  */
 class WorkflowExecutionLogFactory extends Factory
 {

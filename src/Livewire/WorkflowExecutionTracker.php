@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Livewire;
+namespace AlizHarb\ForgePulse\Livewire;
 
-use AlizHarb\FlowForge\Models\WorkflowExecution;
+use AlizHarb\ForgePulse\Models\WorkflowExecution;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -94,6 +94,6 @@ class WorkflowExecutionTracker extends Component
     {
         /** @var \Illuminate\View\View */
         /** @phpstan-ignore argument.type */
-        return view('flowforge::livewire.workflow-execution-tracker');
+        return view('forgepulse::livewire.workflow-execution-tracker');
     }
 }

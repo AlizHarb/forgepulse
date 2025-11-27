@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Tests;
+namespace AlizHarb\ForgePulse\Tests;
 
-use AlizHarb\FlowForge\FlowForgeServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 /**
  * Base Test Case
  *
- * Provides the foundation for all FlowForge tests with Orchestra Testbench.
+ * Provides the foundation for all ForgePulse tests with Orchestra Testbench.
  */
 class TestCase extends Orchestra
 {
@@ -28,11 +27,10 @@ class TestCase extends Orchestra
      * @param  \Illuminate\Foundation\Application  $app
      * @return array<int, class-string>
      */
-    protected function getPackageProviders($app): array
+    protected function getPackageProviders($app)
     {
         return [
-            \Livewire\LivewireServiceProvider::class,
-            FlowForgeServiceProvider::class,
+            \AlizHarb\ForgePulse\ForgePulseServiceProvider::class,
         ];
     }
 

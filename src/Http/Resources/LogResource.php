@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Http\Resources;
+namespace AlizHarb\ForgePulse\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -10,7 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * Log API Resource
  *
- * @mixin \AlizHarb\FlowForge\Models\WorkflowExecutionLog
+ * @mixin \AlizHarb\ForgePulse\Models\WorkflowExecutionLog
  */
 class LogResource extends JsonResource
 {

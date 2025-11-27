@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Http\Controllers\Api;
+namespace AlizHarb\ForgePulse\Http\Controllers\Api;
 
-use AlizHarb\FlowForge\Http\Resources\ExecutionResource;
-use AlizHarb\FlowForge\Models\WorkflowExecution;
+use AlizHarb\ForgePulse\Http\Resources\ExecutionResource;
+use AlizHarb\ForgePulse\Models\WorkflowExecution;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Routing\Controller;
 

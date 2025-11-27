@@ -1,5 +1,5 @@
 /**
- * FlowForge Documentation JavaScript
+ * ForgePulse Documentation JavaScript
  */
 
 // Initialize all features when DOM is ready

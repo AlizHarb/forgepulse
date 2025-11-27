@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Installation Guide - FlowForge</title>
+    <title>Installation Guide - ForgePulse</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -18,13 +18,13 @@
                     <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
-                    <span class="logo-text">FlowForge</span>
+                    <span class="logo-text">ForgePulse</span>
                 </div>
                 <div class="nav-links">
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="installation.html" class="nav-link">Installation</a>
                     <a href="examples.html" class="nav-link">Examples</a>
-                    <a href="https://github.com/alizharb/flowforge" class="nav-link" target="_blank">GitHub</a>
+                    <a href="https://github.com/alizharb/forgepulse" class="nav-link" target="_blank">GitHub</a>
                 </div>
                 <button @click="darkMode = !darkMode" class="theme-toggle">
                     <svg x-show="!darkMode" class="icon" viewBox="0 0 20 20" fill="currentColor">
@@ -42,7 +42,7 @@
         <div style="max-width: 900px; margin: 0 auto;">
             <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 1rem;">Installation Guide</h1>
             <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 3rem;">
-                Get FlowForge up and running in your Laravel 12 application in minutes.
+                Get ForgePulse up and running in your Laravel 12 application in minutes.
             </p>
 
             <div class="feature-card" style="margin-bottom: 2rem;">
@@ -74,17 +74,17 @@
                 <p style="margin-bottom: 1rem; color: var(--text-secondary);">
                     Install the package using Composer:
                 </p>
-                <pre><code class="language-bash">composer require alizharb/flowforge</code></pre>
+                <pre><code class="language-bash">composer require alizharb/forgepulse</code></pre>
             </div>
 
             <div class="feature-card" style="margin-bottom: 2rem;">
                 <h2 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Step 2: Publish Configuration</h2>
                 <p style="margin-bottom: 1rem; color: var(--text-secondary);">
-                    Publish the configuration file to customize FlowForge:
+                    Publish the configuration file to customize ForgePulse:
                 </p>
-                <pre><code class="language-bash">php artisan vendor:publish --tag=flowforge-config</code></pre>
+                <pre><code class="language-bash">php artisan vendor:publish --tag=forgepulse-config</code></pre>
                 <p style="margin-top: 1rem; color: var(--text-secondary);">
-                    This creates <code style="background: var(--bg-tertiary); padding: 0.25rem 0.5rem; border-radius: 0.25rem;">config/flowforge.php</code> where you can configure:
+                    This creates <code style="background: var(--bg-tertiary); padding: 0.25rem 0.5rem; border-radius: 0.25rem;">config/forgepulse.php</code> where you can configure:
                 </p>
                 <ul style="margin-top: 0.5rem; padding-left: 1.5rem; color: var(--text-secondary);">
                     <li>Execution settings (timeout, retries, queue)</li>
@@ -100,7 +100,7 @@
                 <p style="margin-bottom: 1rem; color: var(--text-secondary);">
                     Publish and run the database migrations:
                 </p>
-                <pre><code class="language-bash">php artisan vendor:publish --tag=flowforge-migrations
+                <pre><code class="language-bash">php artisan vendor:publish --tag=forgepulse-migrations
 php artisan migrate</code></pre>
                 <p style="margin-top: 1rem; color: var(--text-secondary);">
                     This creates 4 tables:
@@ -119,13 +119,13 @@ php artisan migrate</code></pre>
                     Optionally publish views, assets, and language files:
                 </p>
                 <pre><code class="language-bash"># Publish Blade views
-php artisan vendor:publish --tag=flowforge-views
+php artisan vendor:publish --tag=forgepulse-views
 
 # Publish CSS/JS assets
-php artisan vendor:publish --tag=flowforge-assets
+php artisan vendor:publish --tag=forgepulse-assets
 
 # Publish language files
-php artisan vendor:publish --tag=flowforge-lang</code></pre>
+php artisan vendor:publish --tag=forgepulse-lang</code></pre>
             </div>
 
             <div class="feature-card" style="margin-bottom: 2rem;">
@@ -133,8 +133,8 @@ php artisan vendor:publish --tag=flowforge-lang</code></pre>
                 <p style="margin-bottom: 1rem; color: var(--text-secondary);">
                     If you want to customize authorization, register the policy in your <code style="background: var(--bg-tertiary); padding: 0.25rem 0.5rem; border-radius: 0.25rem;">AuthServiceProvider</code>:
                 </p>
-                <pre><code class="language-php">use AlizHarb\FlowForge\Models\Workflow;
-use AlizHarb\FlowForge\Policies\WorkflowPolicy;
+                <pre><code class="language-php">use AlizHarb\ForgePulse\Models\Workflow;
+use AlizHarb\ForgePulse\Policies\WorkflowPolicy;
 
 protected $policies = [
     Workflow::class => WorkflowPolicy::class,
@@ -142,7 +142,7 @@ protected $policies = [
     <div class="feature-card" style="margin-bottom: 2rem;">
                 <h2 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Step 6: Team Integration (Optional)</h2>
                 <p style="margin-bottom: 1rem; color: var(--text-secondary);">
-                    FlowForge supports optional team integration. To enable it, update your configuration:
+                    ForgePulse supports optional team integration. To enable it, update your configuration:
                 </p>
                 <pre><code class="language-php">'teams' => [
     'enabled' => true,

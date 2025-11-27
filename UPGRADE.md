@@ -2,7 +2,7 @@
 
 ## Upgrading from 1.0.0 to 1.1.0
 
-FlowForge 1.1.0 introduces several new features and enhancements. This guide will help you upgrade smoothly.
+ForgePulse 1.1.0 introduces several new features and enhancements. This guide will help you upgrade smoothly.
 
 ### Requirements
 
@@ -15,7 +15,7 @@ FlowForge 1.1.0 introduces several new features and enhancements. This guide wil
 Update your `composer.json`:
 
 ```bash
-composer update alizharb/flowforge
+composer update alizharb/forgepulse
 ```
 
 ### Step 2: Run Migrations
@@ -38,7 +38,7 @@ This will add:
 If you want the new API configuration:
 
 ```bash
-php artisan vendor:publish --tag=flowforge-config --force
+php artisan vendor:publish --tag=forgepulse-config --force
 ```
 
 **Note**: This will overwrite your existing config. Back it up first!
@@ -112,18 +112,18 @@ $execution->update([
 New API endpoints for mobile monitoring and integrations:
 
 ```
-GET  /api/flowforge/workflows
-GET  /api/flowforge/workflows/{id}
-GET  /api/flowforge/executions
-GET  /api/flowforge/executions/{id}
-POST /api/flowforge/executions/{id}/pause
-POST /api/flowforge/executions/{id}/resume
+GET  /api/forgepulse/workflows
+GET  /api/forgepulse/workflows/{id}
+GET  /api/forgepulse/executions
+GET  /api/forgepulse/executions/{id}
+POST /api/forgepulse/executions/{id}/pause
+POST /api/forgepulse/executions/{id}/resume
 ```
 
 **Configuration**:
 
 ```php
-// config/flowforge.php
+// config/forgepulse.php
 'api' => [
     'enabled' => true,
     'middleware' => ['api', 'auth:sanctum'],
@@ -135,7 +135,7 @@ POST /api/flowforge/executions/{id}/resume
 Dark mode is now enabled by default in the UI:
 
 ```php
-// config/flowforge.php
+// config/forgepulse.php
 'ui' => [
     'dark_mode' => true,
 ],
@@ -224,7 +224,7 @@ Verify all features:
 If you need to rollback:
 
 ```bash
-composer require alizharb/flowforge:^1.0
+composer require alizharb/forgepulse:^1.0
 php artisan migrate:rollback --step=4
 ```
 
@@ -236,7 +236,7 @@ If you encounter issues:
 
 1. Check the [CHANGELOG](CHANGELOG.md)
 2. Review the [documentation](docs/index.html)
-3. Open an issue on [GitHub](https://github.com/alizharb/flowforge/issues)
+3. Open an issue on [GitHub](https://github.com/alizharb/forgepulse/issues)
 
 ---
 

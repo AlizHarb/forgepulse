@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `flowforge` will be documented in this file.
+All notable changes to `forgepulse` will be documented in this file.
 
 ## [1.1.0] - 2025-11-26
 
@@ -11,12 +11,12 @@ All notable changes to `flowforge` will be documented in this file.
 - **Parallel Execution Paths**: Steps can be configured to execute in parallel using `execution_mode` and `parallel_group`.
 - **Execution Scheduling**: Workflows can be scheduled for future execution with `scheduled_at` timestamp.
 - **REST API**: New API endpoints for workflow monitoring and management:
-  - `GET /api/flowforge/workflows` - List all workflows
-  - `GET /api/flowforge/workflows/{id}` - Get workflow details
-  - `GET /api/flowforge/executions` - List all executions
-  - `GET /api/flowforge/executions/{id}` - Get execution details
-  - `POST /api/flowforge/executions/{id}/pause` - Pause execution
-  - `POST /api/flowforge/executions/{id}/resume` - Resume execution
+  - `GET /api/forgepulse/workflows` - List all workflows
+  - `GET /api/forgepulse/workflows/{id}` - Get workflow details
+  - `GET /api/forgepulse/executions` - List all executions
+  - `GET /api/forgepulse/executions/{id}` - Get execution details
+  - `POST /api/forgepulse/executions/{id}/pause` - Pause execution
+  - `POST /api/forgepulse/executions/{id}/resume` - Resume execution
 - **Dark Mode Support**: Full dark mode support for all UI components (enabled by default).
 - **API Resources**: New JSON resources for workflows, executions, steps, and logs.
 - **Documentation Improvements**:

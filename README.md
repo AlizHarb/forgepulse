@@ -1,11 +1,13 @@
-# FlowForge
+# ForgePulse
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/alizharb/flowforge.svg?style=flat-square)](https://packagist.org/packages/alizharb/flowforge)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/alizharb/flowforge/tests.yml?label=tests)](https://github.com/alizharb/flowforge/actions?query=workflow%3Atests+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/alizharb/flowforge.svg?style=flat-square)](https://packagist.org/packages/alizharb/flowforge)
-[![License](https://img.shields.io/packagist/l/alizharb/flowforge.svg?style=flat-square)](https://packagist.org/packages/alizharb/flowforge)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/alizharb/forgepulse.svg?style=flat-square)](https://packagist.org/packages/alizharb/forgepulse)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/alizharb/forgepulse/tests.yml?label=tests)](https://github.com/alizharb/forgepulse/actions?query=workflow%3Atests+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/alizharb/forgepulse.svg?style=flat-square)](https://packagist.org/packages/alizharb/forgepulse)
+[![License](https://img.shields.io/packagist/l/alizharb/forgepulse.svg?style=flat-square)](https://packagist.org/packages/alizharb/forgepulse)
 
-**FlowForge** is a powerful, production-ready Laravel 12 package that provides a visual drag-and-drop workflow builder with conditional branching, real-time execution tracking, and comprehensive integration capabilities.
+**ForgePulse** is a powerful, production-ready Laravel package for building dynamic workflows with a drag-and-drop interface, conditional branching, and real-time execution tracking.
+
+> **Note**: This project was formerly known as FlowForge. It has been renamed to ForgePulse.
 
 ## ✨ Features
 
@@ -38,36 +40,36 @@
 Install the package via Composer:
 
 ```bash
-composer require alizharb/flowforge
+composer require alizharb/forgepulse
 ```
 
 Publish the configuration file:
 
 ```bash
-php artisan vendor:publish --tag=flowforge-config
+php artisan vendor:publish --tag=forgepulse-config
 ```
 
 Publish and run the migrations:
 
 ```bash
-php artisan vendor:publish --tag=flowforge-migrations
+php artisan vendor:publish --tag=forgepulse-migrations
 php artisan migrate
 ```
 
 Optionally, publish the views and assets:
 
 ```bash
-php artisan vendor:publish --tag=flowforge-views
-php artisan vendor:publish --tag=flowforge-assets
-php artisan vendor:publish --tag=flowforge-lang
+php artisan vendor:publish --tag=forgepulse-views
+php artisan vendor:publish --tag=forgepulse-assets
+php artisan vendor:publish --tag=forgepulse-lang
 ```
 
 ### Asset Inclusion
 
-To ensure the FlowForge UI renders correctly, you must include the package's CSS file in your application's layout (usually `resources/views/layouts/app.blade.php`):
+To ensure the ForgePulse UI renders correctly, you must include the package's CSS file in your application's layout (usually `resources/views/layouts/app.blade.php`):
 
 ```blade
-<link href="{{ asset('vendor/flowforge/css/flowforge.css') }}" rel="stylesheet">
+<link href="{{ asset('vendor/forgepulse/css/forgepulse.css') }}" rel="stylesheet">
 ```
 
 ## 🚀 Quick Start
@@ -75,8 +77,8 @@ To ensure the FlowForge UI renders correctly, you must include the package's CSS
 ### 1. Create a Workflow
 
 ```php
-use AlizHarb\FlowForge\Models\Workflow;
-use AlizHarb\FlowForge\Enums\WorkflowStatus;
+use AlizHarb\ForgePulse\Models\Workflow;
+use AlizHarb\ForgePulse\Enums\WorkflowStatus;
 
 $workflow = Workflow::create([
     'name' => 'User Onboarding',
@@ -88,7 +90,7 @@ $workflow = Workflow::create([
 ### 2. Add Workflow Steps
 
 ```php
-use AlizHarb\FlowForge\Enums\StepType;
+use AlizHarb\ForgePulse\Enums\StepType;
 
 // Send welcome email
 $workflow->steps()->create([
@@ -130,12 +132,12 @@ $execution = $workflow->execute(['user_id' => $user->id], async: false);
 Include the Livewire component in your Blade view:
 
 ```blade
-<livewire:flowforge::workflow-builder :workflow="$workflow" />
+<livewire:forgepulse::workflow-builder :workflow="$workflow" />
 ```
 
 ## 📚 Documentation
 
-For comprehensive documentation, visit our [interactive documentation site](https://flowforge.dev) or check the `docs/` directory.
+For comprehensive documentation, visit our [interactive documentation site](https://forgepulse.dev) or check the `docs/` directory.
 
 ### Key Topics
 
@@ -147,14 +149,14 @@ For comprehensive documentation, visit our [interactive documentation site](http
 
 ## 🎯 Step Types
 
-FlowForge supports 7 step types out of the box:
+ForgePulse supports 7 step types out of the box:
 
 ### Action Step
 
 Execute custom action classes:
 
 ```php
-use AlizHarb\FlowForge\Enums\StepType;
+use AlizHarb\ForgePulse\Enums\StepType;
 
 $step = $workflow->steps()->create([
     'type' => StepType::ACTION,
@@ -202,7 +204,7 @@ $step = $workflow->steps()->create([
 Add conditions to steps for dynamic workflow paths:
 
 ```php
-use AlizHarb\FlowForge\Enums\StepType;
+use AlizHarb\ForgePulse\Enums\StepType;
 
 $step->update([
     'conditions' => [
@@ -235,7 +237,7 @@ $template = $workflow->saveAsTemplate('User Onboarding Template');
 $newWorkflow = $template->instantiateFromTemplate('New Onboarding');
 
 // Export template to file
-$templateManager = app(\AlizHarb\FlowForge\Services\TemplateManager::class);
+$templateManager = app(\AlizHarb\ForgePulse\Services\TemplateManager::class);
 $path = $templateManager->export($template);
 
 // Import template from file
@@ -247,7 +249,7 @@ $workflow = $templateManager->import($path, 'Imported Workflow');
 Monitor workflow execution in real-time:
 
 ```blade
-<livewire:flowforge::workflow-execution-tracker :execution="$execution" />
+<livewire:forgepulse::workflow-execution-tracker :execution="$execution" />
 ```
 
 The tracker automatically polls for updates and displays:
@@ -318,29 +320,29 @@ $execution = $workflow->execute([
 
 ## 🌐 REST API (v1.1.0)
 
-FlowForge provides a full REST API for mobile monitoring and integrations:
+ForgePulse provides a full REST API for mobile monitoring and integrations:
 
 ```bash
 # List workflows
-GET /api/flowforge/workflows
+GET /api/forgepulse/workflows
 
 # Get workflow details
-GET /api/flowforge/workflows/{id}
+GET /api/forgepulse/workflows/{id}
 
 # List executions
-GET /api/flowforge/executions
+GET /api/forgepulse/executions
 
 # Get execution details
-GET /api/flowforge/executions/{id}
+GET /api/forgepulse/executions/{id}
 
 # Pause execution
-POST /api/flowforge/executions/{id}/pause
+POST /api/forgepulse/executions/{id}/pause
 
 # Resume execution
-POST /api/flowforge/executions/{id}/resume
+POST /api/forgepulse/executions/{id}/resume
 ```
 
-Configure API settings in `config/flowforge.php`:
+Configure API settings in `config/forgepulse.php`:
 
 ```php
 'api' => [
@@ -351,7 +353,7 @@ Configure API settings in `config/flowforge.php`:
 
 ## 🔔 Events
 
-FlowForge dispatches the following events:
+ForgePulse dispatches the following events:
 
 - `WorkflowStarted` - When workflow execution begins
 - `WorkflowCompleted` - When workflow completes successfully
@@ -361,7 +363,7 @@ FlowForge dispatches the following events:
 Listen to these events in your `EventServiceProvider`:
 
 ```php
-use AlizHarb\FlowForge\Events\WorkflowCompleted;
+use AlizHarb\ForgePulse\Events\WorkflowCompleted;
 use App\Listeners\SendWorkflowCompletionNotification;
 
 protected $listen = [
@@ -373,7 +375,7 @@ protected $listen = [
 
 ## 🌍 Multi-Language Support
 
-FlowForge includes built-in translations for:
+ForgePulse includes built-in translations for:
 
 - 🇬🇧 English
 - 🇪🇸 Spanish
@@ -392,7 +394,7 @@ app()->setLocale('ar'); // Arabic
 
 ## ⚙️ Configuration
 
-The configuration file (`config/flowforge.php`) allows you to customize:
+The configuration file (`config/forgepulse.php`) allows you to customize:
 
 - Execution settings (timeout, retries, queue)
 - Role-based permissions
@@ -404,9 +406,9 @@ The configuration file (`config/flowforge.php`) allows you to customize:
 
 ### Team Integration (Optional)
 
-FlowForge supports optional team integration. To enable it:
+ForgePulse supports optional team integration. To enable it:
 
-1. Enable teams in `config/flowforge.php`:
+1. Enable teams in `config/forgepulse.php`:
 
    ```php
    'teams' => [
@@ -415,11 +417,11 @@ FlowForge supports optional team integration. To enable it:
    ],
    ```
 
-2. Ensure your `teams` table exists before running migrations. If enabled, FlowForge will add a `team_id` foreign key to the `workflows` table.
+2. Ensure your `teams` table exists before running migrations. If enabled, ForgePulse will add a `team_id` foreign key to the `workflows` table.
 
 ### Permissions
 
-By default, FlowForge enforces Role-Based Access Control (RBAC). To disable all permission checks (e.g., for local testing or demos), update your configuration:
+By default, ForgePulse enforces Role-Based Access Control (RBAC). To disable all permission checks (e.g., for local testing or demos), update your configuration:
 
 ```php
 'permissions' => [

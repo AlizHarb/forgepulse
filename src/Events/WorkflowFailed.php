@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Events;
+namespace AlizHarb\ForgePulse\Events;
 
-use AlizHarb\FlowForge\Models\WorkflowExecution;
+use AlizHarb\ForgePulse\Models\WorkflowExecution;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Models;
+namespace AlizHarb\ForgePulse\Models;
 
-use AlizHarb\FlowForge\Enums\StepType;
+use AlizHarb\ForgePulse\Enums\StepType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,7 +52,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class WorkflowStep extends Model
 {
-    /** @use HasFactory<\AlizHarb\FlowForge\Database\Factories\WorkflowStepFactory> */
+    /** @use HasFactory<\AlizHarb\ForgePulse\Database\Factories\WorkflowStepFactory> */
     use HasFactory;
 
     /**
@@ -100,7 +100,7 @@ class WorkflowStep extends Model
     protected static function newFactory(): \Illuminate\Database\Eloquent\Factories\Factory
     {
         /** @var \Illuminate\Database\Eloquent\Factories\Factory<static> */
-        return \AlizHarb\FlowForge\Database\Factories\WorkflowStepFactory::new();
+        return \AlizHarb\ForgePulse\Database\Factories\WorkflowStepFactory::new();
     }
 
     /**
@@ -199,7 +199,7 @@ class WorkflowStep extends Model
             return true;
         }
 
-        return app(\AlizHarb\FlowForge\Services\ConditionalEvaluator::class)
+        return app(\AlizHarb\ForgePulse\Services\ConditionalEvaluator::class)
             ->evaluate($this->conditions->getArrayCopy(), $context);
     }
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Livewire;
+namespace AlizHarb\ForgePulse\Livewire;
 
-use AlizHarb\FlowForge\Models\WorkflowStep;
+use AlizHarb\ForgePulse\Models\WorkflowStep;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Title;
@@ -125,6 +125,6 @@ class WorkflowStepEditor extends Component
     {
         /** @var \Illuminate\View\View */
         /** @phpstan-ignore argument.type */
-        return view('flowforge::livewire.workflow-step-editor');
+        return view('forgepulse::livewire.workflow-step-editor');
     }
 }

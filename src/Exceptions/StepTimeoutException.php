@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Exceptions;
+namespace AlizHarb\ForgePulse\Exceptions;
 
 use RuntimeException;
 

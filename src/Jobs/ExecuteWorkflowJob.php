@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Jobs;
+namespace AlizHarb\ForgePulse\Jobs;
 
-use AlizHarb\FlowForge\Models\WorkflowExecution;
-use AlizHarb\FlowForge\Services\WorkflowEngine;
+use AlizHarb\ForgePulse\Models\WorkflowExecution;
+use AlizHarb\ForgePulse\Services\WorkflowEngine;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -49,9 +49,9 @@ final class ExecuteWorkflowJob implements ShouldBeUnique, ShouldQueue
     public function __construct(
         public readonly WorkflowExecution $execution
     ) {
-        $this->tries = config('flowforge.execution.max_retries', 3);
-        $this->timeout = config('flowforge.execution.timeout', 3600);
-        $this->onQueue(config('flowforge.execution.queue', 'default'));
+        $this->tries = config('forgepulse.execution.max_retries', 3);
+        $this->timeout = config('forgepulse.execution.timeout', 3600);
+        $this->onQueue(config('forgepulse.execution.queue', 'default'));
     }
 
     /**

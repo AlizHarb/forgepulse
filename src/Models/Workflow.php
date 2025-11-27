@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Models;
+namespace AlizHarb\ForgePulse\Models;
 
-use AlizHarb\FlowForge\Enums\WorkflowStatus;
-use AlizHarb\FlowForge\Events\WorkflowStarted;
+use AlizHarb\ForgePulse\Enums\WorkflowStatus;
+use AlizHarb\ForgePulse\Events\WorkflowStarted;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,7 +49,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Workflow extends Model
 {
-    /** @use HasFactory<\AlizHarb\FlowForge\Database\Factories\WorkflowFactory> */
+    /** @use HasFactory<\AlizHarb\ForgePulse\Database\Factories\WorkflowFactory> */
     use HasFactory;
 
     use SoftDeletes;
@@ -97,7 +97,7 @@ class Workflow extends Model
     protected static function newFactory(): \Illuminate\Database\Eloquent\Factories\Factory
     {
         /** @var \Illuminate\Database\Eloquent\Factories\Factory<static> */
-        return \AlizHarb\FlowForge\Database\Factories\WorkflowFactory::new();
+        return \AlizHarb\ForgePulse\Database\Factories\WorkflowFactory::new();
     }
 
     /**
@@ -121,7 +121,7 @@ class Workflow extends Model
     public function team(): BelongsTo
     {
         /** @var class-string<\Illuminate\Database\Eloquent\Model> $model */
-        $model = config('flowforge.teams.model', 'App\\Models\\Team');
+        $model = config('forgepulse.teams.model', 'App\\Models\\Team');
 
         return $this->belongsTo($model);
     }
@@ -203,20 +203,20 @@ class Workflow extends Model
      */
     public function execute(array $context = [], ?bool $async = null): WorkflowExecution
     {
-        $async ??= config('flowforge.execution.async_by_default', true);
+        $async ??= config('forgepulse.execution.async_by_default', true);
 
         $execution = $this->executions()->create([
             'user_id' => auth()->id(),
-            'status' => \AlizHarb\FlowForge\Enums\ExecutionStatus::PENDING,
+            'status' => \AlizHarb\ForgePulse\Enums\ExecutionStatus::PENDING,
             'context' => $context,
         ]);
 
         event(new WorkflowStarted($execution));
 
         if ($async) {
-            \AlizHarb\FlowForge\Jobs\ExecuteWorkflowJob::dispatch($execution);
+            \AlizHarb\ForgePulse\Jobs\ExecuteWorkflowJob::dispatch($execution);
         } else {
-            app(\AlizHarb\FlowForge\Services\WorkflowEngine::class)->execute($execution);
+            app(\AlizHarb\ForgePulse\Services\WorkflowEngine::class)->execute($execution);
         }
 
         return $execution;
@@ -231,7 +231,7 @@ class Workflow extends Model
      */
     public function validate(): bool
     {
-        return app(\AlizHarb\FlowForge\Services\WorkflowValidator::class)->validate($this);
+        return app(\AlizHarb\ForgePulse\Services\WorkflowValidator::class)->validate($this);
     }
 
     /**

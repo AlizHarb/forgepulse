@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Notifications;
+namespace AlizHarb\ForgePulse\Notifications;
 
-use AlizHarb\FlowForge\Models\WorkflowExecution;
+use AlizHarb\ForgePulse\Models\WorkflowExecution;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -32,7 +32,7 @@ class WorkflowCompletedNotification extends Notification
      */
     public function via(object $_notifiable): array
     {
-        return config('flowforge.notifications.channels', ['mail', 'database']);
+        return config('forgepulse.notifications.channels', ['mail', 'database']);
     }
 
     /**
@@ -48,7 +48,7 @@ class WorkflowCompletedNotification extends Notification
             ->line('Completed: '.$this->execution->completed_at?->format('Y-m-d H:i:s'))
             ->line('Duration: '.$this->execution->duration.' seconds')
             ->action('View Execution', url('/workflows/'.$this->execution->workflow_id.'/executions/'.$this->execution->id))
-            ->line('Thank you for using FlowForge!');
+            ->line('Thank you for using ForgePulse!');
     }
 
     /**

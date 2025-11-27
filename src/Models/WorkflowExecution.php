@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Models;
+namespace AlizHarb\ForgePulse\Models;
 
-use AlizHarb\FlowForge\Enums\ExecutionStatus;
+use AlizHarb\ForgePulse\Enums\ExecutionStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -52,7 +52,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class WorkflowExecution extends Model
 {
-    /** @use HasFactory<\AlizHarb\FlowForge\Database\Factories\WorkflowExecutionFactory> */
+    /** @use HasFactory<\AlizHarb\ForgePulse\Database\Factories\WorkflowExecutionFactory> */
     use HasFactory;
 
     /**
@@ -226,7 +226,7 @@ class WorkflowExecution extends Model
      */
     public function canRetry(): bool
     {
-        $maxRetries = config('flowforge.execution.max_retries', 3);
+        $maxRetries = config('forgepulse.execution.max_retries', 3);
 
         return $this->status === ExecutionStatus::FAILED && $this->retry_count < $maxRetries;
     }

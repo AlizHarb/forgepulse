@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Models;
+namespace AlizHarb\ForgePulse\Models;
 
-use AlizHarb\FlowForge\Enums\LogStatus;
+use AlizHarb\ForgePulse\Enums\LogStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,7 +42,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class WorkflowExecutionLog extends Model
 {
-    /** @use HasFactory<\AlizHarb\FlowForge\Database\Factories\WorkflowExecutionLogFactory> */
+    /** @use HasFactory<\AlizHarb\ForgePulse\Database\Factories\WorkflowExecutionLogFactory> */
     use HasFactory;
 
     /**

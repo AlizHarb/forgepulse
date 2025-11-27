@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Reference - FlowForge Documentation</title>
-    <meta name="description" content="Complete API reference for FlowForge - Laravel workflow builder">
+    <title>API Reference - ForgePulse Documentation</title>
+    <meta name="description" content="Complete API reference for ForgePulse - Laravel workflow builder">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,14 +30,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
                 </div>
-                <span>FlowForge</span>
+                <span>ForgePulse</span>
             </a>
             
             <nav class="header-nav">
                 <a href="index.html" class="header-link">Documentation</a>
                 <a href="examples.html" class="header-link">Examples</a>
                 <a href="api-reference.html" class="header-link active">API</a>
-                <a href="https://github.com/alizharb/flowforge/blob/main/CHANGELOG.md" class="header-link" target="_blank">Changelog</a>
+                <a href="https://github.com/alizharb/forgepulse/blob/main/CHANGELOG.md" class="header-link" target="_blank">Changelog</a>
             </nav>
             
             <div class="header-actions">
@@ -50,7 +50,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
-                <a href="https://github.com/alizharb/flowforge" class="btn btn-ghost btn-icon" target="_blank" title="View on GitHub">
+                <a href="https://github.com/alizharb/forgepulse" class="btn btn-ghost btn-icon" target="_blank" title="View on GitHub">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                     </svg>
@@ -110,7 +110,7 @@
                     <div class="nav-title">Resources</div>
                     <a href="index.html" class="nav-link">← Back to Docs</a>
                     <a href="examples.html" class="nav-link">Examples</a>
-                    <a href="https://github.com/alizharb/flowforge" class="nav-link" target="_blank">GitHub →</a>
+                    <a href="https://github.com/alizharb/forgepulse" class="nav-link" target="_blank">GitHub →</a>
                 </div>
             </nav>
         </aside>
@@ -118,7 +118,7 @@
         <!-- Content -->
         <main class="content">
             <h1>API Reference</h1>
-            <p class="lead">Complete API documentation for FlowForge models, services, and components.</p>
+            <p class="lead">Complete API documentation for ForgePulse models, services, and components.</p>
 
             <!-- Models Section -->
             <section id="workflow">
@@ -297,7 +297,7 @@ $log->markAsSkipped();</code></pre>
             <!-- Enums -->
             <section id="workflow-status">
                 <h2>WorkflowStatus Enum</h2>
-                <pre><code class="language-php">use AlizHarb\FlowForge\Enums\WorkflowStatus;
+                <pre><code class="language-php">use AlizHarb\ForgePulse\Enums\WorkflowStatus;
 
 WorkflowStatus::DRAFT
 WorkflowStatus::ACTIVE
@@ -312,7 +312,7 @@ $status->canExecute(); // bool</code></pre>
 
             <section id="execution-status">
                 <h2>ExecutionStatus Enum</h2>
-                <pre><code class="language-php">use AlizHarb\FlowForge\Enums\ExecutionStatus;
+                <pre><code class="language-php">use AlizHarb\ForgePulse\Enums\ExecutionStatus;
 
 ExecutionStatus::PENDING
 ExecutionStatus::RUNNING
@@ -329,7 +329,7 @@ $status->isFinished(); // bool</code></pre>
 
             <section id="step-type">
                 <h2>StepType Enum</h2>
-                <pre><code class="language-php">use AlizHarb\FlowForge\Enums\StepType;
+                <pre><code class="language-php">use AlizHarb\ForgePulse\Enums\StepType;
 
 StepType::ACTION
 StepType::CONDITION
@@ -349,7 +349,7 @@ $type->color(); // string</code></pre>
 
             <section id="log-status">
                 <h2>LogStatus Enum</h2>
-                <pre><code class="language-php">use AlizHarb\FlowForge\Enums\LogStatus;
+                <pre><code class="language-php">use AlizHarb\ForgePulse\Enums\LogStatus;
 
 LogStatus::PENDING
 LogStatus::RUNNING
@@ -367,7 +367,7 @@ $status->icon(); // string</code></pre>
             <section id="workflow-engine">
                 <h2>WorkflowEngine Service</h2>
                 <p>Main workflow execution engine.</p>
-                <pre><code class="language-php">use AlizHarb\FlowForge\Services\WorkflowEngine;
+                <pre><code class="language-php">use AlizHarb\ForgePulse\Services\WorkflowEngine;
 
 $engine = app(WorkflowEngine::class);
 $engine->execute($execution);</code></pre>
@@ -376,7 +376,7 @@ $engine->execute($execution);</code></pre>
             <section id="conditional-evaluator">
                 <h2>ConditionalEvaluator Service</h2>
                 <p>Evaluates conditional logic for steps.</p>
-                <pre><code class="language-php">use AlizHarb\FlowForge\Services\ConditionalEvaluator;
+                <pre><code class="language-php">use AlizHarb\ForgePulse\Services\ConditionalEvaluator;
 
 $evaluator = app(ConditionalEvaluator::class);
 $result = $evaluator->evaluate($conditions, $context); // bool</code></pre>
@@ -385,7 +385,7 @@ $result = $evaluator->evaluate($conditions, $context); // bool</code></pre>
             <section id="template-manager">
                 <h2>TemplateManager Service</h2>
                 <p>Manages workflow templates.</p>
-                <pre><code class="language-php">use AlizHarb\FlowForge\Services\TemplateManager;
+                <pre><code class="language-php">use AlizHarb\ForgePulse\Services\TemplateManager;
 
 $manager = app(TemplateManager::class);
 
@@ -399,7 +399,7 @@ $workflow = $manager->import($path, 'Workflow Name');</code></pre>
             <!-- Events -->
             <section id="events">
                 <h2>Workflow Events</h2>
-                <p>FlowForge dispatches the following events:</p>
+                <p>ForgePulse dispatches the following events:</p>
 
                 <div class="card-grid">
                     <div class="feature-card">
@@ -442,21 +442,21 @@ $workflow = $manager->import($path, 'Workflow Name');</code></pre>
 
                 <h3>WorkflowBuilder</h3>
                 <p>Drag-and-drop workflow designer.</p>
-                <pre><code class="language-blade">&lt;livewire:flowforge::workflow-builder :workflow="$workflow" /&gt;</code></pre>
+                <pre><code class="language-blade">&lt;livewire:forgepulse::workflow-builder :workflow="$workflow" /&gt;</code></pre>
 
                 <h3>WorkflowExecutionTracker</h3>
                 <p>Real-time execution monitoring.</p>
-                <pre><code class="language-blade">&lt;livewire:flowforge::workflow-execution-tracker :execution="$execution" /&gt;</code></pre>
+                <pre><code class="language-blade">&lt;livewire:forgepulse::workflow-execution-tracker :execution="$execution" /&gt;</code></pre>
 
                 <h3>WorkflowTemplateManager</h3>
                 <p>Template management interface.</p>
-                <pre><code class="language-blade">&lt;livewire:flowforge::workflow-template-manager :workflow="$workflow" /&gt;</code></pre>
+                <pre><code class="language-blade">&lt;livewire:forgepulse::workflow-template-manager :workflow="$workflow" /&gt;</code></pre>
             </section>
 
             <!-- Configuration -->
             <section id="configuration">
                 <h2>Configuration</h2>
-                <p>Available configuration options in <code>config/flowforge.php</code>:</p>
+                <p>Available configuration options in <code>config/forgepulse.php</code>:</p>
 
                 <pre><code class="language-php">return [
     'execution' => [
@@ -495,7 +495,7 @@ $workflow = $manager->import($path, 'Workflow Name');</code></pre>
         <div class="footer-content">
             <div class="footer-grid">
                 <div class="footer-section">
-                    <h4 class="footer-title">FlowForge</h4>
+                    <h4 class="footer-title">ForgePulse</h4>
                     <p class="footer-description">
                         Production-ready Laravel 12 workflow builder with visual designer,
                         conditional branching, and real-time execution tracking.
@@ -514,25 +514,25 @@ $workflow = $manager->import($path, 'Workflow Name');</code></pre>
                 <div class="footer-section">
                     <h4 class="footer-title">Resources</h4>
                     <a href="api-reference.html" class="footer-link">API Reference</a>
-                    <a href="https://github.com/alizharb/flowforge" target="_blank" class="footer-link">GitHub</a>
-                    <a href="https://github.com/alizharb/flowforge/blob/main/CHANGELOG.md" target="_blank" class="footer-link">Changelog</a>
-                    <a href="https://github.com/alizharb/flowforge/blob/main/UPGRADE.md" target="_blank" class="footer-link">Upgrade Guide</a>
+                    <a href="https://github.com/alizharb/forgepulse" target="_blank" class="footer-link">GitHub</a>
+                    <a href="https://github.com/alizharb/forgepulse/blob/main/CHANGELOG.md" target="_blank" class="footer-link">Changelog</a>
+                    <a href="https://github.com/alizharb/forgepulse/blob/main/UPGRADE.md" target="_blank" class="footer-link">Upgrade Guide</a>
                 </div>
 
                 <div class="footer-section">
                     <h4 class="footer-title">Community</h4>
-                    <a href="https://github.com/alizharb/flowforge/issues" target="_blank" class="footer-link">Report Issues</a>
-                    <a href="https://github.com/alizharb/flowforge/discussions" target="_blank" class="footer-link">Discussions</a>
-                    <a href="https://github.com/alizharb/flowforge/blob/main/CONTRIBUTING.md" target="_blank" class="footer-link">Contributing</a>
+                    <a href="https://github.com/alizharb/forgepulse/issues" target="_blank" class="footer-link">Report Issues</a>
+                    <a href="https://github.com/alizharb/forgepulse/discussions" target="_blank" class="footer-link">Discussions</a>
+                    <a href="https://github.com/alizharb/forgepulse/blob/main/CONTRIBUTING.md" target="_blank" class="footer-link">Contributing</a>
                 </div>
             </div>
 
             <div class="footer-bottom">
                 <div class="footer-copyright">
-                    © 2025 <a href="https://github.com/AlizHarb" target="_blank">Ali Harb</a>. Released under the <a href="https://github.com/alizharb/flowforge/blob/main/LICENSE.md" target="_blank">MIT License</a>.
+                    © 2025 <a href="https://github.com/AlizHarb" target="_blank">Ali Harb</a>. Released under the <a href="https://github.com/alizharb/forgepulse/blob/main/LICENSE.md" target="_blank">MIT License</a>.
                 </div>
                 <div class="footer-social">
-                    <a href="https://github.com/alizharb/flowforge" target="_blank" class="footer-social-link" title="GitHub">
+                    <a href="https://github.com/alizharb/forgepulse" target="_blank" class="footer-social-link" title="GitHub">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                         </svg>

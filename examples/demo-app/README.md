@@ -1,26 +1,26 @@
-# FlowForge Example Demo Application
+# ForgePulse Example Demo Application
 
-This example demonstrates how to use FlowForge in a Laravel application.
+This example demonstrates how to use ForgePulse in a Laravel application.
 
 ## Setup
 
 1. Create a new Laravel application:
 
 ```bash
-laravel new flowforge-demo
-cd flowforge-demo
+laravel new forgepulse-demo
+cd forgepulse-demo
 ```
 
-2. Install FlowForge:
+2. Install ForgePulse:
 
 ```bash
-composer require alizharb/flowforge
+composer require alizharb/forgepulse
 ```
 
 3. Publish and run migrations:
 
 ```bash
-php artisan vendor:publish --tag=flowforge-migrations
+php artisan vendor:publish --tag=forgepulse-migrations
 php artisan migrate
 ```
 
@@ -30,7 +30,7 @@ Create a workflow that sends welcome emails to new users:
 
 ```php
 // routes/web.php
-use AlizHarb\FlowForge\Models\Workflow;
+use AlizHarb\ForgePulse\Models\Workflow;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/workflows/create-onboarding', function () {
@@ -159,13 +159,13 @@ Route::get('/workflows/{workflow}/builder', function (Workflow $workflow) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workflow Builder - {{ $workflow->name }}</title>
     @livewireStyles
-    <link rel="stylesheet" href="{{ asset('vendor/flowforge/css/flowforge.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/forgepulse/css/forgepulse.css') }}">
 </head>
 <body>
-    <livewire:flowforge::workflow-builder :workflow="$workflow" />
+    <livewire:forgepulse::workflow-builder :workflow="$workflow" />
 
     @livewireScripts
-    <script src="{{ asset('vendor/flowforge/js/workflow-designer.js') }}"></script>
+    <script src="{{ asset('vendor/forgepulse/js/workflow-designer.js') }}"></script>
 </body>
 </html>
 ```
@@ -176,7 +176,7 @@ Execute a workflow programmatically:
 
 ```php
 // In your controller or job
-use AlizHarb\FlowForge\Models\Workflow;
+use AlizHarb\ForgePulse\Models\Workflow;
 
 $workflow = Workflow::find(1);
 
@@ -213,10 +213,10 @@ Route::get('/workflows/executions/{execution}', function (WorkflowExecution $exe
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workflow Execution</title>
     @livewireStyles
-    <link rel="stylesheet" href="{{ asset('vendor/flowforge/css/flowforge.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/forgepulse/css/forgepulse.css') }}">
 </head>
 <body>
-    <livewire:flowforge::workflow-execution-tracker :execution="$execution" />
+    <livewire:forgepulse::workflow-execution-tracker :execution="$execution" />
 
     @livewireScripts
 </body>
@@ -273,10 +273,10 @@ $workflow->steps()->create([
 ```php
 // app/Providers/EventServiceProvider.php
 protected $listen = [
-    \AlizHarb\FlowForge\Events\WorkflowCompleted::class => [
+    \AlizHarb\ForgePulse\Events\WorkflowCompleted::class => [
         \App\Listeners\SendWorkflowCompletionNotification::class,
     ],
-    \AlizHarb\FlowForge\Events\WorkflowFailed::class => [
+    \AlizHarb\ForgePulse\Events\WorkflowFailed::class => [
         \App\Listeners\AlertAdminOfWorkflowFailure::class,
     ],
 ];
@@ -286,7 +286,7 @@ protected $listen = [
 // app/Listeners/SendWorkflowCompletionNotification.php
 namespace App\Listeners;
 
-use AlizHarb\FlowForge\Events\WorkflowCompleted;
+use AlizHarb\ForgePulse\Events\WorkflowCompleted;
 
 class SendWorkflowCompletionNotification
 {
@@ -296,7 +296,7 @@ class SendWorkflowCompletionNotification
 
         // Send notification to workflow owner
         $execution->workflow->user->notify(
-            new \AlizHarb\FlowForge\Notifications\WorkflowCompletedNotification($execution)
+            new \AlizHarb\ForgePulse\Notifications\WorkflowCompletedNotification($execution)
         );
     }
 }

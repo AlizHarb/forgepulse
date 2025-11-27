@@ -1,13 +1,13 @@
 <?php
 
-namespace AlizHarb\FlowForge\Database\Factories;
+namespace AlizHarb\ForgePulse\Database\Factories;
 
-use AlizHarb\FlowForge\Models\Workflow;
-use AlizHarb\FlowForge\Models\WorkflowExecution;
+use AlizHarb\ForgePulse\Models\Workflow;
+use AlizHarb\ForgePulse\Models\WorkflowExecution;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\AlizHarb\FlowForge\Models\WorkflowExecution>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\AlizHarb\ForgePulse\Models\WorkflowExecution>
  */
 class WorkflowExecutionFactory extends Factory
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Services;
+namespace AlizHarb\ForgePulse\Services;
 
-use AlizHarb\FlowForge\Models\WorkflowStep;
+use AlizHarb\ForgePulse\Models\WorkflowStep;
 
 /**
  * Step Executor Service
@@ -41,7 +41,7 @@ final readonly class StepExecutor
         if ($usePcntl) {
             pcntl_async_signals(true);
             pcntl_signal(SIGALRM, function () use ($step, $timeout) {
-                throw new \AlizHarb\FlowForge\Exceptions\StepTimeoutException($step->name, $timeout);
+                throw new \AlizHarb\ForgePulse\Exceptions\StepTimeoutException($step->name, $timeout);
             });
             pcntl_alarm($timeout);
         }

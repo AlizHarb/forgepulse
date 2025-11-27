@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Services;
+namespace AlizHarb\ForgePulse\Services;
 
-use AlizHarb\FlowForge\Models\Workflow;
-use AlizHarb\FlowForge\Models\WorkflowStep;
+use AlizHarb\ForgePulse\Models\Workflow;
+use AlizHarb\ForgePulse\Models\WorkflowStep;
 
 /**
  * Workflow Validator Service
@@ -57,7 +57,7 @@ class WorkflowValidator
     {
         $steps = $workflow->steps;
         /** @var array<string, mixed> $configTypes */
-        $configTypes = config('flowforge.step_types', []);
+        $configTypes = config('forgepulse.step_types', []);
         $stepTypes = array_keys($configTypes);
 
         foreach ($steps as $step) {
@@ -91,13 +91,13 @@ class WorkflowValidator
      */
     protected function detectCircularDependencies(Workflow $workflow): void
     {
-        /** @var \Illuminate\Database\Eloquent\Collection<int, \AlizHarb\FlowForge\Models\WorkflowStep> $steps */
+        /** @var \Illuminate\Database\Eloquent\Collection<int, \AlizHarb\ForgePulse\Models\WorkflowStep> $steps */
         $steps = $workflow->steps;
         $visited = [];
         $recursionStack = [];
 
         foreach ($steps->whereNull('parent_step_id') as $rootStep) {
-            /** @var \AlizHarb\FlowForge\Models\WorkflowStep $rootStep */
+            /** @var \AlizHarb\ForgePulse\Models\WorkflowStep $rootStep */
             if ($this->hasCircularDependency($rootStep, $steps, $visited, $recursionStack)) {
                 throw new \InvalidArgumentException(
                     'Circular dependency detected in workflow steps'
@@ -109,8 +109,8 @@ class WorkflowValidator
     /**
      * Check if a step has circular dependencies.
      *
-     * @param  \AlizHarb\FlowForge\Models\WorkflowStep  $step  Current step
-     * @param  \Illuminate\Database\Eloquent\Collection<int, \AlizHarb\FlowForge\Models\WorkflowStep>  $allSteps  All workflow steps
+     * @param  \AlizHarb\ForgePulse\Models\WorkflowStep  $step  Current step
+     * @param  \Illuminate\Database\Eloquent\Collection<int, \AlizHarb\ForgePulse\Models\WorkflowStep>  $allSteps  All workflow steps
      * @param  array<int, bool>  $visited  Visited steps
      * @param  array<int, bool>  $recursionStack  Current recursion stack
      * @return bool Whether circular dependency exists
@@ -134,7 +134,7 @@ class WorkflowValidator
         $children = $allSteps->where('parent_step_id', $stepId);
 
         foreach ($children as $child) {
-            /** @var \AlizHarb\FlowForge\Models\WorkflowStep $child */
+            /** @var \AlizHarb\ForgePulse\Models\WorkflowStep $child */
             if ($this->hasCircularDependency($child, $allSteps, $visited, $recursionStack)) {
                 return true;
             }

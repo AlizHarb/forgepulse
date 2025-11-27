@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlizHarb\FlowForge\Enums;
+namespace AlizHarb\ForgePulse\Enums;
 
 /**
  * Step Type Enum
@@ -57,13 +57,13 @@ enum StepType: string
     public function handlerClass(): string
     {
         return match ($this) {
-            self::ACTION => \AlizHarb\FlowForge\Services\StepHandlers\ActionHandler::class,
-            self::CONDITION => \AlizHarb\FlowForge\Services\StepHandlers\ConditionHandler::class,
-            self::DELAY => \AlizHarb\FlowForge\Services\StepHandlers\DelayHandler::class,
-            self::NOTIFICATION => \AlizHarb\FlowForge\Services\StepHandlers\NotificationHandler::class,
-            self::WEBHOOK => \AlizHarb\FlowForge\Services\StepHandlers\WebhookHandler::class,
-            self::EVENT => \AlizHarb\FlowForge\Services\StepHandlers\EventHandler::class,
-            self::JOB => \AlizHarb\FlowForge\Services\StepHandlers\JobHandler::class,
+            self::ACTION => \AlizHarb\ForgePulse\Services\StepHandlers\ActionHandler::class,
+            self::CONDITION => \AlizHarb\ForgePulse\Services\StepHandlers\ConditionHandler::class,
+            self::DELAY => \AlizHarb\ForgePulse\Services\StepHandlers\DelayHandler::class,
+            self::NOTIFICATION => \AlizHarb\ForgePulse\Services\StepHandlers\NotificationHandler::class,
+            self::WEBHOOK => \AlizHarb\ForgePulse\Services\StepHandlers\WebhookHandler::class,
+            self::EVENT => \AlizHarb\ForgePulse\Services\StepHandlers\EventHandler::class,
+            self::JOB => \AlizHarb\ForgePulse\Services\StepHandlers\JobHandler::class,
         };
     }
 

@@ -12,7 +12,7 @@
 */
 
 uses(
-    AlizHarb\FlowForge\Tests\TestCase::class,
+    AlizHarb\ForgePulse\Tests\TestCase::class,
 )->in('Feature', 'Unit');
 
 /*

@@ -1,7 +1,7 @@
 <?php
 
-use AlizHarb\FlowForge\Models\Workflow;
-use AlizHarb\FlowForge\Models\WorkflowStep;
+use AlizHarb\ForgePulse\Models\Workflow;
+use AlizHarb\ForgePulse\Models\WorkflowStep;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -34,7 +34,7 @@ it('can execute a workflow', function () {
 
     $execution = $workflow->execute(['test' => 'data']);
 
-    expect($execution)->toBeInstanceOf(\AlizHarb\FlowForge\Models\WorkflowExecution::class)
+    expect($execution)->toBeInstanceOf(\AlizHarb\ForgePulse\Models\WorkflowExecution::class)
         ->and($execution->status->value)->toBe('pending')
         ->and($execution->context->getArrayCopy())->toBe(['test' => 'data']);
 });

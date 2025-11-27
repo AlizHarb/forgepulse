@@ -1,57 +1,57 @@
-/* FlowForge - Workflow Builder Styles */
+/* ForgePulse - Workflow Builder Styles */
 
 :root {
-  --flowforge-primary: #6366f1;
-  --flowforge-primary-dark: #4f46e5;
-  --flowforge-success: #10b981;
-  --flowforge-danger: #ef4444;
-  --flowforge-warning: #f59e0b;
-  --flowforge-gray-50: #f9fafb;
-  --flowforge-gray-100: #f3f4f6;
-  --flowforge-gray-200: #e5e7eb;
-  --flowforge-gray-300: #d1d5db;
-  --flowforge-gray-400: #9ca3af;
-  --flowforge-gray-500: #6b7280;
-  --flowforge-gray-600: #4b5563;
-  --flowforge-gray-700: #374151;
-  --flowforge-gray-800: #1f2937;
-  --flowforge-gray-900: #111827;
+  --forgepulse-primary: #6366f1;
+  --forgepulse-primary-dark: #4f46e5;
+  --forgepulse-success: #10b981;
+  --forgepulse-danger: #ef4444;
+  --forgepulse-warning: #f59e0b;
+  --forgepulse-gray-50: #f9fafb;
+  --forgepulse-gray-100: #f3f4f6;
+  --forgepulse-gray-200: #e5e7eb;
+  --forgepulse-gray-300: #d1d5db;
+  --forgepulse-gray-400: #9ca3af;
+  --forgepulse-gray-500: #6b7280;
+  --forgepulse-gray-600: #4b5563;
+  --forgepulse-gray-700: #374151;
+  --forgepulse-gray-800: #1f2937;
+  --forgepulse-gray-900: #111827;
 }
 
 /* Workflow Builder Container */
-.flowforge-workflow-builder {
+.forgepulse-workflow-builder {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: var(--flowforge-gray-50);
+  background: var(--forgepulse-gray-50);
 }
 
 /* Toolbar */
-.flowforge-toolbar {
+.forgepulse-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
   background: white;
-  border-bottom: 1px solid var(--flowforge-gray-200);
+  border-bottom: 1px solid var(--forgepulse-gray-200);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.flowforge-toolbar-section {
+.forgepulse-toolbar-section {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-.flowforge-workflow-title {
+.forgepulse-workflow-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--flowforge-gray-900);
+  color: var(--forgepulse-gray-900);
   margin: 0;
 }
 
 /* Buttons */
-.flowforge-btn {
+.forgepulse-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -59,69 +59,69 @@
   font-size: 0.875rem;
   font-weight: 500;
   border-radius: 0.375rem;
-  border: 1px solid var(--flowforge-gray-300);
+  border: 1px solid var(--forgepulse-gray-300);
   background: white;
-  color: var(--flowforge-gray-700);
+  color: var(--forgepulse-gray-700);
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.flowforge-btn:hover {
-  background: var(--flowforge-gray-50);
-  border-color: var(--flowforge-gray-400);
+.forgepulse-btn:hover {
+  background: var(--forgepulse-gray-50);
+  border-color: var(--forgepulse-gray-400);
 }
 
-.flowforge-btn-primary {
-  background: var(--flowforge-primary);
-  border-color: var(--flowforge-primary);
+.forgepulse-btn-primary {
+  background: var(--forgepulse-primary);
+  border-color: var(--forgepulse-primary);
   color: white;
 }
 
-.flowforge-btn-primary:hover {
-  background: var(--flowforge-primary-dark);
+.forgepulse-btn-primary:hover {
+  background: var(--forgepulse-primary-dark);
 }
 
-.flowforge-btn-danger {
-  background: var(--flowforge-danger);
-  border-color: var(--flowforge-danger);
+.forgepulse-btn-danger {
+  background: var(--forgepulse-danger);
+  border-color: var(--forgepulse-danger);
   color: white;
 }
 
-.flowforge-btn-sm {
+.forgepulse-btn-sm {
   padding: 0.375rem 0.75rem;
   font-size: 0.8125rem;
 }
 
-.flowforge-btn-icon {
+.forgepulse-btn-icon {
   padding: 0.5rem;
 }
 
-.flowforge-btn-active {
-  background: var(--flowforge-primary);
-  border-color: var(--flowforge-primary);
+.forgepulse-btn-active {
+  background: var(--forgepulse-primary);
+  border-color: var(--forgepulse-primary);
   color: white;
 }
 
 /* Icons */
-.flowforge-icon {
+.forgepulse-icon {
   width: 1.25rem;
   height: 1.25rem;
 }
 
-.flowforge-icon-sm {
+.forgepulse-icon-sm {
   width: 1rem;
   height: 1rem;
 }
 
 /* Canvas Container */
-.flowforge-canvas-container {
+.forgepulse-canvas-container {
   flex: 1;
   overflow: hidden;
   position: relative;
-  background: var(--flowforge-gray-100);
+  background: var(--forgepulse-gray-100);
 }
 
-.flowforge-canvas {
+.forgepulse-canvas {
   width: 100%;
   height: 100%;
   position: relative;
@@ -130,24 +130,24 @@
 }
 
 /* Grid Background */
-.flowforge-grid {
+.forgepulse-grid {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-image: linear-gradient(
-      var(--flowforge-gray-300) 1px,
+      var(--forgepulse-gray-300) 1px,
       transparent 1px
     ),
-    linear-gradient(90deg, var(--flowforge-gray-300) 1px, transparent 1px);
+    linear-gradient(90deg, var(--forgepulse-gray-300) 1px, transparent 1px);
   background-size: 20px 20px;
   opacity: 0.3;
   pointer-events: none;
 }
 
 /* Connection Lines */
-.flowforge-connections {
+.forgepulse-connections {
   position: absolute;
   top: 0;
   left: 0;
@@ -157,18 +157,18 @@
   z-index: 1;
 }
 
-.flowforge-connection-line {
-  stroke: var(--flowforge-primary);
+.forgepulse-connection-line {
+  stroke: var(--forgepulse-primary);
   stroke-width: 2;
   fill: none;
 }
 
 /* Workflow Steps */
-.flowforge-step {
+.forgepulse-step {
   position: absolute;
   width: 200px;
   background: white;
-  border: 2px solid var(--flowforge-gray-300);
+  border: 2px solid var(--forgepulse-gray-300);
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   cursor: move;
@@ -176,103 +176,103 @@
   z-index: 2;
 }
 
-.flowforge-step:hover {
+.forgepulse-step:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: var(--flowforge-primary);
+  border-color: var(--forgepulse-primary);
 }
 
-.flowforge-step-selected {
-  border-color: var(--flowforge-primary);
+.forgepulse-step-selected {
+  border-color: var(--forgepulse-primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
-.flowforge-step-disabled {
+.forgepulse-step-disabled {
   opacity: 0.5;
 }
 
-.flowforge-step-header {
+.forgepulse-step-header {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem;
-  border-bottom: 1px solid var(--flowforge-gray-200);
+  border-bottom: 1px solid var(--forgepulse-gray-200);
 }
 
-.flowforge-step-icon {
+.forgepulse-step-icon {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 2rem;
   height: 2rem;
   border-radius: 0.375rem;
-  background: var(--flowforge-gray-100);
-  color: var(--flowforge-gray-600);
+  background: var(--forgepulse-gray-100);
+  color: var(--forgepulse-gray-600);
 }
 
-.flowforge-step-icon-action {
+.forgepulse-step-icon-action {
   background: #dbeafe;
   color: #1e40af;
 }
-.flowforge-step-icon-condition {
+.forgepulse-step-icon-condition {
   background: #fef3c7;
   color: #92400e;
 }
-.flowforge-step-icon-notification {
+.forgepulse-step-icon-notification {
   background: #d1fae5;
   color: #065f46;
 }
-.flowforge-step-icon-webhook {
+.forgepulse-step-icon-webhook {
   background: #e0e7ff;
   color: #3730a3;
 }
-.flowforge-step-icon-delay {
+.forgepulse-step-icon-delay {
   background: #fce7f3;
   color: #831843;
 }
-.flowforge-step-icon-event {
+.forgepulse-step-icon-event {
   background: #fef3c7;
   color: #92400e;
 }
-.flowforge-step-icon-job {
+.forgepulse-step-icon-job {
   background: #dbeafe;
   color: #1e40af;
 }
 
-.flowforge-step-name {
+.forgepulse-step-name {
   flex: 1;
   font-weight: 500;
-  color: var(--flowforge-gray-900);
+  color: var(--forgepulse-gray-900);
   font-size: 0.875rem;
 }
 
-.flowforge-step-actions {
+.forgepulse-step-actions {
   display: flex;
   gap: 0.25rem;
   padding: 0.5rem;
-  border-top: 1px solid var(--flowforge-gray-200);
+  border-top: 1px solid var(--forgepulse-gray-200);
 }
 
-.flowforge-step-action {
+.forgepulse-step-action {
   padding: 0.25rem;
   background: transparent;
   border: none;
   border-radius: 0.25rem;
-  color: var(--flowforge-gray-600);
+  color: var(--forgepulse-gray-600);
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.flowforge-step-action:hover {
-  background: var(--flowforge-gray-100);
-  color: var(--flowforge-gray-900);
+.forgepulse-step-action:hover {
+  background: var(--forgepulse-gray-100);
+  color: var(--forgepulse-gray-900);
 }
 
-.flowforge-step-action-danger:hover {
+.forgepulse-step-action-danger:hover {
   background: #fee2e2;
-  color: var(--flowforge-danger);
+  color: var(--forgepulse-danger);
 }
 
-.flowforge-step-badge {
+.forgepulse-step-badge {
   position: absolute;
   top: -0.5rem;
   right: -0.5rem;
@@ -281,14 +281,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--flowforge-warning);
+  background: var(--forgepulse-warning);
   color: white;
   border-radius: 50%;
   font-size: 0.75rem;
 }
 
 /* Modal */
-.flowforge-modal {
+.forgepulse-modal {
   position: fixed;
   inset: 0;
   z-index: 50;
@@ -297,13 +297,13 @@
   justify-content: center;
 }
 
-.flowforge-modal-backdrop {
+.forgepulse-modal-backdrop {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
 }
 
-.flowforge-modal-content {
+.forgepulse-modal-content {
   position: relative;
   width: 100%;
   max-width: 600px;
@@ -315,89 +315,89 @@
   margin: 1rem;
 }
 
-.flowforge-modal-header {
+.forgepulse-modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem;
-  border-bottom: 1px solid var(--flowforge-gray-200);
+  border-bottom: 1px solid var(--forgepulse-gray-200);
 }
 
-.flowforge-modal-title {
+.forgepulse-modal-title {
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--flowforge-gray-900);
+  color: var(--forgepulse-gray-900);
   margin: 0;
 }
 
-.flowforge-modal-close {
+.forgepulse-modal-close {
   padding: 0.5rem;
   background: transparent;
   border: none;
-  color: var(--flowforge-gray-400);
+  color: var(--forgepulse-gray-400);
   cursor: pointer;
   font-size: 1.5rem;
   line-height: 1;
 }
 
-.flowforge-modal-body {
+.forgepulse-modal-body {
   padding: 1.5rem;
 }
 
-.flowforge-modal-footer {
+.forgepulse-modal-footer {
   display: flex;
   justify-content: flex-end;
   gap: 0.75rem;
   padding: 1.5rem;
-  border-top: 1px solid var(--flowforge-gray-200);
+  border-top: 1px solid var(--forgepulse-gray-200);
 }
 
 /* Form Elements */
-.flowforge-form-group {
+.forgepulse-form-group {
   margin-bottom: 1.5rem;
 }
 
-.flowforge-label {
+.forgepulse-label {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--flowforge-gray-700);
+  color: var(--forgepulse-gray-700);
   margin-bottom: 0.5rem;
 }
 
-.flowforge-input,
-.flowforge-textarea,
-.flowforge-select {
+.forgepulse-input,
+.forgepulse-textarea,
+.forgepulse-select {
   width: 100%;
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
-  border: 1px solid var(--flowforge-gray-300);
+  border: 1px solid var(--forgepulse-gray-300);
   border-radius: 0.375rem;
   background: white;
-  color: var(--flowforge-gray-900);
+  color: var(--forgepulse-gray-900);
 }
 
-.flowforge-input:focus,
-.flowforge-textarea:focus,
-.flowforge-select:focus {
+.forgepulse-input:focus,
+.forgepulse-textarea:focus,
+.forgepulse-select:focus {
   outline: none;
-  border-color: var(--flowforge-primary);
+  border-color: var(--forgepulse-primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-.flowforge-input-sm {
+.forgepulse-input-sm {
   padding: 0.375rem 0.5rem;
   font-size: 0.8125rem;
 }
 
-.flowforge-error {
+.forgepulse-error {
   display: block;
   margin-top: 0.25rem;
   font-size: 0.8125rem;
-  color: var(--flowforge-danger);
+  color: var(--forgepulse-danger);
 }
 
-.flowforge-checkbox {
+.forgepulse-checkbox {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -405,18 +405,18 @@
 }
 
 /* Execution Tracker */
-.flowforge-execution-tracker {
+.forgepulse-execution-tracker {
   padding: 1.5rem;
 }
 
-.flowforge-execution-header {
+.forgepulse-execution-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
 }
 
-.flowforge-badge {
+.forgepulse-badge {
   display: inline-flex;
   align-items: center;
   padding: 0.25rem 0.75rem;
@@ -425,43 +425,43 @@
   border-radius: 9999px;
 }
 
-.flowforge-badge-pending {
-  background: var(--flowforge-gray-200);
-  color: var(--flowforge-gray-700);
+.forgepulse-badge-pending {
+  background: var(--forgepulse-gray-200);
+  color: var(--forgepulse-gray-700);
 }
-.flowforge-badge-running {
+.forgepulse-badge-running {
   background: #dbeafe;
   color: #1e40af;
 }
-.flowforge-badge-completed {
+.forgepulse-badge-completed {
   background: #d1fae5;
   color: #065f46;
 }
-.flowforge-badge-failed {
+.forgepulse-badge-failed {
   background: #fee2e2;
   color: #991b1b;
 }
 
-.flowforge-execution-logs {
+.forgepulse-execution-logs {
   margin-top: 1.5rem;
 }
 
-.flowforge-log-item {
+.forgepulse-log-item {
   padding: 1rem;
   background: white;
-  border: 1px solid var(--flowforge-gray-200);
+  border: 1px solid var(--forgepulse-gray-200);
   border-radius: 0.5rem;
   margin-bottom: 0.75rem;
 }
 
-.flowforge-log-completed {
-  border-left: 4px solid var(--flowforge-success);
+.forgepulse-log-completed {
+  border-left: 4px solid var(--forgepulse-success);
 }
-.flowforge-log-failed {
-  border-left: 4px solid var(--flowforge-danger);
+.forgepulse-log-failed {
+  border-left: 4px solid var(--forgepulse-danger);
 }
-.flowforge-log-running {
-  border-left: 4px solid var(--flowforge-primary);
+.forgepulse-log-running {
+  border-left: 4px solid var(--forgepulse-primary);
 }
 
 /* Animations */
@@ -474,36 +474,36 @@
   }
 }
 
-.flowforge-spin {
+.forgepulse-spin {
   animation: spin 1s linear infinite;
 }
 
 /* Zoom Level */
-.flowforge-zoom-level {
+.forgepulse-zoom-level {
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--flowforge-gray-700);
+  color: var(--forgepulse-gray-700);
   min-width: 3rem;
   text-align: center;
 }
 
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
-  .flowforge-workflow-builder {
-    background: var(--flowforge-gray-900);
+  .forgepulse-workflow-builder {
+    background: var(--forgepulse-gray-900);
   }
 
-  .flowforge-toolbar {
-    background: var(--flowforge-gray-800);
-    border-color: var(--flowforge-gray-700);
+  .forgepulse-toolbar {
+    background: var(--forgepulse-gray-800);
+    border-color: var(--forgepulse-gray-700);
   }
 
-  .flowforge-step {
-    background: var(--flowforge-gray-800);
-    border-color: var(--flowforge-gray-700);
+  .forgepulse-step {
+    background: var(--forgepulse-gray-800);
+    border-color: var(--forgepulse-gray-700);
   }
 
-  .flowforge-modal-content {
-    background: var(--flowforge-gray-800);
+  .forgepulse-modal-content {
+    background: var(--forgepulse-gray-800);
   }
 }
