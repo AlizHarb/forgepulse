@@ -1,7 +1,6 @@
-
-
 parameters:
     paths:
         - src
     level: 8
+    tmpDir: build/phpstan
     excludePaths: []

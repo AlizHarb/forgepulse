@@ -30,6 +30,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            \Livewire\LivewireServiceProvider::class,
             \AlizHarb\ForgePulse\ForgePulseServiceProvider::class,
         ];
     }

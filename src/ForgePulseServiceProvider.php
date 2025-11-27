@@ -84,6 +84,10 @@ class ForgePulseServiceProvider extends ServiceProvider
      */
     protected function registerLivewireComponents(): void
     {
+        if (! class_exists(Livewire::class)) {
+            return;
+        }
+
         Livewire::component('forgepulse.workflow-builder', WorkflowBuilder::class);
         Livewire::component('forgepulse.workflow-step-editor', WorkflowStepEditor::class);
         Livewire::component('forgepulse.workflow-execution-tracker', WorkflowExecutionTracker::class);
