@@ -96,14 +96,14 @@ class WorkflowVersionHistory extends Component
             try {
                 $this->workflow->restoreVersion($this->rollbackVersionId);
                 $this->workflow->refresh();
-                
+
                 $this->dispatch('workflow-restored', versionId: $this->rollbackVersionId);
                 $this->dispatch('close-version-history');
                 $this->dispatch('notify', [
                     'type' => 'success',
-                    'message' => 'Workflow restored to version ' . $this->rollbackVersionId,
+                    'message' => 'Workflow restored to version '.$this->rollbackVersionId,
                 ]);
-                
+
                 $this->showRollbackConfirm = false;
                 $this->rollbackVersionId = null;
                 $this->selectedVersionId = null;
@@ -111,7 +111,7 @@ class WorkflowVersionHistory extends Component
             } catch (\Exception $e) {
                 $this->dispatch('notify', [
                     'type' => 'error',
-                    'message' => 'Failed to restore version: ' . $e->getMessage(),
+                    'message' => 'Failed to restore version: '.$e->getMessage(),
                 ]);
             }
         }
@@ -133,6 +133,7 @@ class WorkflowVersionHistory extends Component
     {
         $versions = $this->workflow->versions()->with('creator')->get();
 
+        /** @phpstan-ignore argument.type */
         return view('forgepulse::livewire.workflow-version-history', [
             'versions' => $versions,
         ]);

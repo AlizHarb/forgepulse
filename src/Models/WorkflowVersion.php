@@ -18,12 +18,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $version_number
  * @property string $name
  * @property string|null $description
- * @property array|null $configuration
- * @property array $steps_snapshot
+ * @property array<string, mixed>|null $configuration
+ * @property array<int, array<string, mixed>> $steps_snapshot
  * @property int|null $created_by
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon|null $restored_at
- *
  * @property-read Workflow $workflow
  * @property-read \Illuminate\Database\Eloquent\Model|null $creator
  */
@@ -34,7 +33,7 @@ class WorkflowVersion extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'workflow_id',
@@ -80,8 +79,11 @@ class WorkflowVersion extends Model
      */
     public function creator(): BelongsTo
     {
+        /** @var class-string<\Illuminate\Database\Eloquent\Model> $model */
+        $model = config('auth.providers.users.model', 'App\\Models\\User');
+
         /** @var BelongsTo<\Illuminate\Database\Eloquent\Model, $this> */
-        return $this->belongsTo(config('auth.providers.users.model', 'App\\Models\\User'), 'created_by');
+        return $this->belongsTo($model, 'created_by');
     }
 
     /**
@@ -94,11 +96,13 @@ class WorkflowVersion extends Model
         $workflow = $this->workflow;
 
         // Create a new version before restoring (backup current state)
-        $workflow->createVersion('Before restoring to version ' . $this->version_number);
+        $workflow->createVersion('Before restoring to version '.$this->version_number);
 
         // Restore workflow configuration
         if ($this->configuration) {
-            $workflow->configuration = $this->configuration;
+            /** @var array<string, mixed> $config */
+            $config = $this->configuration;
+            $workflow->configuration = new \ArrayObject($config);
         }
 
         $workflow->save();

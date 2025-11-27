@@ -159,8 +159,6 @@ class Workflow extends Model
 
     /**
      * Get the latest version of the workflow.
-     *
-     * @return WorkflowVersion|null
      */
     public function latestVersion(): ?WorkflowVersion
     {
@@ -352,7 +350,7 @@ class Workflow extends Model
         return $this->versions()->create([
             'version_number' => $versionNumber,
             'name' => $this->name,
-            'description' => $description ?? 'Version ' . $versionNumber,
+            'description' => $description ?? 'Version '.$versionNumber,
             'configuration' => $this->configuration ? (array) $this->configuration : null,
             'steps_snapshot' => $stepsSnapshot,
             'created_by' => auth()->id(),
