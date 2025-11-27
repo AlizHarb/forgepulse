@@ -137,7 +137,7 @@ Include the Livewire component in your Blade view:
 
 ## 📚 Documentation
 
-For comprehensive documentation, visit our [interactive documentation site](https://forgepulse.dev) or check the `docs/` directory.
+For comprehensive documentation, visit our [interactive documentation site](https://alizharb.github.io/forgepulse/) or check the `docs/` directory.
 
 ### Key Topics
 
