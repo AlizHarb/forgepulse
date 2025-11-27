@@ -1,10 +1,10 @@
-<div class="forgepulse-modal" x-show="$wire.showStepEditor" x-cloak>
-    <div class="forgepulse-modal-backdrop" @click="$wire.closeStepEditor()"></div>
+<div class="forgepulse-modal">
+    <div class="forgepulse-modal-backdrop" @click="$dispatch('close-modal')"></div>
     
-    <div class="forgepulse-modal-content">
+    <div class="forgepulse-modal-content" @click.stop>
         <div class="forgepulse-modal-header">
             <h3 class="forgepulse-modal-title">{{ __('forgepulse::forgepulse.step.edit') }}</h3>
-            <button @click="$wire.closeStepEditor()" class="forgepulse-modal-close">
+            <button @click="$dispatch('close-modal')" class="forgepulse-modal-close">
                 <svg class="forgepulse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
@@ -101,7 +101,7 @@
         </div>
 
         <div class="forgepulse-modal-footer">
-            <button @click="open = false" class="forgepulse-btn">Cancel</button>
+            <button @click="$dispatch('close-modal')" class="forgepulse-btn">Cancel</button>
             <button wire:click="save" class="forgepulse-btn forgepulse-btn-primary">Save Changes</button>
         </div>
     </div>

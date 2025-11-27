@@ -11,6 +11,8 @@
 
 ## ✨ Features
 
+[**Explore Full Features & Screenshots →**](docs/features.md)
+
 - 🎨 **Drag-and-Drop Workflow Designer** - Visual workflow builder using Livewire 4 and Alpine.js
 - 🔀 **Conditional Branching** - Complex if/else rules with 15+ comparison operators
 - ⏱️ **Timeout Orchestration** - Configure step timeouts with automatic termination (v1.1.0)
@@ -134,6 +136,8 @@ Include the Livewire component in your Blade view:
 ```blade
 <livewire:forgepulse::workflow-builder :workflow="$workflow" />
 ```
+
+![Workflow Overview](art/overview.png)
 
 ## 📚 Documentation
 

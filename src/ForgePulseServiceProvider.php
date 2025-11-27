@@ -88,10 +88,17 @@ class ForgePulseServiceProvider extends ServiceProvider
             return;
         }
 
+        // Register with dot notation (for forgepulse.workflow-builder usage)
         Livewire::component('forgepulse.workflow-builder', WorkflowBuilder::class);
         Livewire::component('forgepulse.workflow-step-editor', WorkflowStepEditor::class);
         Livewire::component('forgepulse.workflow-execution-tracker', WorkflowExecutionTracker::class);
         Livewire::component('forgepulse.workflow-template-manager', WorkflowTemplateManager::class);
+
+        // Register with double colon notation (for forgepulse:: usage)
+        Livewire::component('forgepulse::workflow-builder', WorkflowBuilder::class);
+        Livewire::component('forgepulse::workflow-step-editor', WorkflowStepEditor::class);
+        Livewire::component('forgepulse::workflow-execution-tracker', WorkflowExecutionTracker::class);
+        Livewire::component('forgepulse::workflow-template-manager', WorkflowTemplateManager::class);
     }
 
     /**
@@ -99,9 +106,7 @@ class ForgePulseServiceProvider extends ServiceProvider
      */
     protected function registerPolicies(): void
     {
-        if (config('forgepulse.permissions.enabled', true)) {
-            Gate::policy(Workflow::class, WorkflowPolicy::class);
-        }
+        Gate::policy(Workflow::class, WorkflowPolicy::class);
     }
 
     /**

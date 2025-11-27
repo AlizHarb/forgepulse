@@ -87,16 +87,16 @@ class ApprovalHandler
     public function handle(WorkflowStep $step, array $context): array
     {
         $execution = WorkflowExecution::find($context['execution_id']);
-        
+
         // Pause for approval
         $execution->pause('Awaiting manager approval');
-        
+
         // Send notification to manager
         Notification::send(
             User::find($context['manager_id']),
             new ApprovalRequiredNotification($execution)
         );
-        
+
         return $context;
     }
 }
@@ -105,7 +105,7 @@ class ApprovalHandler
 public function approve(WorkflowExecution $execution)
 {
     $execution->resume();
-    
+
     return response()->json(['message' => 'Workflow resumed']);
 }
 ```
@@ -226,7 +226,7 @@ class ReminderController
     public function scheduleReminder(Request $request)
     {
         $workflow = Workflow::where('name', 'Send Reminder')->first();
-        
+
         $execution = $workflow->execute([
             'scheduled_at' => Carbon::parse($request->reminder_time),
             'context' => [
@@ -234,7 +234,7 @@ class ReminderController
                 'message' => $request->message,
             ],
         ]);
-        
+
         return response()->json([
             'message' => 'Reminder scheduled',
             'execution_id' => $execution->id,
@@ -367,15 +367,15 @@ curl -H "Authorization: Bearer {$token}" \
 // React Native / Flutter example
 async function fetchWorkflows() {
   const response = await fetch(
-    'https://your-app.com/api/forgepulse/workflows',
+    "https://your-app.com/api/forgepulse/workflows",
     {
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json',
-      }
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
     }
   );
-  
+
   const data = await response.json();
   return data.data; // Array of workflows
 }
@@ -384,12 +384,12 @@ async function pauseExecution(executionId, reason) {
   await fetch(
     `https://your-app.com/api/forgepulse/executions/${executionId}/pause`,
     {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ reason })
+      body: JSON.stringify({ reason }),
     }
   );
 }

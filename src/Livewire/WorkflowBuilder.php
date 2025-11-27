@@ -39,6 +39,22 @@ class WorkflowBuilder extends Component
     public bool $gridSnap = true;
 
     /**
+     * Authorize the request.
+     *
+     * @param  mixed  $ability
+     * @param  mixed|array  $arguments
+     * @return \Illuminate\Auth\Access\Response
+     */
+    public function authorize($ability, $arguments = [])
+    {
+        if (! config('forgepulse.permissions.enabled', true)) {
+            return \Illuminate\Auth\Access\Response::allow();
+        }
+
+        return parent::authorize($ability, $arguments);
+    }
+
+    /**
      * Mount the component.
      */
     public function mount(Workflow $workflow): void
@@ -74,6 +90,7 @@ class WorkflowBuilder extends Component
                 'is_enabled' => $step->is_enabled,
                 'has_conditions' => $step->hasConditions(),
             ])
+            ->values()
             ->toArray();
     }
 
@@ -184,6 +201,7 @@ class WorkflowBuilder extends Component
     /**
      * Close the step editor.
      */
+    #[On('close-modal')]
     public function closeStepEditor(): void
     {
         $this->showStepEditor = false;

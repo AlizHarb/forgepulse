@@ -1,5 +1,5 @@
 <div class="forgepulse-workflow-builder"
-    x-data="workflowBuilder(@entangle('steps'), @entangle('selectedStepId'), {{ $canvasZoom }}, {{ $gridSnap ? 'true' : 'false' }})">
+    x-data="workflowBuilder(@entangle('steps'), @entangle('selectedStepId'), {{ $canvasZoom }}, @entangle('gridSnap'))">
     {{-- Toolbar --}}
     <div class="forgepulse-toolbar">
         <div class="forgepulse-toolbar-section">
@@ -91,21 +91,22 @@
             <div class="forgepulse-grid" x-show="gridSnap"></div>
 
             {{-- Connection Lines --}}
-            <svg class="forgepulse-connections" x-ref="connections">
-                <template x-for="step in steps" :key="step.id">
-                    <template x-if="step.parent_step_id">
-                        <line :x1="getStepCenter(getStepById(step.parent_step_id)).x"
-                            :y1="getStepCenter(getStepById(step.parent_step_id)).y" :x2="getStepCenter(step).x"
-                            :y2="getStepCenter(step).y" class="forgepulse-connection-line" stroke="#6366f1"
-                            stroke-width="2" marker-end="url(#arrowhead)" />
-                    </template>
-                </template>
+            <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
                 <defs>
                     <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
                         <polygon points="0 0, 10 3, 0 6" fill="#6366f1" />
                     </marker>
                 </defs>
             </svg>
+            <div class="forgepulse-connections" x-ref="connections">
+                <template x-for="connection in connections" :key="connection.id">
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible;">
+                        <line :x1="connection.x1" :y1="connection.y1" :x2="connection.x2" :y2="connection.y2"
+                            class="forgepulse-connection-line" stroke="#6366f1" stroke-width="2"
+                            marker-end="url(#arrowhead)" />
+                    </svg>
+                </template>
+            </div>
 
             {{-- Workflow Steps --}}
             <template x-for="step in steps" :key="step.id">
@@ -155,21 +156,41 @@
 
     {{-- Step Editor Modal --}}
     @if($showStepEditor && $selectedStepId)
-        <livewire:forgepulse::workflow-step-editor :stepId="$selectedStepId" :key="'step-editor-' . $selectedStepId" />
+        <livewire:forgepulse.workflow-step-editor :stepId="$selectedStepId" :key="'step-editor-' . $selectedStepId" />
     @endif
 </div>
 
 @push('scripts')
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('workflowBuilder', (stepsWire, selectedStepIdWire, initialZoom, initialGridSnap) => ({
+            Alpine.data('workflowBuilder', (stepsWire, selectedStepIdWire, initialZoom, gridSnapWire) => ({
                 steps: stepsWire,
                 selectedStepId: selectedStepIdWire,
                 zoom: initialZoom,
-                gridSnap: initialGridSnap,
+                gridSnap: gridSnapWire,
                 dragging: null,
                 panning: false,
                 panStart: { x: 0, y: 0 },
+
+                get connections() {
+                    if (!this.steps) return [];
+                    return this.steps
+                        .filter(step => step.parent_step_id)
+                        .map(step => {
+                            const parent = this.getStepById(step.parent_step_id);
+                            if (!parent) return null;
+                            const start = this.getStepCenter(parent);
+                            const end = this.getStepCenter(step);
+                            return {
+                                id: `conn-${parent.id}-${step.id}`,
+                                x1: start.x,
+                                y1: start.y,
+                                x2: end.x,
+                                y2: end.y
+                            };
+                        })
+                        .filter(conn => conn !== null);
+                },
 
                 init() {
                     this.$watch('steps', () => this.drawConnections());
